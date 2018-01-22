@@ -1,0 +1,110 @@
+---
+title: "Data Analysis with R - referesheR"
+output: html_notebook
+---
+
+Basics (Flow of Control)
+```{r}
+if(2 + 2 == 4)
+  print("very good")
+
+if ((2==2) && (2*2==4)){
+  print("all hail")
+}
+
+closing.time <- TRUE
+
+if(closing.time){
+  print('we are going.')
+} else{
+  print('we are staying.')
+}
+
+if(!closing.time){
+  print('we are staying.')
+} else{
+  print('we are going.)
+}
+```
+
+```{r}
+help.search('chisquare')
+??chisquare
+```
+
+```{r}
+is.even <- function(a.number){
+  remainder <- a.number %% 2
+  if(remainder==0){
+    return(TRUE)
+  } else{
+    return(FALSE)
+  }
+}
+is.even(10)
+is.even(9)
+```
+
+```{r}
+is.even <- function(a.number){
+  remainder <- a.number %% 2
+  if(remainder==0)
+    return(TRUE)
+  return(FALSE)
+}
+is.even(10)
+is.even(9)
+```
+
+```{r}
+is.divisible.by <- function(large.number, smaller.number)
+  
+  if(large.number %% smaller.number != 0){
+    return(FALSE)
+  } else{
+    return(TRUE)
+  }
+
+is.divisible.by(10, 2)
+
+is.even <- function(num){
+  is.divisible.by(num, 2)
+}
+is.even(10)
+is.even(9)
+```
+
+
+```{r}
+a.matrix <- matrix(c(1, 2, 3, 4, 5, 6))
+a.matrix
+a.matrix <- matrix(c(1, 2, 3, 4, 5, 6), ncol=2)
+a.matrix
+```
+
+```{r}
+a2.matrix <- cbind(c(1, 2, 3), c(4, 5 ,6))
+a2.matrix
+a3.matrix <- rbind(c(1, 2, 3), c(4, 5, 6))
+a3.matrix
+```
+
+```{r}
+favs <- read.csv("data/favorites.txt")
+class(favs)
+head(favs)
+```
+
+```{r}
+favs <- read.csv("data/favorites.txt", stringsAsFactors=FALSE)
+class(favs)
+class(favs$flavor)
+```
+
+```{r}
+ggplot(favs, aes(x=flavor, y=number)) +
+  geom_bar(stat="identity") +
+  ggtitle("Soy ice cream flavor preferences")
+```
+
+

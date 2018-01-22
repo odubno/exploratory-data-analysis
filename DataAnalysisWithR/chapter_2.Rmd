@@ -1,0 +1,37 @@
+---
+title: "Chapter 2: The Shape of Data"
+output: html_notebook
+---
+```{r}
+categorical.data <- c("heads", "tails", "tails", "heads")
+
+contin.data <- c(198.41, 178.46, 165.20, 141.71, 138.77)
+```
+
+```{r}
+head(mtcars)
+```
+
+### Distinct values that this vector contains
+```{r}
+unique(mtcars[['carb']]) 
+```
+
+### Frequency tabulation. How frequent is each category.
+```{r}
+table(mtcars$carb)
+```
+
+```{r}
+head(airquality)
+```
+
+```{r}
+str(airquality)
+```
+
+```{r}
+ggplot(airquality, aes(y=Temp)) +
+  geom_bar(stat='identity')
+```
+
