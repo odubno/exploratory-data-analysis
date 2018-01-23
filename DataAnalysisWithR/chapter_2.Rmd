@@ -31,7 +31,25 @@ str(airquality)
 ```
 
 ```{r}
-ggplot(airquality, aes(y=Temp)) +
-  geom_bar(stat='identity')
+ggplot(airquality, aes(x=Temp)) +
+  geom_histogram()
+```
+
+
+# Probability Distribution
+```{r}
+temp.density <- density(airquality$Temp)
+pdf <- approxfun(temp.density$x, temp.density$y, rule=2)
+
+hist(airquality$Temp, probability=TRUE)
+```
+```{r}
+x <- airquality$Temp
+h <- hist(x,plot=FALSE)
+dens1 <-  h$counts/sum(h$counts)
+dens2 <- dnorm(x,0,0.5)
+
+hist(x,probability=TRUE,breaks="fd",ylim=c(0,.3))
+lines(h$mids,dens1,col="red")
 ```
 
