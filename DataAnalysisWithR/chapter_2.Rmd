@@ -53,3 +53,34 @@ hist(x,probability=TRUE,breaks="fd",ylim=c(0,.3))
 lines(h$mids,dens1,col="red")
 ```
 
+# Visualization Methods
+
+```{r}
+qplot(factor(carb), data=mtcars, geom="bar")
+```
+
+```{r}
+mtcars
+qplot(factor(cyl), data=mtcars, geom='bar')
+```
+
+Colorful and unatractive graph
+```{r}
+qplot(factor(carb),
+      data=mtcars,
+      geom="bar",
+      fill=factor(carb),
+      xlab="Number of Carburetors")
+```
+
+```{r}
+qplot(Temp, data=airquality, geom="histogram")
+qplot(Temp, data=airquality, geom="histogram", binwidth=5, color=I("white"))
+qplot(Temp, data=airquality, geom="density")
+qplot(Temp, data=airquality, geom="density", 
+      adjust=.5,  # changes bandwidth
+      fill=I('pink'),  # fill color
+      alpha=I(.5),  # adds opacity
+      main="density plot of temperature data")
+```
+
