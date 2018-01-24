@@ -1,0 +1,30 @@
+---
+title: "Lecture 3"
+output: html_notebook
+---
+
+## Stevens's Law
+#### we might be off by a certain proportion
+x = actual value
+perceived value = Cx ^ beta 
+
+- beta = .9 to 1.1 for length
+- beta = .6 to .9 for area (ppl tend to underestimate area)
+- beta = .5 to .8 for volume
+
+#### Color
+using color scale (difficult)
+we are not very good at identifying color to value.
+color vision deficiency 
+
+### We're looking for features such as:
+- Asymmetry (skewed left or right)
+- Outliers (outlier because of a typo or really an outlier)
+- Multimodality (how many humps; density curve -> single hump or multiple hump)
+- Gaps
+- Heaping/Rounding (histogram will look a certain way if you round the numbers)
+- Impossibilities/Errors (negative numbers that shouldn't have been)
+
+## Histograms
+- primary tool for continuous data
+- count/relative frequency/ cumulative freq./ density 
