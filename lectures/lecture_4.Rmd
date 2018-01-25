@@ -1,0 +1,25 @@
+---
+title: "Lecture 4"
+output: html_notebook
+---
+
+### Quantile (general)
+### Quintiles (dividing data into 5th)
+### Deciles (dividing data into 10th)
+
+# IQR (Inter Quartile Range)
+
+## Determining the box plot outlier
+- take one and a half distance away from the 3rd quartile
+- then take half between the one and a half and the 3rd quartile.
+#### Or
+- the outlier is marked double the distance from the 3rd quartile
+- the whisker is marked a quarter away from 3rd quartile
+
+* Box plots are good for discrete data *
+
+* Density curves you could overlap *
+
+* It's nice to overlay the density curve of a histogram *
+
+Check out the Ridgeline plot.
