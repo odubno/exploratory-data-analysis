@@ -1,0 +1,80 @@
+---
+title: "Exploring Titanic Data"
+output: html_notebook
+---
+
+My goal here is to learn key R featurs by exploring Titanic data.
+
+```{r}
+library(ggplot2) # visuals
+library(ggthemes) # visuals
+library(scales) # visuals
+library(dplyr) # data manipulation
+library(mice) # imputation
+
+```
+
+
+```{r}
+train <- read.csv('data/train.csv', stringsAsFactors = F)
+test  <- read.csv('data/test.csv', stringsAsFactors = F)
+
+# bind training and test data
+full <- bind_rows(train, test)
+```
+
+# Check data
+
+```{r}
+str(full)
+```
+
+## From the str print out we could see that we're working with 1,309 observationsa and 12 variables.
+
+# Feature Engineering
+## The names contain some valuable information. We could extract the title of the person and their surnames to link to families.
+
+```{r}
+head(full$Name, 2)
+```
+
+```{r}
+full$Title <- gsub('(.*, )|(\\..*)', '', full$Name)
+
+table(full$Sex, full$Title)
+```
+
+```{r}
+rare_title <- c('Dona', 'Lady', 'the Countess', 'Capt', 'Col', 'Don', 'Dr', 'Major', 'Rev', 'Sir', 'Jonkheer')
+
+full$Title[full$Title == 'Mlle'] <- 'Miss'
+full$Title[full$Title == 'Ms'] <- 'Miss'
+full$Title[full$Title == 'Mme'] <- 'Mrs'
+full$Title[full$Title %in% rare_title] <- 'Rare Title'
+
+table(full$Sex, full$Title)
+```
+
+```{r}
+full$Surname <- sapply(full$Name,  
+                      function(x) strsplit(x, split = '[,.]')[[1]][1])
+```
+
+```{r}
+cat(paste('We have <b>', nlevels(factor(full$Surname)), '</b> unique surnames. I would be interested to infer ethnicity based on surname --- another time.'))
+```
+
+```{r}
+full$Fsize <- full$SibSp + full$Parch + 1
+full$Family <- paste(full$Surname, full$Fsize, sep='_')
+```
+
+```{r}
+ggplot(full[1:891,], aes(x = Fsize, fill = factor(Survived))) +
+  geom_bar(stat='count', position='dodge') +
+  scale_x_continuous(breaks=c(1:11)) +
+  labs(x = 'Family Size') +
+  theme_few()
+```
+
+
