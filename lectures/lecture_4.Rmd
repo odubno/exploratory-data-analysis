@@ -23,3 +23,11 @@ output: html_notebook
 * It's nice to overlay the density curve of a histogram *
 
 Check out the Ridgeline plot.
+
+```{r}
+df3 <- data.frame(score=rnorm(15, mean=15, sd=4))
+ggplot() + geom_boxplot(data=df3, aes(1, score))+
+  coord_polar() + 
+  theme_wsj()
+```
+
