@@ -36,13 +36,13 @@ ggplot(mydata, aes(Educ, Income2005)) +
 b) Plot a histogram of the `Income2005` variable in the data set referenced in part a). [3 points]
 ```{r}
 ggplot(ex0525, aes(x=Income2005)) +
-  geom_histogram()
+  geom_histogram(bins=60)
 ```
 
 c) Use `+facet_wrap(~Educ)` to facet the histogram on education level. [3 points]
 ```{r}
 ggplot(ex0525, aes(Income2005)) +
-  geom_histogram() +
+  geom_histogram(bins=60) +
   facet_wrap(~Educ)
 ```
 d) What do you learn from the histograms that wasn't apparent in the box plots from question 1? [3 points]
@@ -60,7 +60,16 @@ hist(ex0824$Rate, left=FALSE, right=TRUE)
 ```
 
 b) For which variable, `Age` or `Rate`, do the two versions differ more? Why? [3 points]
-* The "Rate" histogram differs more. The reason being is because the data is continuous as opposed to "Age" that's discrete. * 
+The "Rate" histogram differs more, because the data is continuous as opposed to "Age" that's discrete. If right is "TRUE", which it is by default, the left is open and the right is closed eg (a, b] and vice versa if right is "FALSE", eg [a,b). 
+
+* What this means for continuos data, if right="TRUE", is when a bin is (4, 8] and a continuos number 8.4 appears, it'll go into that bin. If a bin is [4,8) and a 8.4 appears, it'll go into the next bin. *
+
+| types      | limit           | open/closed  |
+| ----------- |----------------| -----|
+| (4, 8)      | 4 < x < 8      | left-open, right-open   |
+| [4, 8)      | 4 ≤ x < 8      | left-closed, right-open |
+| (4, 8]      | 4 < x ≤ 8      | left-open, right-closed |
+| (4, 8]      | 4 ≤ x ≤ 8      | left-closed, right-closed |
 
 c) Redraw the `Age` histograms with different parameters so that the right closed and right open versions are identical. [3 points]
 
@@ -77,27 +86,24 @@ Are there rounding patterns in the `budget` variable of the *movies* in the **gg
 # install.packages("ggplot2movies")
 library(ggplot2movies)
 ```
-```{r}
-attach(m)
-m[order(length, decreasing = TRUE), ]
-detach(m)
-```
-
-```{r}
-# ??ggplot2movies::movies
-head(m)
-```
 
 ```{r}
 summary(m$budget)
 ```
 
-
 ```{r}
-m <- ggplot2movies::movies
-ggplot(m, aes(x=budget)) +
-  geom_histogram()
+m$budget_group = cut(m$budget, c(0,100000,1000000, 10000000, 100000000, 1000000000))
 ```
+```{r}
+levels(m$budget_group) = c("1K","1M","10M", "100M", "1B")
+```
+```{r}
+histogram(m$budget_group)
+summary(m$budget_group)
+```
+
+* 53605 out of 58,788 movies have "N/A" for their buget. That leaves 5,183 with a recorded budget. Outside of the handful of movies that hit 1 billion in their budget, the rest of the movies don't appear to differ much in their budget. I would not be suprised if there are rounding errors. *
+
 
 ### 4. Finches
 
