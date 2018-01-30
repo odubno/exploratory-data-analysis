@@ -118,13 +118,17 @@ ggplot(case0201, aes(Depth)) +
 ```
 
 b) Plot both density curves on the same graph to facilitate comparison. Make 1976 yellow and 1978 blue.  Use alpha blending so the fills are transparent. [3 points]
+```{r}
+qplot(Depth, data=case0201, geom='density', alpha=I(.3), fill=Year) +
+  scale_fill_manual(values = c("yellow","blue"))
+```
 
 ```{r}
-# converting Year into a factor
-case0201$Year <- factor(case0201$Year, labels = c('1976', '1978'))
-ggplot(case0201, aes(x=Depth, fill=Year)) +
-  geom_density(alpha=.3) +
-  scale_fill_manual(values = c("yellow","blue"))
+# # converting Year into a factor
+# case0201$Year <- factor(case0201$Year, labels = c('1976', '1978'))
+# ggplot(case0201, aes(x=Depth, fill=Year)) +
+#   geom_density(alpha=.3) +
+#   scale_fill_manual(values = c("yellow","blue"))
 ```
 
 c) Based on your graphs in parts a) and b), describe how the distributions differ by year. [3 points]
