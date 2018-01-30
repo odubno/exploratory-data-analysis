@@ -158,4 +158,36 @@ library(ggplot2)
 qplot(Species, Petal.Length, data=iris, geom="boxplot",fill=Species)
 ```
 
+```{r}
+qplot(Petal.Length, data=iris, geom="density", alpha=I(.7), fill=Species)
+```
+
+```{r}
+# install.packages("vcd")
+library(vcd)
+
+ucba <- data.frame(UCBAdmissions)
+```
+```{r}
+mosaic(Freq ~ Gender + Admit, data=ucba, shade=TRUE, legend=TRUE)
+```
+```{r}
+mosaic(Freq ~ Gender+Admit, data=ucba[ucba$Dept=="A",], shade=TRUE, legend=FALSE)
+```
+```{r}
+qplot(height, weight, data=women, geom="point")
+```
+
+```{r}
+qplot(height, weight, data=women, geom=c("point", "smooth"), method="lm", se=FALSE)
+qplot(height, weight, data=women, geom=c("point", "smooth"), se=FALSE)
+```
+```{r}
+qplot(wt, mpg, data=mtcars, geom=c("point", "smooth"), method='lm', se=FALSE)
+qplot(wt, mpg, data=mtcars, geom=c("point", "smooth"), se=FALSE)
+```
+
+```{r}
+# install.packages('corrgram')
+```
 
