@@ -112,3 +112,50 @@ ggplot(women, aes(x=weight, y=height)) +
 
 ### Covariance
 
+```{r}
+cov(women$weight, women$height)
+```
+
+### Correlation coefficients
+
+A Pearson correlation coefficient of 1 will denote a perfectly positive (linear) relationship, a r of -1 will denote a perfectly negative (linear) relationship, and a r of 0 will denote no (linear) relationship.
+```{r}
+cor(women$height, women$weight)
+cor(women$height * 3.46, women$weight)
+```
+### Rank
+When we use ranks instead, the pair that has the highest value on both the x and the y axis will be c(1,1), even if one variable is a non-linear function (cubed, squared, logarithmic, and so on) of the other. The correlations that we just tested will both have Spearman rhos of 1, because cubing a value will not change its rank.
+```{r}
+rank(c(8, 6, 7, 5, 3, 0, 9))
+rank(c(8, 6, 7, 5, 3, -100, 99999))
+```
+
+```{r}
+xs <- 1:100
+cor(xs, xs+100)
+cor(xs, xs^3)
+```
+
+```{r}
+cor(xs, xs^3, method="spearman")
+```
+
+```{r}
+iris.nospecies <- iris[, -5]
+cor(iris.nospecies)
+```
+
+```{r}
+cor(iris.nospecies, method='spearman')
+```
+
+
+### Categorical Continuous Variables
+
+
+```{r}
+library(ggplot2)
+qplot(Species, Petal.Length, data=iris, geom="boxplot",fill=Species)
+```
+
+
