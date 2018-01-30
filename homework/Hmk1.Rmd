@@ -88,16 +88,17 @@ library(ggplot2movies)
 ```
 
 ```{r}
+m <- ggplot2movies::movies
 summary(m$budget)
 ```
 
 ```{r}
 m$budget_group = cut(m$budget, c(0,100000,1000000, 10000000, 100000000, 1000000000))
-```
-```{r}
 levels(m$budget_group) = c("1K","1M","10M", "100M", "1B")
 ```
+
 ```{r}
+library(lattice)
 histogram(m$budget_group)
 summary(m$budget_group)
 ```
@@ -119,6 +120,7 @@ ggplot(case0201, aes(Depth)) +
 
 b) Plot both density curves on the same graph to facilitate comparison. Make 1976 yellow and 1978 blue.  Use alpha blending so the fills are transparent. [3 points]
 ```{r}
+case0201$Year <- factor(case0201$Year, labels = c('1976', '1978'))
 qplot(Depth, data=case0201, geom='density', alpha=I(.3), fill=Year) +
   scale_fill_manual(values = c("yellow","blue"))
 ```
@@ -132,7 +134,7 @@ qplot(Depth, data=case0201, geom='density', alpha=I(.3), fill=Year) +
 ```
 
 c) Based on your graphs in parts a) and b), describe how the distributions differ by year. [3 points]
-* We see a change from 1976 to 1978. Given this is a fair random sample for both years, the sample of birds from 1978 show less of the birds with smaller beak sizes. The density curve from 1978 has a higher concentration of birds with larger beak sizes. 
+* There's an obvious shift in the population mean from 1976 to 1978. The 1978 distribution is skewing further right and shows a clear change in the population of birds towards the ones with larger beaks.
 
 d) What is the cause of the difference according to the information in the help file? [3 points]
 
