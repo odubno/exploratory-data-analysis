@@ -32,7 +32,7 @@ ggplot(mydata, aes(Educ, Income2005)) +
   coord_flip()   # for horizontal boxplots
 ```
 1. Income and the years of education have a positive relationship.
-2. Variability in income increases as education goes up and the general median gets higher mode with number of years.
+2. Variability in income increases as education goes up and the general median increases with the number of years.
 3. Some outliers begin to appear as the years get greater. Looking at 16>, there's a crazy outlier with $600,000.
 
 b) Plot a histogram of the `Income2005` variable in the data set referenced in part a). [3 points]
@@ -55,10 +55,6 @@ d) What do you learn from the histograms that wasn't apparent in the box plots f
 ### 2. Respiratory Rates
 
 a) Plot right closed and right open histograms for each of the two variables in the *ex0824* data set in the **Sleuth3** package using default binwidths and breaks. (4 histograms in total). [4 points]
-```{r}
-head(ex0824)
-```
-
 ```{r}
 hist(ex0824$Age, left=TRUE, right=FALSE)
 hist(ex0824$Age, left=FALSE, right=TRUE)
@@ -159,4 +155,6 @@ summary(case0102$Salary)
 qqnorm(case0102$Salary); qqline(case0102$Salary, col = 2)
 plot(density(case0102$Salary))
 ```
-1. The `Salary` variable is normally distributed. The mean and mode are very close together. The linear model shows that the data has a positive relationship. For the most part, the density plot shows evenness on both sides. 
+1. The `Salary` variable is normally distributed. The mean and median are very close together, showing that the data is likely normally distributed. 
+2. The linear model shows that the data has a positive relationship. 
+3. For the most part, the density plot shows evenness on both sides. 
