@@ -24,6 +24,75 @@ qqplot(1:3, c(4, 4, 6))
 ```
 
 ```{r}
-x
+hist(x)
 ```
+```{r}
+df <- data.frame(x)
+qqplot(df, aes(x)) + 
+  geom_histogram(aes=(y= ..density..), fill='lightblue')
+```
+```{r}
+qqnorm(x)
+```
+```{r}
+x <- rexp(1000)
+qqnorm(x)
+qqline(x)
+x <- rnorm(100)
+qqnorm(x)
+qqline(x, col='red')
+```
+## geom_histogram, geom_bar, geom_col
+```{r}
+library(tidyverse)
+set.seed(5702)
+df <- data.frame(x1=rnorm(100))
+ggplot(df, aes(x1)) +
+  geom_histogram()
+```
+```{r}
+# has spaces between the bars
+ggplot(df, aes(x1)) +
+  geom_bar() +
+  theme_gray(16)
+```
+
+```{r}
+df2 <- data.frame(name=c("GA","QJ","AI"), count=c(31, 27, 27))
+ggplot(df2, aes=(name, count))
+```
+```{r}
+df <- data.frame(x=rnorm(100))
+ggplot(df, aes(x)) +
+  geom_histogram(fill="blue")
+```
+## Tidy Data
+- Use package tidyr and gather to transform and clean up data
+
+### Symptoms of messy data:
+- no legend
+- feel like you need grid.arrange()
+
+```{r}
+library(MASS)
+head(painters)
+```
+
+```{r}
+library(magrittr)
+library(tidyverse)
+tidypaint <- painters %>% rownames_to_column("Name") %>% 
+  gather(key, value, -Name, -School)
+```
+
+```{r}
+tidypaint <- painters %>% rownames_to_column("Name") %>% 
+  gather(key=Skill, value=Score, -Name, -School)
+```
+
+```{r}
+head(tidypaint)
+```
+
+### Use grid arrange to arrange charts
 
