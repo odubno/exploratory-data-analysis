@@ -1,0 +1,86 @@
+---
+title: "Chapter 2: The Shape of Data"
+output: html_notebook
+---
+```{r}
+categorical.data <- c("heads", "tails", "tails", "heads")
+
+contin.data <- c(198.41, 178.46, 165.20, 141.71, 138.77)
+```
+
+```{r}
+head(mtcars)
+```
+
+### Distinct values that this vector contains
+```{r}
+unique(mtcars[['carb']]) 
+```
+
+### Frequency tabulation. How frequent is each category.
+```{r}
+table(mtcars$carb)
+```
+
+```{r}
+head(airquality)
+```
+
+```{r}
+str(airquality)
+```
+
+```{r}
+ggplot(airquality, aes(x=Temp)) +
+  geom_histogram()
+```
+
+
+# Probability Distribution
+```{r}
+temp.density <- density(airquality$Temp)
+pdf <- approxfun(temp.density$x, temp.density$y, rule=2)
+
+hist(airquality$Temp, probability=TRUE)
+```
+```{r}
+x <- airquality$Temp
+h <- hist(x,plot=FALSE)
+dens1 <-  h$counts/sum(h$counts)
+dens2 <- dnorm(x,0,0.5)
+
+hist(x,probability=TRUE,breaks="fd",ylim=c(0,.3))
+lines(h$mids,dens1,col="red")
+```
+
+# Visualization Methods
+
+```{r}
+qplot(factor(carb), data=mtcars, geom="bar")
+```
+
+```{r}
+mtcars
+qplot(factor(cyl), data=mtcars, geom='bar')
+```
+
+Colorful and unatractive graph
+```{r}
+qplot(factor(carb),
+      data=mtcars,
+      geom="bar",
+      fill=factor(carb),
+      xlab="Number of Carburetors")
+```
+
+```{r}
+qplot(Temp, data=airquality, geom="histogram")
+qplot(Temp, data=airquality, geom="histogram", binwidth=5, color=I("white"))
+qplot(Temp, data=airquality, geom="density")
+qplot(Temp, data=airquality, geom="density", 
+      adjust=.5,  # changes bandwidth
+      fill=I('pink'),  # fill color
+      alpha=I(.5),  # adds opacity
+      main="density plot of temperature data")
+```
+
