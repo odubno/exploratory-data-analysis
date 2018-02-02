@@ -1,0 +1,42 @@
+---
+title: "Lecture 6"
+output: html_notebook
+---
+
+# Discrete Variables (Chapter 4)
+
+## Categorical Data
+- hard to work with 
+- not a lot of options
+- choice about which categories to display
+- choice of the order of categories
+- data cleaning takes more time
+
+## Types of Data
+- nominal (no fixed category order, eg(NY, NJ, CA .. etc)) no particular order to categories
+- orginal (fixed category order), eg(JR HS, College, Grad School... etc) has order to categories
+- "real" discrete, small # of possibilities 
+- Not always clearcut: nominal vs ordinal, ordinal vs discrete
+
+## Example
+http://toddwschneider.com/posts/the-simpsons-by-the-data/
+https://github.com/toddwschneider/flim-springfield/blob/master/analysis/analysis.R
+
+# Chapter 5
+
+## Scatterplots
+- We plot continuous variables to investigate whether a relationship exists
+- Why not use linear models instead?
+
+## Strategies
+- remove outliers
+- subset the data (ex x<100 and x>=100)
+- transform to log scale
+- sample the data (random sample)
+- use techniques to deal with overplotting (alpha bending)
+
+```{r}
+library(plotly)
+?? ggplotly
+```
+
