@@ -1,0 +1,48 @@
+---
+title: "within function"
+output: html_notebook
+---
+
+### get the data
+```{r}
+# install.packages("openintro")
+library(openintro)
+data(marioKart)
+```
+### display headers
+```{r}
+names(marioKart)
+```
+### remove outliers
+```{r}
+mk0 <- marioKart[marioKart$totalPr < 100,]
+```
+### create plot
+```{r}
+with(mk0, {
+           boxplot(totalPr ~ wheels)
+           points(wheels+1.1, totalPr, col=4)
+          })
+```
+### remove one column
+```{r}
+mk2 <- within(mk0, rm(title))
+```
+### change values
+```{r}
+mk0$totalPr[50]
+mk0$startPr[25]
+```
+```{r}
+mk3 <- within(mk0, {
+  totalPr[50] <- 99.01
+  totalPr[25] <- 85.00
+})
+```
+### construct auction end price
+```{r}
+mk4 <- within(mk0, endPrice <- totalPr - shipPr)
+mk4
+```
+
+
