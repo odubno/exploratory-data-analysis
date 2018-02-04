@@ -1,0 +1,27 @@
+---
+title: "Chapter 3"
+output: html_notebook
+---
+
+
+- *histogram* grouping data into intervals, and drawing a bar for each interval, shows the empirical distribution.
+- *boxplot* displaying individual outliers and robust statistics for the data, useful for identifying outliers and for comparisons of distributions across subgroups.
+- *dotplot* plotting each point individually as a dot, good for spotting gaps in the data. 
+- *rugplot* plotting each point individually as a line, often used as an additional plot along the horizontal axis of another display.
+- *density estimate* plotting an estimated density of the variable’s distribution, so more like a model than a data display.
+- *distribution estimate* showing the estimated distribution function, useful for com- paring distributions, if one is always ‘ahead’ of another.
+- *Q-Q plot* comparing the distribution to a theoretical one (most often a normal dis- tribution).
+
+# Cool graph
+
+```{r}
+library(KernSmooth)
+load("/Users/olehdubno/Downloads/Hidalgo1872.rda")
+par(las=1, mar=c(3.1, 4.1, 1.1, 2.1))
+
+with(Hidalgo1872, {
+  hist(thickness,breaks=seq(0.055,0.135,0.001), freq=FALSE, main="", col="bisque2", ylab="")
+  lines(density(thickness), lwd=2)
+  ks1 <- bkde(thickness, bandwidth=dpik(thickness))
+  lines(ks1, col="red", lty=5, lwd=2)})
+```
