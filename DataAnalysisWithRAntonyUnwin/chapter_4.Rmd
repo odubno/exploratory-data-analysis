@@ -3,17 +3,171 @@ title: "Chapter 4"
 output: html_notebook
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
-
 ```{r}
-plot(cars)
+library(ggplot2)
+data(btw2009, package="flexclust")
+```
+```{r}
+head(btw2009)
+```
+### copy column over
+```{r}
+btw2009 <- within (btw2009, stateA <- state)
+```
+# rename values in stateA column
+```{r}
+levels(btw2009$stateA)
+```
+```{r}
+btw2009 <- within (btw2009,
+      levels(stateA) <- c("BW", "BY", "BE", "BB", "HB", "HH", "HE", "MV", "NI", "NW","RP", "SL", "SN", "ST", "SH", "TH")
+      )
+```
+```{r}
+levels(btw2009$stateA)
+```
+```{r}
+Voters <- with(btw2009, size<- tapply(eligible, stateA, sum))
+```
+```{r}
+Bundesland <- rownames(Voters)
+```
+```{r}
+btw9s <- data.frame(Bundesland, Voters)
+```
+```{r}
+btw9s$EW <- c("West")
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+```{r}
+ls <- with(btw9s, Bundesland[order(EW, -Voters)])
+```
+```{r}
+btw9s <- within(btw9s, State1 <- factor(Bundesland, levels=ls))
+```
+```{r}
+btw9s
+```
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+```{r}
+b1 <- ggplot(btw9s, aes(Bundesland, Voters/1000000)) +
+  geom_bar(stat="identity") +
+  ylab("Voters (millions)")
+b2 <- ggplot(btw9s, aes(reorder(Bundesland, -Voters), Voters/1000000)) +
+  geom_bar(stat="identity") +
+  xlab("Bundesland") +
+  ylab("Voters (millions)")
+b3 <- ggplot(btw9s, aes(State1, Voters/1000000)) +
+geom_bar(stat="identity") + xlab("Bundesland") +
+ylab("Voters (millions)")
+```
+```{r}
+# install.packages("gridExtra")
+library(gridExtra)
+grid.arrange(b1, b2, b3)
+```
 
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+## 4.3 Nominal Data - no fixed category order
+```{r}
+# install.packages("meta")
+data(Fleiss93, package="meta")
+```
+```{r}
+Fleiss93 <- within(Fleiss93, {
+  total <- n.e + n.c
+  st <- reorder(study, -(total))
+})
+```
+```{r}
+ggplot(Fleiss93, aes(st, total)) + 
+  geom_bar(stat="identity") + 
+  xlab("") +
+  ylab("") +
+  ylim(0, 20000)
+```
+
+```{r}
+Titanic1 <- data.frame(Titanic)
+
+p <- ggplot(data=Titanic1, aes(weight=Freq))
+cs <- p + geom_bar(aes(Class), fill="blue")
+sx <- p + geom_bar(aes(Sex), fill="green")
+ag <- p + geom_bar(aes(Age), fill="tan2")
+su <- p + geom_bar(aes(Survived), fill="red")
+grid.arrange(cs, sx, ag, su, widths=c(3, 2, 2, 2))
+```
+```{r}
+names(survey)
+```
+
+```{r}
+data(survey, package="MASS")
+
+categorial_data <- function() {
+  exer.lvl = c("Never", "Some", "Freq")
+  smoke.lvl = c("Never", "Occas", "Regul", "Heavy")
+  survey <- within(survey, ExerN <- factor(Exer, levels=exer.lvl))
+  survey <- within(survey, SmokeN <- factor(Smoke, levels=smoke.lvl))
+  categories <- c('Sex', 'W.Hnd', 'Fold', 'Clap', 'ExerN', 'M.I', 'SmokeN')
+  charts <- list()
+  for(category in categories){
+    chart <- ggplot(survey, aes_string(category)) + geom_bar()
+    charts[[category]] <- chart
+  }
+  do.call(grid.arrange, c(charts, ncol=3))
+  # return(category)
+}
+categorial_data()
+```
+
+
+
+```{r}
+data(VonBort, package="vcd")
+ggplot(VonBort, aes(x=deaths)) +
+  geom_bar()
+ggplot(VonBort, aes(x=factor(deaths))) +
+  geom_bar()
+```
+```{r}
+library(vcd)
+gf <- goodfit(table(VonBort$deaths))
+summary(gf)
+```
+```{r}
+year.1891 <- VonBort[VonBort$year=='1891',]
+h1 <- ggplot(year.1891, aes(x=factor(deaths))) + 
+  geom_bar()
+h2 <- ggplot(year.1891) + 
+  geom_bar(aes(x=factor(deaths, levels=seq(0, 4)))) +
+  scale_x_discrete(drop=FALSE)
+
+grid.arrange(h1, h2, nrow=1)
+```
+
+```{r}
+data(UKSoccer, package="vcd")
+
+pl <- data.frame(UKSoccer)
+lx <- c("0","1","2","3","4 or more")
+b1 <- ggplot(pl) +
+  geom_bar(aes(x=factor(Home), weight=Freq), fill="firebrick1") +
+  ylab("") +
+  xlab("Home Goals")
+b2 <- ggplot(pl) +
+  geom_bar(aes(x=factor(Away), weight=Freq), fill="cyan3") +
+  ylab("") +
+  xlab("Away Goals") +
+  scale_x_discrete(labels=lx) +
+  ylim(0, 150)
+
+grid.arrange(b1, b2, nrow=1)
+```
+
+```{r}
+xx <- 1:9
+Ben <- data.frame(xx, pdf=log10(1+1/xx))
+ggplot(Ben) +
+  geom_bar(aes(factor(xx), weight=pdf))
+```
 
