@@ -1,0 +1,70 @@
+---
+title: "Lecture 7"
+output: html_notebook
+---
+
+
+# Nominal Variables 
+```{r}
+state <- c("NJ", "NY", "PA", "CT")
+num <- c(54, 23, 98, 47)
+df2 <- data.frame(State=state, Num=num)
+
+ggplot(df2, aes(State, Num)) +
+  geom_col()
+
+# order your data (base)
+ggplot(df2, aes(reorder(State, -Num), Num)) +
+  geom_col()
+
+# order your data (tidyverse)
+ggplot(df2, aes(forcats::fct_reorder(State, -Num), Num)) +
+  geom_col()
+```
+```{r}
+# creates 100 rows of the categories
+df3 <- data.frame(x=sample(c("yes", "no", "maybe"), 100, replace=TRUE))
+
+ggplot(df3, aes(x)) + geom_bar()
+
+# put them in order of frequency
+ggplot(df3, aes(forcats::fct_infreq(x))) + geom_bar()
+```
+
+# Ordinal Variables
+```{r}
+library(ggplot2)
+library(tibble)
+year <- c("Freshman", "Sophomore", "Junior", "Senior")
+num <- c(65,56,78,62)
+df <- data.frame(Year=year, Num=num)
+
+# alphabetical order
+ggplot(df, aes(Year, Num)) +
+  geom_col()
+
+# cleaning: moving sophomore after the 1st category
+df$Year <- forcats::fct_relevel(df$Year, "Sophomore", after=1)
+
+# order the ordinal bar chart
+ggplot(df, aes(Year, Num)) +
+  geom_col()
+
+# tibble cleans it up
+tib <- tibble(Year=year, Num=num)
+ggplot(tib, aes(Year, Num)) + geom_col()
+```
+# Small Multiples
+- tuffy, facet, trulty?
+```{r}
+# library(tidyverse)
+ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+  geom_smooth()
+```
+```{r}
+library(extrcat)
+titdyolives <- olives %>% gather(key, value, -Area, -Region, -Test.Training) +
+  geom_histogram() +
+  facet_wrap(~key)
+```
+
