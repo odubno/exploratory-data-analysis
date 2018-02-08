@@ -1,0 +1,102 @@
+---
+title: "Homework 2"
+author: Oleh Dubno
+date: 02/07/18
+output: html_notebook
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE,
+                      message = FALSE, 
+                      cache = TRUE)
+# install.packages("DAAG")
+data(vlt, package="DAAG")
+library(ggplot2)
+library(tidyr)
+```
+
+### Chapter 4
+
+#### 1. Slot Machines (Chapter 4 exercises, #3, p. 72)
+
+[5 points]
+
+Do not use *grid.arrange()* for this exercise. Rather, use *gather()* to tidy the data and then facet on window number.  To make the comparison, use relative frequency bar charts (the heights of the bars in each facet sum to one).  Describe how the distributions differ.
+
+```{r}
+df <- gather(DAAG::vlt, key="window", value="symbol", window1:window3) 
+ggplot(df, aes(symbol)) + 
+  geom_bar(aes(y = (..count..)/sum(..count..))) + 
+  xlab("Lottery Windows") +
+  ylab("") + 
+  facet_wrap(~ window)
+```
+1. For all three windows, the data appears to be assymetric and skewed to the left.
+2. There's a patten of the first shape appearing most often in each window. 
+3. Does not look like there are any outliers.
+4. There are minor gaps between shapes in each windown. However, I doubt that there is any particular order to the shapes; the data is nominal. 
+
+#### 2. Detailed Mortality data ("Death2015.txt")
+
+[21 points]
+
+This data comes from the "Detailed Mortality" database available on https://wonder.cdc.gov/
+
+Code for all preprocessing must be shown. (That is, don't open in the file in Excel or similar, change things around, save it, and then import to R. Why? Because your steps are not reproducible.)
+
+(a) For `Place of Death`, `Ten-Year Age Groups`, and `ICD Chapter Code` variables, do the following:
+
+Identify the type of variable (nominal, ordinal, or discrete) and draw a horizontal bar chart using best practices for order of categories.
+
+(b) Create horizontal bar charts for the ICD sub-chapter codes, one plot per ICD chapter code, by faceting on chapter code, *not* by using *grid.arrange()*.  Use `scales = "free"` with `facet_wrap()`. It should look like this (with data, of course!). Describe notable features.
+
+
+(c) Change the `scales` parameter to `scales = "free_y"`. What changed?  What information does this set of graphs provide that wasn't available in part (b)?
+
+(d) Redraw the panels as *relative frequency* bar charts rather than *count* bar charts. (The lengths of the bars *in each panel separately* must sum to 1.) What new information do you gain?
+
+(e) Choose one of the small panels and redraw it as a single graph, using names rather than codes. (That is, use `ICD Chapter` and `ICD Sub-Chapter` instead of the code versions.)  What type of data is this? Note any interesting features.
+
+#### 3. Detailed Mortality, questions about the data
+
+[6 points]
+
+Cite your sources with links. 
+
+(a) Who is included in the death counts?
+
+(b) When was this query processed?  (Hint: it's in the file itself; don't provide the file time stamp.)
+
+(c) What does "ICD" stand for? Which version is used for this particular dataset? Name five other countries that use the ICD for official mortality data.
+
+(d) Which U.S. organizations collects mortality data? Where is the headquarters located?
+
+(e) In brief, how is the data collected?  What is the estimated accuracy rate, according to the dataset documentation?
+
+### Chapter 5
+
+#### 1. Movie ratings
+
+[12 points]
+
+Explore *length* vs. *year* in the **ggplot2movies** dataset, after removing outliers. (Choose a reasonable cutoff).
+
+Draw four scatterplots of *length* vs. *year* from the with the following variations:
+
+(a) Points with alpha blending
+
+(b) Points with alpha blending + density estimate contour lines
+
+(c) Hexagonal heatmap of bin counts
+
+(d) Square heatmap of bin counts 
+
+For all, adjust parameters to the levels that provide the best views of the data.
+
+(e) Describe noteworthy features of the data, using the movie ratings example on page 82 (last page of Section 5.3) as a guide.  
+
+(f) How do (a)-(d) compare? Are there features that you can see in some but not all of the graphs?
+
+#### 2. Leaves (Chapter 5 exercises, #7, p. 96)
+
+[6 points]
