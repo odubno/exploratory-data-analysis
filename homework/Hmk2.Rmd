@@ -22,9 +22,15 @@ library(tidyr)
 [5 points]
 
 Do not use *grid.arrange()* for this exercise. Rather, use *gather()* to tidy the data and then facet on window number.  To make the comparison, use relative frequency bar charts (the heights of the bars in each facet sum to one).  Describe how the distributions differ.
+```{r}
+head(DAAG::vlt)
+head(df)
+```
 
 ```{r}
+
 df <- gather(DAAG::vlt, key="window", value="symbol", window1:window3) 
+
 ggplot(df, aes(symbol)) + 
   geom_bar(aes(y = (..count..)/sum(..count..))) + 
   xlab("Lottery Windows") +
