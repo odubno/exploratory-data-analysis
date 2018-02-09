@@ -1,0 +1,109 @@
+---
+title: "Lecture 8"
+output: html_notebook
+---
+
+# Strategies
+- Use techniques to deal with overplotting (alpha blending, open circles)
+- Don't plot all points (remove outliers, subset data, sample data)
+- Transform to log scale
+
+## Look at Intervals separetely
+```{r}
+# install.packages("magrittr")
+library(ggplot2)
+library(ggplot2movies)
+library(magrittr)
+library(dplyr) 
+```
+
+```{r}
+binnedmovies <- movies %>%
+  mutate(mybin = ntile(votes, 10)) %>%
+  dplyr::select(rating, votes, mybin)
+
+head(binnedmovies)
+```
+
+# Log Scales
+```{r}
+ggplot(movies, aes(votes, rating)) +
+  geom_point(alpha=.1) +
+  scale_x_log10() +
+  theme_gray(10)
+
+```
+
+# SoeedSki data(2011)
+```{r}
+# install.packages("GDAdata")
+library(ggplot2)
+library(GDAdata)
+```
+
+```{r}
+g1 <- ggplot(SpeedSki, aes(Year, Speed))
+g1 + geom_bin2d(binwidth=c(10, 15))
+```
+```{r}
+
+```
+
+```{r}
+g1 + geom_hex()
+```
+
+```{r}
+g1 + geom_density_2d(bins=5)
+```
+
+# Base graphics
+```{r}
+# install.packages("MASS")
+# install.packages("SpeedSki")
+library(MASS)
+f1 <- kde2d(SpeedSki$Year, SpeedSki$Speed, n=100)
+str(f1)
+```
+
+```{r}
+image(f1)
+```
+
+```{r}
+smoothScatter(SpeedSki$Year, SpeedSki$Speed)
+```
+
+# Calculate the kde, plot with ggplot2
+- converts it to a very long data frame
+```{r}
+df <- con2tr(f1)
+```
+```{r}
+ggplot(df, aes(x, y)) + 
+  geom_contour()
+
+ggplot(df, aes(x, y)) + 
+  geom_tile(aes(Tile))
+```
+
+# Scatter plot matrices
+```{r}
+moveisdf <- data.frame(movies)
+splomvar <- moveisdf %>% dplyr::select(length, rating, year, budget)
+plot(splomvar)
+```
+```{r, fig.heaight=24, fig.width=16}
+library(lattice)
+splom(splomvar)
+```
+# Continuous + Categorical
+## Mapping Options
+- Continuous: x-axis, y-axis, color(no so great), size (not so great)
+- Categorical: color, panels (rows, columns), shape (maybe)
+
+```{r}
+library(tidyverse)
+ggplot(SpeedSki, aes)
+```
+
