@@ -173,21 +173,268 @@ $(document).ready(function () {
 
 
 <!-- rnb-text-begin -->
-<p>This is an <a href="http://rmarkdown.rstudio.com">R Markdown</a> Notebook. When you execute code within the notebook, the results appear beneath the code.</p>
-<p>Try executing this chunk by clicking the <em>Run</em> button within the chunk or by placing your cursor inside it and pressing <em>Cmd+Shift+Enter</em>.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChjYXJzKVxuYGBgIn0= -->
-<pre class="r"><code>plot(cars)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBpbnN0YWxsLnBhY2thZ2VzKFwiZ2dwbG90MlwiKVxuaW5zdGFsbC5wYWNrYWdlcyhcInRpZHl2ZXJzZVwiKVxuYGBgIn0= -->
+<pre class="r"><code># install.packages(&quot;ggplot2&quot;)
+install.packages(&quot;tidyverse&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiYWxzbyBpbnN0YWxsaW5nIHRoZSBkZXBlbmRlbmNpZXMg4oCYcHJhaXNl4oCZLCDigJh3aXRocuKAmSwg4oCYbW5vcm104oCZLCDigJhyZW1hdGNo4oCZLCDigJhkZWJ1Z21l4oCZLCDigJh0ZXN0dGhhdOKAmSwg4oCYcHN5Y2jigJksIOKAmERCSeKAmSwg4oCYY3VybOKAmSwg4oCYb3BlbnNzbOKAmSwg4oCYY2VsbHJhbmdlcuKAmSwg4oCYY2FsbHLigJksIOKAmHdoaXNrZXLigJksIOKAmHNlbGVjdHLigJksIOKAmGJyb29t4oCZLCDigJhkYnBseXLigJksIOKAmGZvcmNhdHPigJksIOKAmGhhdmVu4oCZLCDigJhobXPigJksIOKAmGh0dHLigJksIOKAmGx1YnJpZGF0ZeKAmSwg4oCYbW9kZWxy4oCZLCDigJhyZWFkcuKAmSwg4oCYcmVhZHhs4oCZLCDigJhyZXByZXjigJksIOKAmHJzdHVkaW9hcGnigJksIOKAmHJ2ZXN04oCZLCDigJh4bWwy4oCZXG4ifQ== -->
+<pre><code>also installing the dependencies ‘praise’, ‘withr’, ‘mnormt’, ‘rematch’, ‘debugme’, ‘testthat’, ‘psych’, ‘DBI’, ‘curl’, ‘openssl’, ‘cellranger’, ‘callr’, ‘whisker’, ‘selectr’, ‘broom’, ‘dbplyr’, ‘forcats’, ‘haven’, ‘hms’, ‘httr’, ‘lubridate’, ‘modelr’, ‘readr’, ‘readxl’, ‘reprex’, ‘rstudioapi’, ‘rvest’, ‘xml2’</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG4gIFRoZXJlIGFyZSBiaW5hcnkgdmVyc2lvbnMgYXZhaWxhYmxlIGJ1dCB0aGUgc291cmNlIHZlcnNpb25zIGFyZSBsYXRlcjpcbiAgICAgICAgICAgIGJpbmFyeSBzb3VyY2UgbmVlZHNfY29tcGlsYXRpb25cbnBzeWNoICAgICAxLjcuMy4yMSAgMS43LjggICAgICAgICAgICAgRkFMU0Vcbm9wZW5zc2wgICAgICAwLjkuOSAgICAxLjAgICAgICAgICAgICAgIFRSVUVcbmx1YnJpZGF0ZSAgICAxLjcuMSAgMS43LjIgICAgICAgICAgICAgIFRSVUVcbnJlcHJleCAgICAgICAwLjEuMSAgMC4xLjIgICAgICAgICAgICAgRkFMU0VcbiJ9 -->
+<pre><code>
+  There are binary versions available but the source versions are later:
+            binary source needs_compilation
+psych     1.7.3.21  1.7.8             FALSE
+openssl      0.9.9    1.0              TRUE
+lubridate    1.7.1  1.7.2              TRUE
+reprex       0.1.1  0.1.2             FALSE</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRG8geW91IHdhbnQgdG8gaW5zdGFsbCBmcm9tIHNvdXJjZXMgdGhlIHBhY2thZ2VzIHdoaWNoIG5lZWQgY29tcGlsYXRpb24/XG4ifQ== -->
+<pre><code>Do you want to install from sources the packages which need compilation?</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShnZ3Bsb3QyKVxuYGBgIn0= -->
+<pre class="r"><code>library(ggplot2)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gbGlicmFyeShnZ3Bsb3QyKSA6IHRoZXJlIGlzIG5vIHBhY2thZ2UgY2FsbGVkIOKAmGdncGxvdDLigJlcbiJ9 -->
+<pre><code>Error in library(ggplot2) : there is no package called ‘ggplot2’</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGVhZChidHcyMDA5KVxuYGBgIn0= -->
+<pre class="r"><code>head(btw2009)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Add a new chunk by clicking the <em>Insert Chunk</em> button on the toolbar or by pressing <em>Cmd+Option+I</em>.</p>
-<p>When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the <em>Preview</em> button or press <em>Cmd+Shift+K</em> to preview the HTML file).</p>
-<p>The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike <em>Knit</em>, <em>Preview</em> does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.</p>
+<div id="copy-column-over" class="section level3">
+<h3>copy column over</h3>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYnR3MjAwOSA8LSB3aXRoaW4gKGJ0dzIwMDksIHN0YXRlQSA8LSBzdGF0ZSlcbmBgYCJ9 -->
+<pre class="r"><code>btw2009 &lt;- within (btw2009, stateA &lt;- state)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="rename-values-in-statea-column" class="section level1">
+<h1>rename values in stateA column</h1>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGV2ZWxzKGJ0dzIwMDkkc3RhdGVBKVxuYGBgIn0= -->
+<pre class="r"><code>levels(btw2009$stateA)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYnR3MjAwOSA8LSB3aXRoaW4gKGJ0dzIwMDksXG4gICAgICBsZXZlbHMoc3RhdGVBKSA8LSBjKFwiQldcIiwgXCJCWVwiLCBcIkJFXCIsIFwiQkJcIiwgXCJIQlwiLCBcIkhIXCIsIFwiSEVcIiwgXCJNVlwiLCBcIk5JXCIsIFwiTldcIixcIlJQXCIsIFwiU0xcIiwgXCJTTlwiLCBcIlNUXCIsIFwiU0hcIiwgXCJUSFwiKVxuICAgICAgKVxuYGBgIn0= -->
+<pre class="r"><code>btw2009 &lt;- within (btw2009,
+      levels(stateA) &lt;- c(&quot;BW&quot;, &quot;BY&quot;, &quot;BE&quot;, &quot;BB&quot;, &quot;HB&quot;, &quot;HH&quot;, &quot;HE&quot;, &quot;MV&quot;, &quot;NI&quot;, &quot;NW&quot;,&quot;RP&quot;, &quot;SL&quot;, &quot;SN&quot;, &quot;ST&quot;, &quot;SH&quot;, &quot;TH&quot;)
+      )</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGV2ZWxzKGJ0dzIwMDkkc3RhdGVBKVxuYGBgIn0= -->
+<pre class="r"><code>levels(btw2009$stateA)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVm90ZXJzIDwtIHdpdGgoYnR3MjAwOSwgc2l6ZTwtIHRhcHBseShlbGlnaWJsZSwgc3RhdGVBLCBzdW0pKVxuYGBgIn0= -->
+<pre class="r"><code>Voters &lt;- with(btw2009, size&lt;- tapply(eligible, stateA, sum))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQnVuZGVzbGFuZCA8LSByb3duYW1lcyhWb3RlcnMpXG5gYGAifQ== -->
+<pre class="r"><code>Bundesland &lt;- rownames(Voters)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYnR3OXMgPC0gZGF0YS5mcmFtZShCdW5kZXNsYW5kLCBWb3RlcnMpXG5gYGAifQ== -->
+<pre class="r"><code>btw9s &lt;- data.frame(Bundesland, Voters)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYnR3OXMkRVcgPC0gYyhcIldlc3RcIilcbmBgYCJ9 -->
+<pre class="r"><code>btw9s$EW &lt;- c(&quot;West&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubHMgPC0gd2l0aChidHc5cywgQnVuZGVzbGFuZFtvcmRlcihFVywgLVZvdGVycyldKVxuYGBgIn0= -->
+<pre class="r"><code>ls &lt;- with(btw9s, Bundesland[order(EW, -Voters)])</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYnR3OXMgPC0gd2l0aGluKGJ0dzlzLCBTdGF0ZTEgPC0gZmFjdG9yKEJ1bmRlc2xhbmQsIGxldmVscz1scykpXG5gYGAifQ== -->
+<pre class="r"><code>btw9s &lt;- within(btw9s, State1 &lt;- factor(Bundesland, levels=ls))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYnR3OXNcbmBgYCJ9 -->
+<pre class="r"><code>btw9s</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYjEgPC0gZ2dwbG90KGJ0dzlzLCBhZXMoQnVuZGVzbGFuZCwgVm90ZXJzLzEwMDAwMDApKSArXG4gIGdlb21fYmFyKHN0YXQ9XCJpZGVudGl0eVwiKSArXG4gIHlsYWIoXCJWb3RlcnMgKG1pbGxpb25zKVwiKVxuYGBgIn0= -->
+<pre class="r"><code>b1 &lt;- ggplot(btw9s, aes(Bundesland, Voters/1000000)) +
+  geom_bar(stat=&quot;identity&quot;) +
+  ylab(&quot;Voters (millions)&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gZ2dwbG90KGJ0dzlzLCBhZXMoQnVuZGVzbGFuZCwgVm90ZXJzLzFlKzA2KSkgOiBcbiAgb2JqZWN0ICdidHc5cycgbm90IGZvdW5kXG4ifQ== -->
+<pre><code>Error in ggplot(btw9s, aes(Bundesland, Voters/1e+06)) : 
+  object 'btw9s' not found</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBpbnN0YWxsLnBhY2thZ2VzKFwiZ3JpZEV4dHJhXCIpXG5saWJyYXJ5KGdyaWRFeHRyYSlcbmdyaWQuYXJyYW5nZShiMSwgYjIsIGIzKVxuYGBgIn0= -->
+<pre class="r"><code># install.packages(&quot;gridExtra&quot;)
+library(gridExtra)
+grid.arrange(b1, b2, b3)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="nominal-data---no-fixed-category-order" class="section level2">
+<h2>4.3 Nominal Data - no fixed category order</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBpbnN0YWxsLnBhY2thZ2VzKFwibWV0YVwiKVxuZGF0YShGbGVpc3M5MywgcGFja2FnZT1cIm1ldGFcIilcbmBgYCJ9 -->
+<pre class="r"><code># install.packages(&quot;meta&quot;)
+data(Fleiss93, package=&quot;meta&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuRmxlaXNzOTMgPC0gd2l0aGluKEZsZWlzczkzLCB7XG4gIHRvdGFsIDwtIG4uZSArIG4uY1xuICBzdCA8LSByZW9yZGVyKHN0dWR5LCAtKHRvdGFsKSlcbn0pXG5gYGAifQ== -->
+<pre class="r"><code>Fleiss93 &lt;- within(Fleiss93, {
+  total &lt;- n.e + n.c
+  st &lt;- reorder(study, -(total))
+})</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KEZsZWlzczkzLCBhZXMoc3QsIHRvdGFsKSkgKyBcbiAgZ2VvbV9iYXIoc3RhdD1cImlkZW50aXR5XCIpICsgXG4gIHhsYWIoXCJcIikgK1xuICB5bGFiKFwiXCIpICtcbiAgeWxpbSgwLCAyMDAwMClcbmBgYCJ9 -->
+<pre class="r"><code>ggplot(Fleiss93, aes(st, total)) + 
+  geom_bar(stat=&quot;identity&quot;) + 
+  xlab(&quot;&quot;) +
+  ylab(&quot;&quot;) +
+  ylim(0, 20000)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVGl0YW5pYzEgPC0gZGF0YS5mcmFtZShUaXRhbmljKVxuXG5wIDwtIGdncGxvdChkYXRhPVRpdGFuaWMxLCBhZXMod2VpZ2h0PUZyZXEpKVxuY3MgPC0gcCArIGdlb21fYmFyKGFlcyhDbGFzcyksIGZpbGw9XCJibHVlXCIpXG5zeCA8LSBwICsgZ2VvbV9iYXIoYWVzKFNleCksIGZpbGw9XCJncmVlblwiKVxuYWcgPC0gcCArIGdlb21fYmFyKGFlcyhBZ2UpLCBmaWxsPVwidGFuMlwiKVxuc3UgPC0gcCArIGdlb21fYmFyKGFlcyhTdXJ2aXZlZCksIGZpbGw9XCJyZWRcIilcbmdyaWQuYXJyYW5nZShjcywgc3gsIGFnLCBzdSwgd2lkdGhzPWMoMywgMiwgMiwgMikpXG5gYGAifQ== -->
+<pre class="r"><code>Titanic1 &lt;- data.frame(Titanic)
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiQ2hhcHRlciA0IgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKLS0tCgpUaGlzIGlzIGFuIFtSIE1hcmtkb3duXShodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tKSBOb3RlYm9vay4gV2hlbiB5b3UgZXhlY3V0ZSBjb2RlIHdpdGhpbiB0aGUgbm90ZWJvb2ssIHRoZSByZXN1bHRzIGFwcGVhciBiZW5lYXRoIHRoZSBjb2RlLiAKClRyeSBleGVjdXRpbmcgdGhpcyBjaHVuayBieSBjbGlja2luZyB0aGUgKlJ1biogYnV0dG9uIHdpdGhpbiB0aGUgY2h1bmsgb3IgYnkgcGxhY2luZyB5b3VyIGN1cnNvciBpbnNpZGUgaXQgYW5kIHByZXNzaW5nICpDbWQrU2hpZnQrRW50ZXIqLiAKCmBgYHtyfQpwbG90KGNhcnMpCmBgYAoKQWRkIGEgbmV3IGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqSW5zZXJ0IENodW5rKiBidXR0b24gb24gdGhlIHRvb2xiYXIgb3IgYnkgcHJlc3NpbmcgKkNtZCtPcHRpb24rSSouCgpXaGVuIHlvdSBzYXZlIHRoZSBub3RlYm9vaywgYW4gSFRNTCBmaWxlIGNvbnRhaW5pbmcgdGhlIGNvZGUgYW5kIG91dHB1dCB3aWxsIGJlIHNhdmVkIGFsb25nc2lkZSBpdCAoY2xpY2sgdGhlICpQcmV2aWV3KiBidXR0b24gb3IgcHJlc3MgKkNtZCtTaGlmdCtLKiB0byBwcmV2aWV3IHRoZSBIVE1MIGZpbGUpLiAKClRoZSBwcmV2aWV3IHNob3dzIHlvdSBhIHJlbmRlcmVkIEhUTUwgY29weSBvZiB0aGUgY29udGVudHMgb2YgdGhlIGVkaXRvci4gQ29uc2VxdWVudGx5LCB1bmxpa2UgKktuaXQqLCAqUHJldmlldyogZG9lcyBub3QgcnVuIGFueSBSIGNvZGUgY2h1bmtzLiBJbnN0ZWFkLCB0aGUgb3V0cHV0IG9mIHRoZSBjaHVuayB3aGVuIGl0IHdhcyBsYXN0IHJ1biBpbiB0aGUgZWRpdG9yIGlzIGRpc3BsYXllZC4KCg==</div>
+p &lt;- ggplot(data=Titanic1, aes(weight=Freq))
+cs &lt;- p + geom_bar(aes(Class), fill=&quot;blue&quot;)
+sx &lt;- p + geom_bar(aes(Sex), fill=&quot;green&quot;)
+ag &lt;- p + geom_bar(aes(Age), fill=&quot;tan2&quot;)
+su &lt;- p + geom_bar(aes(Survived), fill=&quot;red&quot;)
+grid.arrange(cs, sx, ag, su, widths=c(3, 2, 2, 2))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmFtZXMoc3VydmV5KVxuYGBgIn0= -->
+<pre class="r"><code>names(survey)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YShzdXJ2ZXksIHBhY2thZ2U9XCJNQVNTXCIpXG5cbmNhdGVnb3JpYWxfZGF0YSA8LSBmdW5jdGlvbigpIHtcbiAgZXhlci5sdmwgPSBjKFwiTmV2ZXJcIiwgXCJTb21lXCIsIFwiRnJlcVwiKVxuICBzbW9rZS5sdmwgPSBjKFwiTmV2ZXJcIiwgXCJPY2Nhc1wiLCBcIlJlZ3VsXCIsIFwiSGVhdnlcIilcbiAgc3VydmV5IDwtIHdpdGhpbihzdXJ2ZXksIEV4ZXJOIDwtIGZhY3RvcihFeGVyLCBsZXZlbHM9ZXhlci5sdmwpKVxuICBzdXJ2ZXkgPC0gd2l0aGluKHN1cnZleSwgU21va2VOIDwtIGZhY3RvcihTbW9rZSwgbGV2ZWxzPXNtb2tlLmx2bCkpXG4gIGNhdGVnb3JpZXMgPC0gYygnU2V4JywgJ1cuSG5kJywgJ0ZvbGQnLCAnQ2xhcCcsICdFeGVyTicsICdNLkknLCAnU21va2VOJylcbiAgY2hhcnRzIDwtIGxpc3QoKVxuICBmb3IoY2F0ZWdvcnkgaW4gY2F0ZWdvcmllcyl7XG4gICAgY2hhcnQgPC0gZ2dwbG90KHN1cnZleSwgYWVzX3N0cmluZyhjYXRlZ29yeSkpICsgZ2VvbV9iYXIoKVxuICAgIGNoYXJ0c1tbY2F0ZWdvcnldXSA8LSBjaGFydFxuICB9XG4gIGRvLmNhbGwoZ3JpZC5hcnJhbmdlLCBjKGNoYXJ0cywgbmNvbD0zKSlcbiAgIyByZXR1cm4oY2F0ZWdvcnkpXG59XG5jYXRlZ29yaWFsX2RhdGEoKVxuYGBgIn0= -->
+<pre class="r"><code>data(survey, package=&quot;MASS&quot;)
+
+categorial_data &lt;- function() {
+  exer.lvl = c(&quot;Never&quot;, &quot;Some&quot;, &quot;Freq&quot;)
+  smoke.lvl = c(&quot;Never&quot;, &quot;Occas&quot;, &quot;Regul&quot;, &quot;Heavy&quot;)
+  survey &lt;- within(survey, ExerN &lt;- factor(Exer, levels=exer.lvl))
+  survey &lt;- within(survey, SmokeN &lt;- factor(Smoke, levels=smoke.lvl))
+  categories &lt;- c('Sex', 'W.Hnd', 'Fold', 'Clap', 'ExerN', 'M.I', 'SmokeN')
+  charts &lt;- list()
+  for(category in categories){
+    chart &lt;- ggplot(survey, aes_string(category)) + geom_bar()
+    charts[[category]] &lt;- chart
+  }
+  do.call(grid.arrange, c(charts, ncol=3))
+  # return(category)
+}
+categorial_data()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YShWb25Cb3J0LCBwYWNrYWdlPVwidmNkXCIpXG5nZ3Bsb3QoVm9uQm9ydCwgYWVzKHg9ZGVhdGhzKSkgK1xuICBnZW9tX2JhcigpXG5nZ3Bsb3QoVm9uQm9ydCwgYWVzKHg9ZmFjdG9yKGRlYXRocykpKSArXG4gIGdlb21fYmFyKClcbmBgYCJ9 -->
+<pre class="r"><code>data(VonBort, package=&quot;vcd&quot;)
+ggplot(VonBort, aes(x=deaths)) +
+  geom_bar()
+ggplot(VonBort, aes(x=factor(deaths))) +
+  geom_bar()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh2Y2QpXG5nZiA8LSBnb29kZml0KHRhYmxlKFZvbkJvcnQkZGVhdGhzKSlcbnN1bW1hcnkoZ2YpXG5gYGAifQ== -->
+<pre class="r"><code>library(vcd)
+gf &lt;- goodfit(table(VonBort$deaths))
+summary(gf)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueWVhci4xODkxIDwtIFZvbkJvcnRbVm9uQm9ydCR5ZWFyPT0nMTg5MScsXVxuaDEgPC0gZ2dwbG90KHllYXIuMTg5MSwgYWVzKHg9ZmFjdG9yKGRlYXRocykpKSArIFxuICBnZW9tX2JhcigpXG5oMiA8LSBnZ3Bsb3QoeWVhci4xODkxKSArIFxuICBnZW9tX2JhcihhZXMoeD1mYWN0b3IoZGVhdGhzLCBsZXZlbHM9c2VxKDAsIDQpKSkpICtcbiAgc2NhbGVfeF9kaXNjcmV0ZShkcm9wPUZBTFNFKVxuXG5ncmlkLmFycmFuZ2UoaDEsIGgyLCBucm93PTEpXG5gYGAifQ== -->
+<pre class="r"><code>year.1891 &lt;- VonBort[VonBort$year=='1891',]
+h1 &lt;- ggplot(year.1891, aes(x=factor(deaths))) + 
+  geom_bar()
+h2 &lt;- ggplot(year.1891) + 
+  geom_bar(aes(x=factor(deaths, levels=seq(0, 4)))) +
+  scale_x_discrete(drop=FALSE)
+
+grid.arrange(h1, h2, nrow=1)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YShVS1NvY2NlciwgcGFja2FnZT1cInZjZFwiKVxuXG5wbCA8LSBkYXRhLmZyYW1lKFVLU29jY2VyKVxubHggPC0gYyhcIjBcIixcIjFcIixcIjJcIixcIjNcIixcIjQgb3IgbW9yZVwiKVxuYjEgPC0gZ2dwbG90KHBsKSArXG4gIGdlb21fYmFyKGFlcyh4PWZhY3RvcihIb21lKSwgd2VpZ2h0PUZyZXEpLCBmaWxsPVwiZmlyZWJyaWNrMVwiKSArXG4gIHlsYWIoXCJcIikgK1xuICB4bGFiKFwiSG9tZSBHb2Fsc1wiKVxuYjIgPC0gZ2dwbG90KHBsKSArXG4gIGdlb21fYmFyKGFlcyh4PWZhY3RvcihBd2F5KSwgd2VpZ2h0PUZyZXEpLCBmaWxsPVwiY3lhbjNcIikgK1xuICB5bGFiKFwiXCIpICtcbiAgeGxhYihcIkF3YXkgR29hbHNcIikgK1xuICBzY2FsZV94X2Rpc2NyZXRlKGxhYmVscz1seCkgK1xuICB5bGltKDAsIDE1MClcblxuZ3JpZC5hcnJhbmdlKGIxLCBiMiwgbnJvdz0xKVxuYGBgIn0= -->
+<pre class="r"><code>data(UKSoccer, package=&quot;vcd&quot;)
+
+pl &lt;- data.frame(UKSoccer)
+lx &lt;- c(&quot;0&quot;,&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4 or more&quot;)
+b1 &lt;- ggplot(pl) +
+  geom_bar(aes(x=factor(Home), weight=Freq), fill=&quot;firebrick1&quot;) +
+  ylab(&quot;&quot;) +
+  xlab(&quot;Home Goals&quot;)
+b2 &lt;- ggplot(pl) +
+  geom_bar(aes(x=factor(Away), weight=Freq), fill=&quot;cyan3&quot;) +
+  ylab(&quot;&quot;) +
+  xlab(&quot;Away Goals&quot;) +
+  scale_x_discrete(labels=lx) +
+  ylim(0, 150)
+
+grid.arrange(b1, b2, nrow=1)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueHggPC0gMTo5XG5CZW4gPC0gZGF0YS5mcmFtZSh4eCwgcGRmPWxvZzEwKDErMS94eCkpXG5nZ3Bsb3QoQmVuKSArXG4gIGdlb21fYmFyKGFlcyhmYWN0b3IoeHgpLCB3ZWlnaHQ9cGRmKSlcbmBgYCJ9 -->
+<pre class="r"><code>xx &lt;- 1:9
+Ben &lt;- data.frame(xx, pdf=log10(1+1/xx))
+ggplot(Ben) +
+  geom_bar(aes(factor(xx), weight=pdf))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiQ2hhcHRlciA0IgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKLS0tCmBgYHtyfQojIGluc3RhbGwucGFja2FnZXMoImdncGxvdDIiKQppbnN0YWxsLnBhY2thZ2VzKCJ0aWR5dmVyc2UiKQpgYGAKCmBgYHtyfQpsaWJyYXJ5KGdncGxvdDIpCmRhdGEoYnR3MjAwOSwgcGFja2FnZT0iZmxleGNsdXN0IikKYGBgCmBgYHtyfQpoZWFkKGJ0dzIwMDkpCmBgYAojIyMgY29weSBjb2x1bW4gb3ZlcgpgYGB7cn0KYnR3MjAwOSA8LSB3aXRoaW4gKGJ0dzIwMDksIHN0YXRlQSA8LSBzdGF0ZSkKYGBgCiMgcmVuYW1lIHZhbHVlcyBpbiBzdGF0ZUEgY29sdW1uCmBgYHtyfQpsZXZlbHMoYnR3MjAwOSRzdGF0ZUEpCmBgYApgYGB7cn0KYnR3MjAwOSA8LSB3aXRoaW4gKGJ0dzIwMDksCiAgICAgIGxldmVscyhzdGF0ZUEpIDwtIGMoIkJXIiwgIkJZIiwgIkJFIiwgIkJCIiwgIkhCIiwgIkhIIiwgIkhFIiwgIk1WIiwgIk5JIiwgIk5XIiwiUlAiLCAiU0wiLCAiU04iLCAiU1QiLCAiU0giLCAiVEgiKQogICAgICApCmBgYApgYGB7cn0KbGV2ZWxzKGJ0dzIwMDkkc3RhdGVBKQpgYGAKYGBge3J9ClZvdGVycyA8LSB3aXRoKGJ0dzIwMDksIHNpemU8LSB0YXBwbHkoZWxpZ2libGUsIHN0YXRlQSwgc3VtKSkKYGBgCmBgYHtyfQpCdW5kZXNsYW5kIDwtIHJvd25hbWVzKFZvdGVycykKYGBgCmBgYHtyfQpidHc5cyA8LSBkYXRhLmZyYW1lKEJ1bmRlc2xhbmQsIFZvdGVycykKYGBgCmBgYHtyfQpidHc5cyRFVyA8LSBjKCJXZXN0IikKYGBgCgpgYGB7cn0KbHMgPC0gd2l0aChidHc5cywgQnVuZGVzbGFuZFtvcmRlcihFVywgLVZvdGVycyldKQpgYGAKYGBge3J9CmJ0dzlzIDwtIHdpdGhpbihidHc5cywgU3RhdGUxIDwtIGZhY3RvcihCdW5kZXNsYW5kLCBsZXZlbHM9bHMpKQpgYGAKYGBge3J9CmJ0dzlzCmBgYAoKYGBge3J9CmIxIDwtIGdncGxvdChidHc5cywgYWVzKEJ1bmRlc2xhbmQsIFZvdGVycy8xMDAwMDAwKSkgKwogIGdlb21fYmFyKHN0YXQ9ImlkZW50aXR5IikgKwogIHlsYWIoIlZvdGVycyAobWlsbGlvbnMpIikKYjIgPC0gZ2dwbG90KGJ0dzlzLCBhZXMocmVvcmRlcihCdW5kZXNsYW5kLCAtVm90ZXJzKSwgVm90ZXJzLzEwMDAwMDApKSArCiAgZ2VvbV9iYXIoc3RhdD0iaWRlbnRpdHkiKSArCiAgeGxhYigiQnVuZGVzbGFuZCIpICsKICB5bGFiKCJWb3RlcnMgKG1pbGxpb25zKSIpCmIzIDwtIGdncGxvdChidHc5cywgYWVzKFN0YXRlMSwgVm90ZXJzLzEwMDAwMDApKSArCmdlb21fYmFyKHN0YXQ9ImlkZW50aXR5IikgKyB4bGFiKCJCdW5kZXNsYW5kIikgKwp5bGFiKCJWb3RlcnMgKG1pbGxpb25zKSIpCmBgYApgYGB7cn0KIyBpbnN0YWxsLnBhY2thZ2VzKCJncmlkRXh0cmEiKQpsaWJyYXJ5KGdyaWRFeHRyYSkKZ3JpZC5hcnJhbmdlKGIxLCBiMiwgYjMpCmBgYAoKIyMgNC4zIE5vbWluYWwgRGF0YSAtIG5vIGZpeGVkIGNhdGVnb3J5IG9yZGVyCmBgYHtyfQojIGluc3RhbGwucGFja2FnZXMoIm1ldGEiKQpkYXRhKEZsZWlzczkzLCBwYWNrYWdlPSJtZXRhIikKYGBgCmBgYHtyfQpGbGVpc3M5MyA8LSB3aXRoaW4oRmxlaXNzOTMsIHsKICB0b3RhbCA8LSBuLmUgKyBuLmMKICBzdCA8LSByZW9yZGVyKHN0dWR5LCAtKHRvdGFsKSkKfSkKYGBgCmBgYHtyfQpnZ3Bsb3QoRmxlaXNzOTMsIGFlcyhzdCwgdG90YWwpKSArIAogIGdlb21fYmFyKHN0YXQ9ImlkZW50aXR5IikgKyAKICB4bGFiKCIiKSArCiAgeWxhYigiIikgKwogIHlsaW0oMCwgMjAwMDApCmBgYAoKYGBge3J9ClRpdGFuaWMxIDwtIGRhdGEuZnJhbWUoVGl0YW5pYykKCnAgPC0gZ2dwbG90KGRhdGE9VGl0YW5pYzEsIGFlcyh3ZWlnaHQ9RnJlcSkpCmNzIDwtIHAgKyBnZW9tX2JhcihhZXMoQ2xhc3MpLCBmaWxsPSJibHVlIikKc3ggPC0gcCArIGdlb21fYmFyKGFlcyhTZXgpLCBmaWxsPSJncmVlbiIpCmFnIDwtIHAgKyBnZW9tX2JhcihhZXMoQWdlKSwgZmlsbD0idGFuMiIpCnN1IDwtIHAgKyBnZW9tX2JhcihhZXMoU3Vydml2ZWQpLCBmaWxsPSJyZWQiKQpncmlkLmFycmFuZ2UoY3MsIHN4LCBhZywgc3UsIHdpZHRocz1jKDMsIDIsIDIsIDIpKQpgYGAKYGBge3J9Cm5hbWVzKHN1cnZleSkKYGBgCgpgYGB7cn0KZGF0YShzdXJ2ZXksIHBhY2thZ2U9Ik1BU1MiKQoKY2F0ZWdvcmlhbF9kYXRhIDwtIGZ1bmN0aW9uKCkgewogIGV4ZXIubHZsID0gYygiTmV2ZXIiLCAiU29tZSIsICJGcmVxIikKICBzbW9rZS5sdmwgPSBjKCJOZXZlciIsICJPY2NhcyIsICJSZWd1bCIsICJIZWF2eSIpCiAgc3VydmV5IDwtIHdpdGhpbihzdXJ2ZXksIEV4ZXJOIDwtIGZhY3RvcihFeGVyLCBsZXZlbHM9ZXhlci5sdmwpKQogIHN1cnZleSA8LSB3aXRoaW4oc3VydmV5LCBTbW9rZU4gPC0gZmFjdG9yKFNtb2tlLCBsZXZlbHM9c21va2UubHZsKSkKICBjYXRlZ29yaWVzIDwtIGMoJ1NleCcsICdXLkhuZCcsICdGb2xkJywgJ0NsYXAnLCAnRXhlck4nLCAnTS5JJywgJ1Ntb2tlTicpCiAgY2hhcnRzIDwtIGxpc3QoKQogIGZvcihjYXRlZ29yeSBpbiBjYXRlZ29yaWVzKXsKICAgIGNoYXJ0IDwtIGdncGxvdChzdXJ2ZXksIGFlc19zdHJpbmcoY2F0ZWdvcnkpKSArIGdlb21fYmFyKCkKICAgIGNoYXJ0c1tbY2F0ZWdvcnldXSA8LSBjaGFydAogIH0KICBkby5jYWxsKGdyaWQuYXJyYW5nZSwgYyhjaGFydHMsIG5jb2w9MykpCiAgIyByZXR1cm4oY2F0ZWdvcnkpCn0KY2F0ZWdvcmlhbF9kYXRhKCkKYGBgCgoKCmBgYHtyfQpkYXRhKFZvbkJvcnQsIHBhY2thZ2U9InZjZCIpCmdncGxvdChWb25Cb3J0LCBhZXMoeD1kZWF0aHMpKSArCiAgZ2VvbV9iYXIoKQpnZ3Bsb3QoVm9uQm9ydCwgYWVzKHg9ZmFjdG9yKGRlYXRocykpKSArCiAgZ2VvbV9iYXIoKQpgYGAKYGBge3J9CmxpYnJhcnkodmNkKQpnZiA8LSBnb29kZml0KHRhYmxlKFZvbkJvcnQkZGVhdGhzKSkKc3VtbWFyeShnZikKYGBgCmBgYHtyfQp5ZWFyLjE4OTEgPC0gVm9uQm9ydFtWb25Cb3J0JHllYXI9PScxODkxJyxdCmgxIDwtIGdncGxvdCh5ZWFyLjE4OTEsIGFlcyh4PWZhY3RvcihkZWF0aHMpKSkgKyAKICBnZW9tX2JhcigpCmgyIDwtIGdncGxvdCh5ZWFyLjE4OTEpICsgCiAgZ2VvbV9iYXIoYWVzKHg9ZmFjdG9yKGRlYXRocywgbGV2ZWxzPXNlcSgwLCA0KSkpKSArCiAgc2NhbGVfeF9kaXNjcmV0ZShkcm9wPUZBTFNFKQoKZ3JpZC5hcnJhbmdlKGgxLCBoMiwgbnJvdz0xKQpgYGAKCmBgYHtyfQpkYXRhKFVLU29jY2VyLCBwYWNrYWdlPSJ2Y2QiKQoKcGwgPC0gZGF0YS5mcmFtZShVS1NvY2NlcikKbHggPC0gYygiMCIsIjEiLCIyIiwiMyIsIjQgb3IgbW9yZSIpCmIxIDwtIGdncGxvdChwbCkgKwogIGdlb21fYmFyKGFlcyh4PWZhY3RvcihIb21lKSwgd2VpZ2h0PUZyZXEpLCBmaWxsPSJmaXJlYnJpY2sxIikgKwogIHlsYWIoIiIpICsKICB4bGFiKCJIb21lIEdvYWxzIikKYjIgPC0gZ2dwbG90KHBsKSArCiAgZ2VvbV9iYXIoYWVzKHg9ZmFjdG9yKEF3YXkpLCB3ZWlnaHQ9RnJlcSksIGZpbGw9ImN5YW4zIikgKwogIHlsYWIoIiIpICsKICB4bGFiKCJBd2F5IEdvYWxzIikgKwogIHNjYWxlX3hfZGlzY3JldGUobGFiZWxzPWx4KSArCiAgeWxpbSgwLCAxNTApCgpncmlkLmFycmFuZ2UoYjEsIGIyLCBucm93PTEpCmBgYAoKYGBge3J9Cnh4IDwtIDE6OQpCZW4gPC0gZGF0YS5mcmFtZSh4eCwgcGRmPWxvZzEwKDErMS94eCkpCmdncGxvdChCZW4pICsKICBnZW9tX2JhcihhZXMoZmFjdG9yKHh4KSwgd2VpZ2h0PXBkZikpCmBgYAoK</div>
 
 
 
