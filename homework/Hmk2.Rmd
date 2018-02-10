@@ -9,7 +9,7 @@ output: html_notebook
 knitr::opts_chunk$set(warning = FALSE,
                       message = FALSE, 
                       cache = TRUE)
-# install.packages("DAAG")
+library(scales)
 data(vlt, package="DAAG")
 library(ggplot2)
 library(tidyr)
@@ -22,46 +22,104 @@ library(tidyr)
 [5 points]
 
 Do not use *grid.arrange()* for this exercise. Rather, use *gather()* to tidy the data and then facet on window number.  To make the comparison, use relative frequency bar charts (the heights of the bars in each facet sum to one).  Describe how the distributions differ.
-```{r}
-head(DAAG::vlt)
-head(df)
-```
 
 ```{r}
 
 df <- gather(DAAG::vlt, key="window", value="symbol", window1:window3) 
 
-ggplot(df, aes(symbol)) + 
-  geom_bar(aes(y = (..count..)/sum(..count..))) + 
-  xlab("Lottery Windows") +
-  ylab("") + 
-  facet_wrap(~ window)
+ggplot(df) + 
+  geom_bar(aes(x=symbol, y=..prop.., group=window)) + 
+  facet_wrap(~window)
 ```
-1. For all three windows, the data appears to be assymetric and skewed to the left.
-2. There's a patten of the first shape appearing most often in each window. 
-3. Does not look like there are any outliers.
-4. There are minor gaps between shapes in each windown. However, I doubt that there is any particular order to the shapes; the data is nominal. 
+1. For all three windows, the data appears to be asymmetric and skewed to the left.
+2. There's a pattern of the first shape appearing most often in each window. 
+3. There is sign of an outlier in each window, `symbol 0`. It's most likely nothing. Especially in `window1`.
+4. There are minor gaps between shapes in each window. Number 4 doesn't appear at all. However, I doubt that there is any particular order to the shapes; the data is nominal.
 
 #### 2. Detailed Mortality data ("Death2015.txt")
 
 [21 points]
 
 This data comes from the "Detailed Mortality" database available on https://wonder.cdc.gov/
-
+```{r}
+df = read.csv("../data/Death2015.txt", sep="\t")
+```
 Code for all preprocessing must be shown. (That is, don't open in the file in Excel or similar, change things around, save it, and then import to R. Why? Because your steps are not reproducible.)
 
 (a) For `Place of Death`, `Ten-Year Age Groups`, and `ICD Chapter Code` variables, do the following:
 
 Identify the type of variable (nominal, ordinal, or discrete) and draw a horizontal bar chart using best practices for order of categories.
 
-(b) Create horizontal bar charts for the ICD sub-chapter codes, one plot per ICD chapter code, by faceting on chapter code, *not* by using *grid.arrange()*.  Use `scales = "free"` with `facet_wrap()`. It should look like this (with data, of course!). Describe notable features.
+```{r, fig.height=16, fig.width=10}
+d1.title <- ggtitle("Place of Death: Nominal Data")
+d1 <- ggplot(df) + 
+  geom_bar(aes(Place.of.Death)) + 
+  coord_flip() +
+  xlab("")
+d2.title <- ggtitle("Ten Year Age Groups: Ordinal Data")
+d2 <- ggplot(df) + 
+  geom_bar(aes(Ten.Year.Age.Groups)) + 
+  coord_flip() +
+  xlab("")
+d3.title <- ggtitle("ICD Chapter Code: Nominal Data")
+d3 <- ggplot(df) +
+  geom_bar(aes(ICD.Chapter.Code)) + 
+  coord_flip() +
+  xlab("")
 
+grid.arrange(d1 + d1.title, d2 + d2.title, d3 + d3.title)
+```
+
+
+(b) Create horizontal bar charts for the ICD sub-chapter codes, one plot per ICD chapter code, by faceting on chapter code, *not* by using *grid.arrange()*.  Use `scales = "free"` with `facet_wrap()`. It should look like this (with data, of course!). Describe notable features.
+```{r, fig.height=20, fig.width=10}
+ggplot(df, aes(ICD.Sub.Chapter.Code)) +
+  geom_bar() +
+  facet_wrap(~ICD.Chapter.Code, ncol=3, scales = "free") +
+  coord_flip()
+```
+1. The Capter Code of `U00-U99` only has a single Sub-Chapter, it self. As a result it is very uniform. It also doesn't have much data.
+2. Across some charts the distribution is uneven and shows signs of little data. As a result some chapters are dominated by a single major sub chapter. For example that of `H60-H93`. 
+3. Some charts have gaps in the data and that could be the result of too little data.
 
 (c) Change the `scales` parameter to `scales = "free_y"`. What changed?  What information does this set of graphs provide that wasn't available in part (b)?
+```{r, fig.height=20, fig.width=10}
+ggplot(df, aes(ICD.Sub.Chapter.Code)) +
+  geom_bar() +
+  facet_wrap(~ICD.Chapter.Code, ncol=3, scales = "free_y") +
+  coord_flip()
+```
+1. Freeing "y" shows us the amount of data in each Chapter relative to other Chapters.
+2. We could now really see where there is missing data and too little data relative to each Chapter.
 
 (d) Redraw the panels as *relative frequency* bar charts rather than *count* bar charts. (The lengths of the bars *in each panel separately* must sum to 1.) What new information do you gain?
+```{r, fig.height=20, fig.width=10}
+ggplot(df, aes(ICD.Sub.Chapter.Code)) +
+  geom_bar(aes(x=ICD.Sub.Chapter.Code, y=..prop.., group=ICD.Chapter.Code)) +
+  facet_wrap(~ICD.Chapter.Code, ncol=3, scales = "free_y") +
+  coord_flip()
+ggplot(df, aes(ICD.Sub.Chapter.Code)) +
+  geom_bar(aes(x=ICD.Sub.Chapter.Code, y=..prop.., group=ICD.Chapter.Code)) +
+  facet_wrap(~ICD.Chapter.Code, ncol=3, scales = "free") +
+  coord_flip()
+``` 
+1. I decided to use both scales (`free` and `free_y`) to show relative frequency in the bar charts for each chapter.
+2. The gaps in the data are more evident.
+3. Some charts have multimodality and the distributions have multiple peaks.
 
 (e) Choose one of the small panels and redraw it as a single graph, using names rather than codes. (That is, use `ICD Chapter` and `ICD Sub-Chapter` instead of the code versions.)  What type of data is this? Note any interesting features.
+
+```{r}
+data = subset(df, ICD.Chapter.Code %in% c("H60-H93"))
+ggplot(data, aes(ICD.Sub.Chapter)) +
+  geom_bar(aes(x=ICD.Sub.Chapter)) +
+  xlab(unique(data$ICD.Chapter)) +
+  ylab("Death Count") +
+  coord_flip()
+```
+1. Within the death Chapter of `Diseases of the ear and mastoid process` we could see the distribution of deaths for each Sub Chapter. 
+2. I'm mainly surprised that people die from ear infections. 
+3. There's a heavy outlier, `Diseases of middle ear and mastoid`. Not sure why that is. Could be because of little data.
 
 #### 3. Detailed Mortality, questions about the data
 
@@ -71,21 +129,32 @@ Cite your sources with links.
 
 (a) Who is included in the death counts?
 
-(b) When was this query processed?  (Hint: it's in the file itself; don't provide the file time stamp.)
 
-(c) What does "ICD" stand for? Which version is used for this particular dataset? Name five other countries that use the ICD for official mortality data.
+(b) When was this query processed?  (Hint: it's in the file itself; don't provide the file time stamp.)
+```{r}
+factor(unique(df$Notes))[24]
+```
+- The query was processed on Feb 5, 2018 at 5:08:43 PM. (inside the data)
+
+(c) What does "ICD" stand for? Which version is used for this particular data set? Name five other countries that use the ICD for official mortality data.
+- "ICD" stands for "International Classification Of Diseases". (inside the data)
+- This version is `Underlying Cause of Death 1999-2016`, specifically 2015, for all states in U.S. (inside the data)
+- Belgium, Denmark, Canada, China, France. (https://www.cdc.gov/globalhealth/countries/default.htm)
 
 (d) Which U.S. organizations collects mortality data? Where is the headquarters located?
+- NCHS Organization (https://www.cdc.gov/nchs/about/index.htm)
+- Headquarters	Hyattsville, MD (https://en.wikipedia.org/wiki/National_Center_for_Health_Statistics)
 
-(e) In brief, how is the data collected?  What is the estimated accuracy rate, according to the dataset documentation?
-
+(e) In brief, how is the data collected?  What is the estimated accuracy rate, according to the data set documentation?
+- Data is collected via surveys, personal interviews in households, by phone, from other agencies and private partners. There are 4 main channels through which NCHS collects data: `National Vital Statistics System`, `National Health Interview Survey`, `National Health and Nutrition Examination Survey`, `National Health Care Surveys`. (wikipedia and https://www.cdc.gov/nchs/data/factsheets/factsheet_health_statistics.htm)
+- 
 ### Chapter 5
 
 #### 1. Movie ratings
 
 [12 points]
 
-Explore *length* vs. *year* in the **ggplot2movies** dataset, after removing outliers. (Choose a reasonable cutoff).
+Explore *length* vs. *year* in the **ggplot2movies** data set, after removing outliers. (Choose a reasonable cutoff).
 
 Draw four scatterplots of *length* vs. *year* from the with the following variations:
 
