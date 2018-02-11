@@ -13,6 +13,8 @@ library(scales)
 data(vlt, package="DAAG")
 library(ggplot2)
 library(tidyr)
+library(ggplot2movies)
+library(gridExtra)
 ```
 
 ### Chapter 4
@@ -117,9 +119,10 @@ ggplot(data, aes(ICD.Sub.Chapter)) +
   ylab("Death Count") +
   coord_flip()
 ```
-1. Within the death Chapter of `Diseases of the ear and mastoid process` we could see the distribution of deaths for each Sub Chapter. 
-2. I'm mainly surprised that people die from ear infections. 
-3. There's a heavy outlier, `Diseases of middle ear and mastoid`. Not sure why that is. Could be because of little data.
+1. This data is nominal.
+2. Within the death Chapter of `Diseases of the ear and mastoid process` we could see the distribution of deaths for each Sub Chapter. 
+3. I'm mainly surprised that people die from ear infections. 
+4. There's a heavy outlier, `Diseases of middle ear and mastoid`. Not sure why that is. Could be because of little data.
 
 #### 3. Detailed Mortality, questions about the data
 
@@ -128,7 +131,11 @@ ggplot(data, aes(ICD.Sub.Chapter)) +
 Cite your sources with links. 
 
 (a) Who is included in the death counts?
-
+- U.S. civilians, Female and Male
+- Noninstitutionalized population
+- Age <1 - 85+
+- All origins
+(https://wonder.cdc.gov/controller/datarequest/D76)
 
 (b) When was this query processed?  (Hint: it's in the file itself; don't provide the file time stamp.)
 ```{r}
@@ -147,7 +154,8 @@ factor(unique(df$Notes))[24]
 
 (e) In brief, how is the data collected?  What is the estimated accuracy rate, according to the data set documentation?
 - Data is collected via surveys, personal interviews in households, by phone, from other agencies and private partners. There are 4 main channels through which NCHS collects data: `National Vital Statistics System`, `National Health Interview Survey`, `National Health and Nutrition Examination Survey`, `National Health Care Surveys`. (wikipedia and https://www.cdc.gov/nchs/data/factsheets/factsheet_health_statistics.htm)
-- 
+- The NCHS mainly goes over their data gathering process, but never touches on the estimated accuracy rate. I would say it's pretty high according to their documentation. (https://www.cdc.gov/nchs/data/factsheets/factsheet_nhis.htm)
+
 ### Chapter 5
 
 #### 1. Movie ratings
@@ -158,17 +166,47 @@ Explore *length* vs. *year* in the **ggplot2movies** data set, after removing ou
 
 Draw four scatterplots of *length* vs. *year* from the with the following variations:
 
+```{r}
+df <- 
+```
+```{r}
+names(df)
+```
+```{r}
+df <- subset(ggplot2movies::movies, length < 200)
+```
+
 (a) Points with alpha blending
-
+```{r}
+ggplot(df, aes(x=length, y=year)) +
+  geom_point(alpha=.1)
+```
 (b) Points with alpha blending + density estimate contour lines
-
+```{r}
+ggplot(df, aes(x=length, y=year)) +
+  geom_point(alpha=.1) +
+  geom_density2d(bins=10)
+```
 (c) Hexagonal heatmap of bin counts
-
+```{r}
+ggplot(df, aes(length, year)) +
+  geom_hex(bins=30)
+```
 (d) Square heatmap of bin counts 
+```{r}
+ggplot(df, aes(length, year, fill=length)) +
+  geom_tile() +
+  coord_equal()
+```
 
 For all, adjust parameters to the levels that provide the best views of the data.
 
 (e) Describe noteworthy features of the data, using the movie ratings example on page 82 (last page of Section 5.3) as a guide.  
+1. The length of films increased as years went by. 1920s saw a huge spike in the length of films.  
+2. There's a gap in the data. Very few films have the length of ~20 - 50 minutes.
+3. There's a heavy concentration of films between the 50 minute mark and ~125 minutes.
+4. A few films, that are 150 minutes and greater, appear to be outliers. They have the same year and a higher level of length in minutes.
+5. There are no films the have a high length and were made before 1915
 
 (f) How do (a)-(d) compare? Are there features that you can see in some but not all of the graphs?
 
