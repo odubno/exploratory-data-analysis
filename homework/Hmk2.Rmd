@@ -15,6 +15,7 @@ library(ggplot2)
 library(tidyr)
 library(ggplot2movies)
 library(gridExtra)
+library(lattice)
 ```
 
 ### Chapter 4
@@ -211,5 +212,29 @@ For all, adjust parameters to the levels that provide the best views of the data
 (f) How do (a)-(d) compare? Are there features that you can see in some but not all of the graphs?
 
 #### 2. Leaves (Chapter 5 exercises, #7, p. 96)
-
 [6 points]
+The leafshape dataset in the DAAG package includes three measurements on each leaf (length, width, petiole) and the logarithms of the three measurements.
+(a) Draw sploms for the two sets of three variables. What conclusions would you draw from each set? Which do you find more useful?
+1. Both sets of variable measurements have a positive correlation. However, it's way easier to see a positive relationship when the log of each variable is taken.
+2. The "Leaf length, width and petiole (mm)" has more dispersion in the data and most likely a high r^2.
+3. The "Log of Leaf length, width and petiole" is log transformed and reduces skewness in the data revealing a stronger correlation. 
+4. The log for each variable adjusts for outliers and makes the data more useful.
+```{r, fig.height=8, fig.length=5}
+df <- DAAG::leafshape
+splom(df[c(1,2,3)], main = "Leaf length, width and petiole (mm)")
+splom(df[c(5,6,7)], main = "Log of Leaf length, width and petiole")
+```
+
+(b) Redraw the sploms, colouring the cases by the variable arch, describing the type of leaf architecture. What additional structure can you see?
+
+```{r, fig.height=12, fig.length=8}
+df <- DAAG::leafshape
+super.sym <- trellis.par.get("superpose.symbol")
+key <- list(title = "Leaf Architecture",
+                 points = list(pch = super.sym$pch[1:2],
+                 col = super.sym$col[1:2]),
+                 text = list(c("Plagiotropic", "Orthotropic")))
+
+splom(~df[1:3], groups=arch, data=df, panel=panel.superpose, key=key)
+splom(~df[5:7], groups=arch, data=df, panel=panel.superpose, key=key)
+```
