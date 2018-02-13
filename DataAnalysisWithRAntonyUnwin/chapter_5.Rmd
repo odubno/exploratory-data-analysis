@@ -1,0 +1,36 @@
+---
+title: "Chapter 5"
+output: html_notebook
+---
+
+# 5.4 Adding Models: lines and smooths
+
+## Cars and mpg
+```{r}
+data(Cars93, package="MASS")
+ggplot(Cars93, aes(Weight, MPG.city)) +
+  geom_point() +
+  geom_smooth(color="green") +
+  ylim(0, 50)
+```
+
+```{r}
+data(father.son, package="UsingR")
+ggplot(father.son, aes(fheight, sheight)) + 
+  geom_point() +
+  geom_smooth(method="lm", color="red") +
+  geom_abline(slope=1, intercept = 0)
+
+```
+```{r}
+m1 <- lm(sheight~fheight, father.son)
+summary(m1)
+```
+
+```{r}
+ggplot(father.son, aes(fheight, sheight)) +
+  geom_point() +
+  geom_smooth(method="lm", color="red", se=FALSE) +
+  stat_smooth()
+```
+
