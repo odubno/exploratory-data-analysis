@@ -35,7 +35,7 @@ ggplot(df) +
   facet_wrap(~window)
 ```
 1. For all three windows, the data appears to be asymmetric and skewed to the left.
-2. There's a pattern of the first shape appearing most often in each window. 
+2. There's a pattern of the first SYMBOL, `0`, appearing most often in each window. 
 3. There is sign of an outlier in each window, `symbol 0`. It's most likely nothing. Especially in `window1`.
 4. There are minor gaps between shapes in each window. Number 4 doesn't appear at all. However, I doubt that there is any particular order to the shapes; the data is nominal.
 
@@ -120,7 +120,7 @@ ggplot(data, aes(ICD.Sub.Chapter)) +
   ylab("Death Count") +
   coord_flip()
 ```
-1. This data is nominal.
+1. This data is nominal and shows the breakdown of death for "Diseases of the ear and mastoid".
 2. Within the death Chapter of `Diseases of the ear and mastoid process` we could see the distribution of deaths for each Sub Chapter. 
 3. I'm mainly surprised that people die from ear infections. 
 4. There's a heavy outlier, `Diseases of middle ear and mastoid`. Not sure why that is. Could be because of little data.
@@ -133,15 +133,12 @@ Cite your sources with links.
 
 (a) Who is included in the death counts?
 - U.S. civilians, Female and Male
-- Noninstitutionalized population
+- Non institutionalized population
 - Age <1 - 85+
 - All origins
 (https://wonder.cdc.gov/controller/datarequest/D76)
 
 (b) When was this query processed?  (Hint: it's in the file itself; don't provide the file time stamp.)
-```{r}
-factor(unique(df$Notes))[24]
-```
 - The query was processed on Feb 5, 2018 at 5:08:43 PM. (inside the data)
 
 (c) What does "ICD" stand for? Which version is used for this particular data set? Name five other countries that use the ICD for official mortality data.
@@ -168,12 +165,6 @@ Explore *length* vs. *year* in the **ggplot2movies** data set, after removing ou
 Draw four scatterplots of *length* vs. *year* from the with the following variations:
 
 ```{r}
-df <- 
-```
-```{r}
-names(df)
-```
-```{r}
 df <- subset(ggplot2movies::movies, length < 200)
 ```
 
@@ -199,7 +190,6 @@ ggplot(df, aes(length, year, fill=length)) +
   geom_tile() +
   coord_equal()
 ```
-
 For all, adjust parameters to the levels that provide the best views of the data.
 
 (e) Describe noteworthy features of the data, using the movie ratings example on page 82 (last page of Section 5.3) as a guide.  
@@ -207,18 +197,23 @@ For all, adjust parameters to the levels that provide the best views of the data
 2. There's a gap in the data. Very few films have the length of ~20 - 50 minutes.
 3. There's a heavy concentration of films between the 50 minute mark and ~125 minutes.
 4. A few films, that are 150 minutes and greater, appear to be outliers. They have the same year and a higher level of length in minutes.
-5. There are no films the have a high length and were made before 1915
+5. There are no films that have a length higher then 25 minutes and were made before 1915.
 
 (f) How do (a)-(d) compare? Are there features that you can see in some but not all of the graphs?
+1. `b` is more helpful in discerning the true dispersion of the data. We could see where the majority of data lies and its density and concentration. 
+2. I would say `c` is the more difficult to read. We generally have a harder time attributing color to values. As a result, I can't tell that there's a gap in length between 10 min to 60 min.
+3. `d` and `a` feel the same. They both communicate that there's a gap in data. However, with both graphs its more difficult to see how the data is spread.
 
 #### 2. Leaves (Chapter 5 exercises, #7, p. 96)
 [6 points]
-The leafshape dataset in the DAAG package includes three measurements on each leaf (length, width, petiole) and the logarithms of the three measurements.
+The leaf shape dataset in the DAAG package includes three measurements on each leaf (length, width, petiole) and the logarithms of the three measurements.
 (a) Draw sploms for the two sets of three variables. What conclusions would you draw from each set? Which do you find more useful?
+
 1. Both sets of variable measurements have a positive correlation. However, it's way easier to see a positive relationship when the log of each variable is taken.
 2. The "Leaf length, width and petiole (mm)" has more dispersion in the data and most likely a high r^2.
 3. The "Log of Leaf length, width and petiole" is log transformed and reduces skewness in the data revealing a stronger correlation. 
 4. The log for each variable adjusts for outliers and makes the data more useful.
+5. Generally, if the width increases so does the the length and petiole.
 ```{r, fig.height=8, fig.length=5}
 df <- DAAG::leafshape
 splom(df[c(1,2,3)], main = "Leaf length, width and petiole (mm)")
@@ -226,10 +221,14 @@ splom(df[c(5,6,7)], main = "Log of Leaf length, width and petiole")
 ```
 
 (b) Redraw the sploms, colouring the cases by the variable arch, describing the type of leaf architecture. What additional structure can you see?
+1. There are two arch varieties: Plagiotropic and Orthotropic.
+2. Using log and color points we could better see that Orthotropic leaves are generally wider and longer.
+3. The Orthotropic leaf measurements are more dispersed than that of Plagiotropic leaf. 
 
 ```{r, fig.height=12, fig.length=8}
 df <- DAAG::leafshape
 super.sym <- trellis.par.get("superpose.symbol")
+
 key <- list(title = "Leaf Architecture",
                  points = list(pch = super.sym$pch[1:2],
                  col = super.sym$col[1:2]),
