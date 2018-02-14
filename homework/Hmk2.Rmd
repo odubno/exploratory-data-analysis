@@ -26,7 +26,7 @@ library(lattice)
 
 Do not use *grid.arrange()* for this exercise. Rather, use *gather()* to tidy the data and then facet on window number.  To make the comparison, use relative frequency bar charts (the heights of the bars in each facet sum to one).  Describe how the distributions differ.
 
-```{r}
+```{r, fig.height=8, fig.length=6}
 
 df <- gather(DAAG::vlt, key="window", value="symbol", window1:window3) 
 
@@ -48,14 +48,6 @@ This data comes from the "Detailed Mortality" database available on https://wond
 df <- read.csv("../data/Death2015.txt", sep="\t")
 notes <- tail(df, 44)
 df <- head(df, -44)
-```
-
-```{r}
-for(i in notes$Notes){
-  if(i != ""){
-    print(i)
-  }
-}
 ```
 
 Code for all preprocessing must be shown. (That is, don't open in the file in Excel or similar, change things around, save it, and then import to R. Why? Because your steps are not reproducible.)
@@ -124,7 +116,7 @@ ggplot(df, aes(ICD.Sub.Chapter.Code)) +
 
 (e) Choose one of the small panels and redraw it as a single graph, using names rather than codes. (That is, use `ICD Chapter` and `ICD Sub-Chapter` instead of the code versions.)  What type of data is this? Note any interesting features.
 
-```{r}
+```{r, fig.height=8, fig.length=6}
 data = subset(df, ICD.Chapter.Code %in% c("H60-H93"))
 ggplot(data, aes(ICD.Sub.Chapter)) +
   geom_bar(aes(x=ICD.Sub.Chapter)) +
@@ -151,6 +143,13 @@ Cite your sources with links.
 (https://wonder.cdc.gov/controller/datarequest/D76)
 
 (b) When was this query processed?  (Hint: it's in the file itself; don't provide the file time stamp.)
+```{r}
+for(i in notes$Notes){
+  if(grepl("Query Date", i)){
+    print(i)
+  }
+}
+```
 - The query was processed on Feb 5, 2018 at 5:08:43 PM. (inside the data)
 
 (c) What does "ICD" stand for? Which version is used for this particular data set? Name five other countries that use the ICD for official mortality data.
@@ -181,23 +180,23 @@ df <- subset(ggplot2movies::movies, length < 200)
 ```
 
 (a) Points with alpha blending
-```{r}
+```{r, fig.height=8, fig.length=6}
 ggplot(df, aes(x=length, y=year)) +
   geom_point(alpha=.1)
 ```
 (b) Points with alpha blending + density estimate contour lines
-```{r}
+```{r, fig.height=8, fig.length=6}
 ggplot(df, aes(x=length, y=year)) +
   geom_point(alpha=.1) +
   geom_density2d(bins=10)
 ```
 (c) Hexagonal heatmap of bin counts
-```{r}
+```{r, fig.height=8, fig.length=6}
 ggplot(df, aes(length, year)) +
   geom_hex(bins=30)
 ```
 (d) Square heatmap of bin counts 
-```{r}
+```{r, fig.height=8, fig.length=6}
 ggplot(df, aes(length, year)) + 
   geom_bin2d(binwidth=c(10, 10)) +
   coord_equal()
