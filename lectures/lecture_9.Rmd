@@ -3,3 +3,95 @@ title: "Lecture 9"
 output: html_notebook
 ---
 
+# Multivariate Continuous 
+
+### 3 continuous variables
+```{r}
+# install.packages("scatterplot3d")
+library(scatterplot3d)
+```
+
+### use plotly
+```{r}
+# install.packages("plotly")
+library(plotly)
+plot_ly(df, x=~x,)
+```
+
+# parallel coordinate plots
+```{r}
+# slope graph
+gslope <- ggplot(tidydf, aes(x=var,y=value, group=ID)) +
+  geom_lint()
+# same information as a scatter plot but in less comprehensible form.
+```
+
+### scatterplot vs slope graph
+50 data points, 50 slope lines in the slope graph.
+
+### standardize you data
+```{r}
+function(x) (x-means(x)/sd(x))
+df2 <- tidydf %>%
+```
+
+```{r}
+# parallel coordinate plots
+library(ggparcoord)
+df <- state.x77
+ggparcoord(df, scale="uniminmax")
+```
+```{r}
+
+```
+```{r}
+# standardize 
++ geom_vline() # smooth plot
+```
+
+```{r}
+# install.packages("GGally")
+library(GGally)
+x <- 1:10
+y <- c(1,5,7,8,9,4,4,5,6,1)
+z <- c(3,5,7,9,2,4,6,7,8,9)
+w <- c(3,5,7,9,2,4,6,7,8,9)
+df <- data.frame(x,y,z,w)
+go <- ggparcoord(df, columns=1:4, scale="globalminmax")
+go
+cat(colname(df))
+# try splime
+# parallel coordinate plot
+# does not work for categorical variables
+```
+
+```{r}
+# html widget
+# buildingwidgets.com
+parcoord(rownames=F, brushMode ="1D-axes")
+```
+
+
+- ggplot2::geom_line()
+- GGally::ggparcoord() (static, gpplot2)
+- MASS::parcord() (static, base)
+- parcoords::parcoords() (interactive)
+(a) devtools::install_github("timelyportfolio/parcoords")
+
+```{r}
+tidydf <- df %>% select(x, y) %>%
+  rownames_to_colu,ns("ID") %>%
+  gather(var, value, -ID)
+gslope <- ggplot(tidydf, aes(x=var, y=value, group=ID)) +
+  geom_line()
+# spline solves the direction of the parallel coordinate plane
+```
+
+
+```{r}
+mystates <- data.frame(state.x77)
+# x <- factor(mystates$Region, levels = ("South", "West"))
+
+ggparcoord(mystates)
+```
+
