@@ -45,8 +45,19 @@ ggplot(df) +
 
 This data comes from the "Detailed Mortality" database available on https://wonder.cdc.gov/
 ```{r}
-df = read.csv("../data/Death2015.txt", sep="\t")
+df <- read.csv("../data/Death2015.txt", sep="\t")
+notes <- tail(df, 44)
+df <- head(df, -44)
 ```
+
+```{r}
+for(i in notes$Notes){
+  if(i != ""){
+    print(i)
+  }
+}
+```
+
 Code for all preprocessing must be shown. (That is, don't open in the file in Excel or similar, change things around, save it, and then import to R. Why? Because your steps are not reproducible.)
 
 (a) For `Place of Death`, `Ten-Year Age Groups`, and `ICD Chapter Code` variables, do the following:
@@ -75,6 +86,7 @@ grid.arrange(d1 + d1.title, d2 + d2.title, d3 + d3.title)
 
 
 (b) Create horizontal bar charts for the ICD sub-chapter codes, one plot per ICD chapter code, by faceting on chapter code, *not* by using *grid.arrange()*.  Use `scales = "free"` with `facet_wrap()`. It should look like this (with data, of course!). Describe notable features.
+
 ```{r, fig.height=20, fig.width=10}
 ggplot(df, aes(ICD.Sub.Chapter.Code)) +
   geom_bar() +
