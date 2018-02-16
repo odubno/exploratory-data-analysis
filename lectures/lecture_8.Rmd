@@ -107,3 +107,16 @@ library(tidyverse)
 ggplot(SpeedSki, aes)
 ```
 
+```{r, fig.height=10, fig.width=8}
+# install.packages("VGAMdata")
+data(crime.us, package="VGAMdata")
+crime.usR <- crime.us
+names(crime.usR)[19:20] <- c("Larceny", "MotorVTheft")
+ggpairs(crime.usR[, c(13:16, 18:20)],
+        title="Crime rates in the USA",
+        diag=list(continuous='density'), axisLabels='none')
+```
+```{r}
+
+```
+
