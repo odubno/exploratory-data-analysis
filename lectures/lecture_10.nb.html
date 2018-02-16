@@ -193,13 +193,87 @@ $(document).ready(function () {
 <ul>
 <li>don’t use scatter plot</li>
 <li>stacked bar chart (not so good bc they don’t line up)</li>
-<li>grouped bar chart (better bc everything lines up at the bottom) 2a. dependent variable is the fill color in the grouped bar chart</li>
+<li>grouped bar chart (better bc everything lines up at the bottom)</li>
+<li>dependent variable is the fill color in the grouped bar chart</li>
+<li>grouped bar charts with facets Instead of color use variable names in chart)</li>
 </ul>
+<ol start="3" style="list-style-type: decimal">
+<li>cleveland dot plot(two variables)</li>
+</ol>
+</div>
+</div>
+<div id="three-categorical-variables" class="section level1">
+<h1>Three Categorical Variables</h1>
+<ol style="list-style-type: decimal">
+<li>grouped bar chart with facet + color</li>
+<li>Cleveland dot plot</li>
+</ol>
+<ul>
+<li>grouped bar chart with facet and color</li>
+</ul>
+</div>
+<div id="chi-squared-test" class="section level1">
+<h1>Chi Squared Test</h1>
+<p><a href="http://www.ling.upenn.edu/~clight/chisquared.htm" class="uri">http://www.ling.upenn.edu/~clight/chisquared.htm</a> - The Chi-square test is intended to test how likely it is that an observed distribution is due to chance. - Likelihood that’s proportional to the sizes of the group. The ratio affects the expected value. - instead of using the frequency in data, it uses the ratio in the data.</p>
+<ul>
+<li>A Chi-square test is designed to analyze categorical data</li>
+</ul>
+</div>
+<div id="mosaic-plot" class="section level1">
+<h1>Mosaic Plot</h1>
+</div>
+<div id="mosaic-plots-three-variables" class="section level1">
+<h1>Mosaic plots (three variables)</h1>
+</div>
+<div id="mosaic-pairs-plot" class="section level1">
+<h1>Mosaic Pairs Plot</h1>
+</div>
+<div id="doubledecker-bar-charts" class="section level1">
+<h1>Doubledecker bar charts</h1>
+<ul>
+<li>pretty much a mosaic plot</li>
+</ul>
+</div>
+<div id="convert-from-one-form-to-another" class="section level1">
+<h1>Convert from one form to another</h1>
+<p>easy to get things into countr and tables hard to go back to cases cases -&gt; counts -&gt; tables</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQWdlXG5gYGAifQ== -->
+<pre class="r"><code>Age</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6IG9iamVjdCAnQWdlJyBub3QgZm91bmRcbiJ9 -->
+<pre><code>Error: object 'Age' not found</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YS5mcmFtZShUaXRhbmljKVxuYGBgIn0= -->
+<pre class="r"><code>data.frame(Titanic)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6NSwibnJvdyI6MzJ9LCJyZGYiOiJINHNJQUFBQUFBQUFBNzFVeTA0Q01SUXRuUm1FU1VRUy9RQlhMb3dRQWZkQ01LelVCUmlEQ3hkMUtEQ3h6R0JuZUN4WitHRitFbCtBdHROZTRqUWtpSzlKT3VlK2VudFBlOXYyVmJmcWRsMkVFRWFXYlNGc0NkSEc0cGRCTnNwTG5DTmtIUXJCRWJndjhEaHh5Z25DSUtQL1gwOFZtR1YwU2xra3BHTGlWVmFyRXNVZ1ZvTWVpRFVPb3Qza2RHYWtjanhHSXNpMHp0OG5YaHh5SWEyTUhmZzhzREgrMkMvTHh1KzZVZ3lVYmdpalVIV0xqcVNXUkZvUXVSdW5iVFZ1cTNuSCtSczVPYzJoeitETW5FWnZ3dUpmNWZSVHp0L2hoRzlENk1jSEduMkZEaXBvT3FtdjNsaVlwclMvWXVpUEtyN3UxUlhPenhXK0xoVVdkZHlweG5zZGw5UDZrY2FUZEJ4OGwwdGovcG14L3ZVaVphKzMzeFFPdFU2MC8wN3JIWTBYa0NGOVd3TXlvbkJiblhXL0pGZFliMitIemtGc0RPQnE1RG9UUHZXbmRQMFN0RGg5TVhMbmVUZ3JRMzdaUzFpVkpnOWg0M0c1UFJLVGNwK0xLU2c1c2xTNnZYQWMrMkVna21IOWxLWW1aN2hoT0pnRWN2RmV5UnRPZ3VkU1RTNkFWRU1pWFZCR0ZiT1dIYldrRFlYQmhtUnBNUEFENE80dzhrU1pWZ3FDWk1LeFBPWitBTStsSzZ4Uk9RNWpBbkd1RnpLd3FIWmNmUUJUcVhRY09BWUFBQT09In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Class"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["Sex"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["Age"],"name":[3],"type":["fctr"],"align":["left"]},{"label":["Survived"],"name":[4],"type":["fctr"],"align":["left"]},{"label":["Freq"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"1st","2":"Male","3":"Child","4":"No","5":"0"},{"1":"2nd","2":"Male","3":"Child","4":"No","5":"0"},{"1":"3rd","2":"Male","3":"Child","4":"No","5":"35"},{"1":"Crew","2":"Male","3":"Child","4":"No","5":"0"},{"1":"1st","2":"Female","3":"Child","4":"No","5":"0"},{"1":"2nd","2":"Female","3":"Child","4":"No","5":"0"},{"1":"3rd","2":"Female","3":"Child","4":"No","5":"17"},{"1":"Crew","2":"Female","3":"Child","4":"No","5":"0"},{"1":"1st","2":"Male","3":"Adult","4":"No","5":"118"},{"1":"2nd","2":"Male","3":"Adult","4":"No","5":"154"},{"1":"3rd","2":"Male","3":"Adult","4":"No","5":"387"},{"1":"Crew","2":"Male","3":"Adult","4":"No","5":"670"},{"1":"1st","2":"Female","3":"Adult","4":"No","5":"4"},{"1":"2nd","2":"Female","3":"Adult","4":"No","5":"13"},{"1":"3rd","2":"Female","3":"Adult","4":"No","5":"89"},{"1":"Crew","2":"Female","3":"Adult","4":"No","5":"3"},{"1":"1st","2":"Male","3":"Child","4":"Yes","5":"5"},{"1":"2nd","2":"Male","3":"Child","4":"Yes","5":"11"},{"1":"3rd","2":"Male","3":"Child","4":"Yes","5":"13"},{"1":"Crew","2":"Male","3":"Child","4":"Yes","5":"0"},{"1":"1st","2":"Female","3":"Child","4":"Yes","5":"1"},{"1":"2nd","2":"Female","3":"Child","4":"Yes","5":"13"},{"1":"3rd","2":"Female","3":"Child","4":"Yes","5":"14"},{"1":"Crew","2":"Female","3":"Child","4":"Yes","5":"0"},{"1":"1st","2":"Male","3":"Adult","4":"Yes","5":"57"},{"1":"2nd","2":"Male","3":"Adult","4":"Yes","5":"14"},{"1":"3rd","2":"Male","3":"Adult","4":"Yes","5":"75"},{"1":"Crew","2":"Male","3":"Adult","4":"Yes","5":"192"},{"1":"1st","2":"Female","3":"Adult","4":"Yes","5":"140"},{"1":"2nd","2":"Female","3":"Adult","4":"Yes","5":"80"},{"1":"3rd","2":"Female","3":"Adult","4":"Yes","5":"76"},{"1":"Crew","2":"Female","3":"Adult","4":"Yes","5":"20"}],"options":{"columns":{"min":{},"max":[10],"total":[5]},"rows":{"min":[10],"max":[10],"total":[32]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2FzZXMgJT4lIGdyb3VwX2J5KEFnZSwgRmF2b3JpdGUpICU+JSBzdW1tYXJpemUoRnJlcT1uKCkpXG4jIGNvdW50c1xuY291bnRzMiA8LSBjb3VudHMoY2FzZXMpICMgPz8/XG4jIGRlcGVuZGVudCB2YXJpYWJsZSBnb2VzIGZpcnN0OyBpbmRlcGVuZGVudCBnb2VzIHNlY29uZFxudmNkOjptb3NhaWMoRmF2b3JpdGV+QWdlLCBjb3VudHMyKVxuYGBgIn0= -->
+<pre class="r"><code>cases %&gt;% group_by(Age, Favorite) %&gt;% summarize(Freq=n())
+# counts
+counts2 &lt;- counts(cases) # ???
+# dependent variable goes first; independent goes second
+vcd::mosaic(Favorite~Age, counts2)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
-</div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiTGVjdHVyZSAxMCIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyBNdWx0aXZhcmlhdGUgY2F0ZWdvcmljYWwgZGF0YQotIEJhciBDaGFydHMgKEdvdG8gZm9yIGNhdGVnb3JpY2FsIGRhdGEpCi0gQ2xldmVsYW5kIGRvdCBwbG90cwotIE1vc2FpYyBwbG90cyAocGFyYWxsZW4gY29vcmRpbmF0ZSBwbG90czsgZGlmZmljdWx0IHRvIHVuZGVyc3RhbmQpCi0gRmx1Y3RhdGlvbiBkaWFncmFtcwotIEZyZXF1ZW5jeSBkYXRhIGZvcm1hdHMgKGNvZGluZykKLSBEcmF3aW5nIHBsb3RzIChjb2RpbmcpCi0gT2NjdXBhdGlvbmFsIE1vYmlsaXR5IGRhdGEKCiMjIFR3byBjb250aW51b3VzIHZhcmlhYmxlcwoxLiBmb3IgY29udGludW91cyBkYXRhIHdlIG1ha2Ugc2NhdHRlciBwbG90CgoyLiB3aGF0IGFib3V0IHR3byBjYXRlZ29yaWNhbCB2YXJpYWJsZXM6Ci0gZG9uJ3QgdXNlIHNjYXR0ZXIgcGxvdAotIHN0YWNrZWQgYmFyIGNoYXJ0IChub3Qgc28gZ29vZCBiYyB0aGV5IGRvbid0IGxpbmUgdXApCi0gZ3JvdXBlZCBiYXIgY2hhcnQgKGJldHRlciBiYyBldmVyeXRoaW5nIGxpbmVzIHVwIGF0IHRoZSBib3R0b20pCjJhLiBkZXBlbmRlbnQgdmFyaWFibGUgaXMgdGhlIGZpbGwgY29sb3IgaW4gdGhlIGdyb3VwZWQgYmFyIGNoYXJ0</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTGVjdHVyZSAxMCIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyBNdWx0aXZhcmlhdGUgY2F0ZWdvcmljYWwgZGF0YQotIEJhciBDaGFydHMgKEdvdG8gZm9yIGNhdGVnb3JpY2FsIGRhdGEpCi0gQ2xldmVsYW5kIGRvdCBwbG90cwotIE1vc2FpYyBwbG90cyAocGFyYWxsZW4gY29vcmRpbmF0ZSBwbG90czsgZGlmZmljdWx0IHRvIHVuZGVyc3RhbmQpCi0gRmx1Y3RhdGlvbiBkaWFncmFtcwotIEZyZXF1ZW5jeSBkYXRhIGZvcm1hdHMgKGNvZGluZykKLSBEcmF3aW5nIHBsb3RzIChjb2RpbmcpCi0gT2NjdXBhdGlvbmFsIE1vYmlsaXR5IGRhdGEKCiMjIFR3byBjb250aW51b3VzIHZhcmlhYmxlcwoxLiBmb3IgY29udGludW91cyBkYXRhIHdlIG1ha2Ugc2NhdHRlciBwbG90CgoyLiB3aGF0IGFib3V0IHR3byBjYXRlZ29yaWNhbCB2YXJpYWJsZXM6Ci0gZG9uJ3QgdXNlIHNjYXR0ZXIgcGxvdAotIHN0YWNrZWQgYmFyIGNoYXJ0IChub3Qgc28gZ29vZCBiYyB0aGV5IGRvbid0IGxpbmUgdXApCi0gZ3JvdXBlZCBiYXIgY2hhcnQgKGJldHRlciBiYyBldmVyeXRoaW5nIGxpbmVzIHVwIGF0IHRoZSBib3R0b20pCi0gZGVwZW5kZW50IHZhcmlhYmxlIGlzIHRoZSBmaWxsIGNvbG9yIGluIHRoZSBncm91cGVkIGJhciBjaGFydAotIGdyb3VwZWQgYmFyIGNoYXJ0cyB3aXRoIGZhY2V0cyBJbnN0ZWFkIG9mIGNvbG9yIHVzZSB2YXJpYWJsZSBuYW1lcyBpbiBjaGFydCkKCjMuIGNsZXZlbGFuZCBkb3QgcGxvdCh0d28gdmFyaWFibGVzKQoKIyBUaHJlZSBDYXRlZ29yaWNhbCBWYXJpYWJsZXMKMS4gZ3JvdXBlZCBiYXIgY2hhcnQgd2l0aCBmYWNldCArIGNvbG9yIAoyLiBDbGV2ZWxhbmQgZG90IHBsb3QKLSBncm91cGVkIGJhciBjaGFydCB3aXRoIGZhY2V0IGFuZCBjb2xvciAKCiMgQ2hpIFNxdWFyZWQgVGVzdApodHRwOi8vd3d3LmxpbmcudXBlbm4uZWR1L35jbGlnaHQvY2hpc3F1YXJlZC5odG0KLSBUaGUgQ2hpLXNxdWFyZSB0ZXN0IGlzIGludGVuZGVkIHRvIHRlc3QgaG93IGxpa2VseSBpdCBpcyB0aGF0IGFuIG9ic2VydmVkIGRpc3RyaWJ1dGlvbiBpcyBkdWUgdG8gY2hhbmNlLgotIExpa2VsaWhvb2QgdGhhdCdzIHByb3BvcnRpb25hbCB0byB0aGUgc2l6ZXMgb2YgdGhlIGdyb3VwLiBUaGUgcmF0aW8gYWZmZWN0cyB0aGUgZXhwZWN0ZWQgdmFsdWUuCi0gaW5zdGVhZCBvZiB1c2luZyB0aGUgZnJlcXVlbmN5IGluIGRhdGEsIGl0IHVzZXMgdGhlIHJhdGlvIGluIHRoZSBkYXRhLgoKLSBBIENoaS1zcXVhcmUgdGVzdCBpcyBkZXNpZ25lZCB0byBhbmFseXplIGNhdGVnb3JpY2FsIGRhdGEKCiMgTW9zYWljIFBsb3QKCiMgTW9zYWljIHBsb3RzICh0aHJlZSB2YXJpYWJsZXMpCgojIE1vc2FpYyBQYWlycyBQbG90CgojIERvdWJsZWRlY2tlciBiYXIgY2hhcnRzCi0gcHJldHR5IG11Y2ggYSBtb3NhaWMgcGxvdAoKIyBDb252ZXJ0IGZyb20gb25lIGZvcm0gdG8gYW5vdGhlcgplYXN5IHRvIGdldCB0aGluZ3MgaW50byBjb3VudHIgYW5kIHRhYmxlcwpoYXJkIHRvIGdvIGJhY2sgdG8gY2FzZXMKY2FzZXMgLT4gY291bnRzIC0+IHRhYmxlcwpgYGB7cn0KQWdlCmBgYAoKYGBge3J9CmRhdGEuZnJhbWUoVGl0YW5pYykKbmV3Y3QgPC0gCnQgPC0gY2hpc3EudGVzdCgpCmBgYApgYGB7cn0KY2FzZXMgJT4lIGdyb3VwX2J5KEFnZSwgRmF2b3JpdGUpICU+JSBzdW1tYXJpemUoRnJlcT1uKCkpCiMgY291bnRzCmNvdW50czIgPC0gY291bnRzKGNhc2VzKSAjID8/PwojIGRlcGVuZGVudCB2YXJpYWJsZSBnb2VzIGZpcnN0OyBpbmRlcGVuZGVudCBnb2VzIHNlY29uZAp2Y2Q6Om1vc2FpYyhGYXZvcml0ZX5BZ2UsIGNvdW50czIpCmBgYAoK</div>
 
 
 

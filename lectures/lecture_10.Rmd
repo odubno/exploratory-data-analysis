@@ -19,4 +19,51 @@ output: html_notebook
 - don't use scatter plot
 - stacked bar chart (not so good bc they don't line up)
 - grouped bar chart (better bc everything lines up at the bottom)
-2a. dependent variable is the fill color in the grouped bar chart
+- dependent variable is the fill color in the grouped bar chart
+- grouped bar charts with facets Instead of color use variable names in chart)
+
+3. cleveland dot plot(two variables)
+
+# Three Categorical Variables
+1. grouped bar chart with facet + color 
+2. Cleveland dot plot
+- grouped bar chart with facet and color 
+
+# Chi Squared Test
+http://www.ling.upenn.edu/~clight/chisquared.htm
+- The Chi-square test is intended to test how likely it is that an observed distribution is due to chance.
+- Likelihood that's proportional to the sizes of the group. The ratio affects the expected value.
+- instead of using the frequency in data, it uses the ratio in the data.
+
+- A Chi-square test is designed to analyze categorical data
+
+# Mosaic Plot
+
+# Mosaic plots (three variables)
+
+# Mosaic Pairs Plot
+
+# Doubledecker bar charts
+- pretty much a mosaic plot
+
+# Convert from one form to another
+easy to get things into countr and tables
+hard to go back to cases
+cases -> counts -> tables
+```{r}
+Age
+```
+
+```{r}
+data.frame(Titanic)
+newct <- 
+t <- chisq.test()
+```
+```{r}
+cases %>% group_by(Age, Favorite) %>% summarize(Freq=n())
+# counts
+counts2 <- counts(cases) # ???
+# dependent variable goes first; independent goes second
+vcd::mosaic(Favorite~Age, counts2)
+```
+
