@@ -1,0 +1,22 @@
+---
+title: "Lecture 10"
+output: html_notebook
+---
+
+# Multivariate categorical data
+- Bar Charts (Goto for categorical data)
+- Cleveland dot plots
+- Mosaic plots (parallen coordinate plots; difficult to understand)
+- Fluctation diagrams
+- Frequency data formats (coding)
+- Drawing plots (coding)
+- Occupational Mobility data
+
+## Two continuous variables
+1. for continuous data we make scatter plot
+
+2. what about two categorical variables:
+- don't use scatter plot
+- stacked bar chart (not so good bc they don't line up)
+- grouped bar chart (better bc everything lines up at the bottom)
+2a. dependent variable is the fill color in the grouped bar chart
