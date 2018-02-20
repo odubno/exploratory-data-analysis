@@ -1,0 +1,74 @@
+---
+title: "Chapter 6"
+output: html_notebook
+---
+
+
+
+```{r}
+library(dplyr)
+library(magrittr)
+library(gridExtra)
+library(GGally)
+library(ggplot2)
+library(reshape2); data(nass.corn, "package"="agridat")
+c1 <- melt(nass.corn, id=c("year", "state"))
+c1 <- within(c1, StateV <- interaction(state, variable))
+c2 <- dcast(c1, StateV~year)
+subset.data <- subset(c2[1:48,], c2[1:48,147] > 250000)
+ggparcoord(subset.data, columns=2:147, groupColumn="StateV", scale="globalminmax") +
+  scale_x_discrete(breaks=seq(1865, 2015, 10))
+```
+```{r}
+Boston
+```
+
+```{r}
+
+data(Boston, package="MASS")
+Boston1 <- within(Boston, hmedv <- factor(ifelse(medv == 50, "Top", "Rest")))
+Boston1 <- within(Boston1, mlevel <- ifelse(medv == 50, 1, 0.1))
+Boston1 <- within(Boston1, medv1 <- medv)
+
+
+```
+
+```{r}
+a <- ggparcoord(data=Boston1[order(Boston1$hmedv),], 
+                columns=c(1:14), 
+                groupColumn = "hmedv",
+                scale="uniminmax",
+                alphaLines = "mlevel",
+                mapping = aes(size=1)) + 
+                xlab("") + ylab("") +
+  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
+
+b <- ggparcoord(data=Boston1, columns=c(1:14),
+                groupColumn = "medv1",
+                scale="uniminmax") +
+                xlab("") + ylab("") +
+  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
+  
+grid.arrange(a, b)
+```
+
+```{r}
+Boston1 <- Boston1 %>% mutate(
+arad = factor(ifelse(rad < max(rad), 0, 1)),
+aLevel = ifelse(rad < max(rad), 0.1, 1))
+ggparcoord(Boston1, 
+           columns=c(1:14), 
+           scale="uniminmax", 
+           groupColumn = "arad",
+           alphaLines="aLevel",
+           order="allClass") +
+  xlab("") +
+  ylab("") +
+  theme(legend.position = "none",
+        axis.ticks.y = element_blank(),
+        axis.text.y = element_blank())
+```
+
+
+
+
