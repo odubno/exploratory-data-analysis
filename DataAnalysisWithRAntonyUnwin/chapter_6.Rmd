@@ -70,5 +70,14 @@ ggparcoord(Boston1,
 ```
 
 
+```{r}
+hcav <- hclust(dist(USArrests), method="ave")
+clu3 <- cutree(hcav, k=3)
+clus <- factor(clu3)
+usa1 <- cbind(USArrests, clus)
+ggparcoord(usa1, columns=1:4, groupColumn = "clus", scale = "uniminmax", mapping=aes(size=10)) +
+  xlab("") + ylab("") +
+  theme(legend.position = "none")
+```
 
 
