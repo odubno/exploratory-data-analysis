@@ -1,0 +1,134 @@
+---
+title: "Lecture 11"
+output: html_notebook
+---
+
+
+# Mosaic Plot
+- Any filled rectangular plot (no white space) with consistent numbers of rows and columns, in which the area of each small rectangle is proportional to the frequency count for a unique combination of levels of the categorical variables displayed.
+
+- github link: https://github.com/jtr13/codehelp/blob/master/R/mosaic.md
+
+```{r}
+library("grid"); library("vcd")
+```
+
+```{r}
+csv_url <- url('https://raw.githubusercontent.com/jtr13/codehelp/master/data/MusicIcecream.csv')
+df <- read.csv(csv_url)
+```
+
+Splitting on age
+```{r}
+mosaic(~Age, df)
+```
+
+Split on age then music
+```{r}
+mosaic(Music ~ Age, df)
+```
+Split on Age, then Music, then Favorite:
+
+```{r}
+mosaic(Favorite ~ Age + Music, df)
+```
+## Direction of splits
+
+Note that in the previous example, the direction of the splits is as follows:
+
+1. Age -- horizontal split
+
+2. Music -- vertical split
+
+3. Favorite -- horizontal split
+
+This is the default direction pattern: alternating directions beginning with horizontal. Therefore we get the same plot with the following:
+
+```{r}
+mosaic(Favorite ~ Age + Music, direction=c("v","v","h"), df)
+```
+### Ff it's ordinal data, it should be ordered.
+### The darked color should be at the botton.
+```{r}
+library(grid)
+mosaic(Favorite ~ Age + Music, gp=gpar(fill=c("lightblue", "blue")), df)
+```
+
+```{r}
+labeling <- labeling_border(rot_labels=c(45, -45, 0, 0))
+mosaic(Favorite ~ Age + Music, labeling=labeling, df)
+```
+
+The rot_labels = vector sets the rotation in degrees on the four sides of the plot in this order: top, right, bottom, left. (Different from the typical base graphics order!) The default is rot_labels = c(0, 90, 0, 90).
+
+### Abbreviate labels:
+```{r}
+mosaic(Favorite ~ Age + Music, 
+       labeling = labeling_border(abbreviate_labs = c(3, 1, 6)), 
+       df)
+```
+### Remove spacing
+```{r}
+mosaic(Favorite ~ Age + Music,
+       spacing = spacing_equal(sp = unit(0, "lines")),
+       df)
+```
+
+### Change border color
+
+```{r}
+mosaic(Favorite ~ Age + Music,
+       gp = gpar(fill = c("lightblue", "blue"),
+                 col = "white"),
+       spacing = spacing_equal(sp = unit(0, "lines")),
+       df)
+```
+
+# Tree map
+- filled rectangular plot representing hierarchical data (fill color does not necessary represent frequency count)
+- these are nests and does not tell you anything about the relationship between the variables
+
+# Spine plot
+- Have lines that go all the way across without horizontal splits
+
+# Bar Plot vs Mosaic Plot
+relative frequency bar plot is pretty much the same as a mosaic plot with fixed bin length.
+"i feel that is not a mosaic plot unless the bins are uneven"
+
+# Likert Data ( Ordinal Data *not discrete* )
+### E.g.
+- strongly agree
+- agree
+- don't know
+- disagree
+- strongly disagree
+
+
+## Diverging Stacked bar Chart 
+
+```{r}
+# install.packages("HH")
+?? HH::likert
+```
+
+# Heatmaps
+
+better going from nominal to categorical
+
+```{r}
+library(gridExtra)
+library(ggplot2)
+x <- 1:3
+y <- c(5, 2, 7)
+df <- data.frame(x, y)
+g1 <- ggplot(df, aes(x, y)) + geom_point()
+g2 <- ggplot(df, aes(x, y)) + geom_tile()
+grid.arrange(g1, g2, nrow=1)
+```
+```{r}
+df$w <- c(1.4, .4, .2)
+df$h <- c(.5, 1.3, .8)
+
+ggplot(df, aes(x, y)) + geom_tile(aes(width=w, height=h))
+```
+# Use factor when working with categories to avoid ordinal data that are intergers from becoming gradients.
