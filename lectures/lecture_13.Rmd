@@ -4,3 +4,89 @@ output: html_notebook
 ---
 
 # Missing Data
+```{r}
+library(skimr)
+library(ggplot2)
+library(magrittr)
+library(mi)
+```
+
+### Looking for patterns in missing data (row/ column patterns)
+- purely obeservation descriptive
+- do all variables have the same percentage of values missing?
+- Are there row patterns to the missing values?
+- use a heat map to visualize 
+- with heat maps you'll better see missing data
+- heatmap - geom_tile()
+
+```{r}
+mycars <- mtcars
+skimr::skim(mycars)%>%filter(stat=="missing")%>%arrange(desc(value))%>%select(variable,type,value)%>%mutate(percent=value/nrow(mycars))
+```
+
+### Skimr gives a good summary of any data frame
+- great summaries
+- 
+```{r}
+skimr::skim(mtcars)
+```
+### MI (Missing data frame function)
+
+```{r}
+mi::missing_data.frame(mtcars)
+```
+```{r}
+x <- mi::missing_data.frame(mycars)
+show(x)
+heatmap(x)
+```
+## Tow/column missing patters
+- Patters 
+
+```{r}
+x@patterns
+
+```
+
+# Visna 
+- shows patterns not the rows
+- what do the patterns mean?
+- less rows and each row represents a missing pattern
+- Also has a bar to show how much data is missing
+- visna()
+
+# Loking for patterns in missing data
+- value patterns
+- are missing patterns correlated with values of another variable? (MAR=missing at random)
+- are certain (true) value ranges more likely to be missing? (MNAR = missing not at random)
+- there's a reason certain data is missing. research and figure out why certain values are missing
+
+```{r}
+df <- read.csv("https://raw.githubusercontent.com/jtr13/dataquality/master/SAT2010.csv")
+df
+```
+
+```{r}
+x <- mi::missing_data.frame(df)
+x
+```
+
+```{r}
+head(df)
+```
+
+## MAR (Missing At Random)
+## MNAR (Missing Not At Random)
+
+# Does the missing data vary by a certain column (borough?)
+- Use the dbn column to identify the borough.
+```{r}
+df$DBN2 <- gsub('[0-9]','',df$DBN)
+```
+```{r}
+df
+```
+
+
+https://www.rstudio.com/resources/webinars/extracting-data-from-the-web-part-1/
+rvest for scrapping? 
