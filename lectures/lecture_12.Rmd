@@ -1,0 +1,15 @@
+---
+title: "Lecture 12"
+output: html_notebook
+---
+
+```{r}
+plot(AirPassengers)
+```
+
+```{r}
+monthplot(AirPassengers)
+```
+
+### Almost like separate facet plots whithin one plot
+

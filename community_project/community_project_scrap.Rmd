@@ -1,0 +1,45 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library("readr")
+```
+
+```{r}
+library(ggplot2)
+df <- mtcars
+```
+
+```{r}
+names(df)
+```
+
+```{r}
+df
+```
+
+
+```{r}
+library(ggplot2)
+df <- mtcars
+ggplot(df, aes(x=mpg, y=wt)) + 
+  geom_point(alpha=.5, aes(size = 3, colour = factor(am), shape = factor(cyl))) + 
+  geom_smooth(method=lm , color="red")
+```
+
+```{r}
+library("ggplot2")
+p = ggplot(data=df, aes(x=likes_count))
+p + geom_histogram()
+```
+
+```{r}
+library(GGally)
+df <- data.frame(state.x77)
+ggplot(data = df, aes(x=Life.Exp)) + 
+  geom_histogram()
+```
+
+
+

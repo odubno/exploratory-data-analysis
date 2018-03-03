@@ -1,0 +1,193 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+### Ordered Elementary Tasks
+1. Position along a common scale
+2. Position along identical, nonaligned scales
+3. Length
+4. Angle / Slope
+5. Area
+6. Volume
+7. Color hue / Color saturation / Density
+
+### Weber's Law
+• Consider two lines with lengths x and x + w.
+• If w is very small, there is only a very small chance that we will notice that the
+lines have diferent lengths.
+• As w gets larger, the chance of detecting a diference increases.
+• Weber’s law says that the chance of detecting a diference depends on the value
+of w/x.
+
+### Continuous Variables
+We’re looking for features such as:
+
+Asymmetry
+Outliers
+Multimodality
+Gaps
+Heaping / Rounding
+Impossibilities / Errors
+
+### Histograms
+primary tool for continuous data
+count / relative frequency / cumulative frequency / density
+boundaries
+binwidth
+
+#![Here is a Crab](/Users/olehdubno/Documents/columbia/exploratory_data_analysis/data/r_layers.png)
+
+#### Layer 1
+
+```{r}
+library(ggplot2)
+df1 <- data.frame(x = rnorm(100), y = rnorm(100))
+```
+
+```{r}
+
+ggplot() + layer(data = df1,
+mapping = aes(x, y),
+geom = "hex",
+stat = "identity",
+position = "identity")
+```
+```{r}
+head(mtcars)
+```
+
+```{r}
+ggplot(mtcars, aes(drat, vs)) +
+  geom_point()
+```
+
+
+```{r}
+ggplot(mtcars, aes(drat, vs)) +
+  geom_jitter()
+```
+
+
+- dodge: positions objects so that there is no overlap at the side.
+- stack and fill: positions objetxs so that they are stacked. The stack instructions stacks objects in front of each other such that the largest object on top of one other (to make of equal height that are partitioned by the stacking variable)
+- identity: no position adjustment
+- jitter: adds a random offset objects so that they don't overlap.
+
+Data: df1
+Mapping: x -> y, y -> x
+Geom: point 
+Stat: identity
+Position: identity
+
+#### Layer 2
+Data: df2
+Mapping: num -> x, height -> y
+Geom: bar
+Stat: identity
+Position: identity
+
+#### Layer 3
+Data: df3
+Mapping: score -> y; 1 -> x
+Geom: boxplot
+Stat: boxplot 
+Position: dodge
+
+#### Layer 4
+Data: df4
+Mapping: time -> x; dist -> y
+Geom: line
+Stat: indentity
+Position: identity
+
+
+## Stem and Leaf Plot
+```{r}
+prices <- c(379, 425, 450, 450, 499, 529, 535, 535, 545, 599, 665, 675, 699, 699, 725, 725, 745, 799)
+stem(prices)
+```
+
+
+
+Data: df1
+Mapping: x -> y; y -> x
+Geom: point
+Stat: identity
+Position: identity
+
+Data: df2
+Mapping: num -> x; height -> y
+Geom: bar (fill=green)
+Stat: indentiy
+Position: identity
+
+Data: df3
+Mapping: score -> y; 1 -> x
+Geom: boxplot
+Stat: boxplot
+Position: identity
+
+Data: df4
+Mapping: time -> x; dist -> y
+Geom: line
+Stat: identity
+Position: idenity
+
+```{r}
+df3 <- data.frame(score = rnorm(25, mean = 15, sd = 3))
+```
+
+```{r}
+ggplot() + layer(data = df3,
+mapping = aes(1, score),
+geom = "boxplot",
+stat = "boxplot",
+position = "dodge")
+ggplot() + layer(data = df3,
+mapping = aes(1, score),
+geom = "boxplot",
+stat = "boxplot",
+position = "identity")
+```
+
+## Identifying rounding patters
+- If the distribution in the histogram doesn't change when varying the bin width from, lets say 10, to 1, then we could conclude that there are rounding patters.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
