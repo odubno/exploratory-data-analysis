@@ -12,19 +12,12 @@ library(plyr)
 library(dplyr) 
 library(MASS)
 library(vcd)
+library(tidyquant)
 ```
 
 **$1.$ Parallel Coordinates**
 
 $(a)$ Draw a parallel coordinates plot of the data in "ManhattanCDResults.csv" in the data folder on CourseWorks. (Original data source and additional information about the data can be found here:  https://cbcny.org/research/nyc-resident-feedback-survey-community-district-results). Your plot should have one line for each of the twelve Manhattan community districts in the dataset. 
-
-```{r}
-df[3:14] <- lapply(df[3:14], function(x) as.numeric(sub("%", "", x)))
-```
-```{r}
-df
-```
-
 
 ```{r}
 df <- read.csv('../data/ManhattanCDResults.csv')
@@ -59,34 +52,130 @@ $(d)$ Does there appear to be a correlation between districts and overall satisf
 
 Using the "Death2015.txt" data from the previous assignment, create a mosaic plot to identify whether `Age` is associated with `Place of Death`. Include only the top four `Age` categories. Treat `Age` as the independent variable and `Place of Death` as the dependent variable. (Hint: the dependent variable should be the last cut and it should be horizontal.) The labeling should be clear enough to identify what's what, that is, "good enough," not perfect. Do the variables appear to be associated? Describe briefly.
 
+1. Place of death and age do appear to have some association. Very little.
+2. The likelihood of dying at the *Descendent's home* increases with age. 
+3. The likelihood of dying at the *Medical Faility - Dead on Arrival* appears to be higher for ages 1 or younger and decreases with age.
+4. The associations aren't strong. They're subtle, but some do exist.
+
 ```{r}
 death <- read.csv('../data/Death2015.txt', sep='\t')
-death <- subset(death, Ten.Year.Age.Groups.Code %in% c("1", "1-4", "5-14", "15-24"))
-death$Ten.Year.Age.Groups.Code <- factor(death$Ten.Year.Age.Groups.Code)
+ages = c("1", "1-4", "5-14", "15-24")
+death <- subset(death, Ten.Year.Age.Groups.Code %in% ages)
+death$Ten.Year.Age.Groups.Code <- factor(death$Ten.Year.Age.Groups.Code, levels=ages)
 ```
-```{r}
-??mosaic
-```
-
-```{r, fig.height=16, fig.width=20}
-library(mosaic)
-mosaic(Place.of.Death~Ten.Year.Age.Groups.Code, death)
-
+```{r, fig.height=10, fig.width=30}
+labels = list(gp_labels = gpar(fontsize = 12, fontface = 3))
+mosaic(Place.of.Death~Ten.Year.Age.Groups.Code, death, keep_aspect_ratio=FALSE, labeling_args = labels)
 ```
 
 **$3.$ Time Series**
 
 $(a)$ Use the `tidyquant` package to collect stock information on four stocks of your choosing.  Create a line chart showing the closing price of the four stocks on the same graph, employing a different color for each stock.
+```{r}
+from <- today() - years(1)
+tickers <- c("AAPL", "MSFT", "AMZN", "GOOG")
+stock.prices <-  tq_get(tickers, get="stock.prices", from = from)
+close.prices <- spread(stock_prices, key=symbol, value=close)
+```
+```{r}
+ggplot(stock.prices, aes(date, close, color=symbol)) +
+    geom_line()
+```
 
 
 $(b)$ Transform the data so each stock begins at 100 and replot. Do you learn anything new that wasn't visible in part (a)?
+- Apologies for the excessive code. I couldn't find a better way of normalizing to a base-index of 100 so I wrote my own function. It would be awesome if you could show me a better way of doing this.
+- We learn that the performance of *GOOG* and *MSFT* performed better than depicted in the line chart above. 
+- Indexing the data helps to better analyze the changes of price over time.
+- Resource: https://www.dallasfed.org/research/basics/indexing.aspx
+```{r}
+# Function to transform each stock/symbol to begin at 100.
+normalize <- function(symbol){
+  index.value <- close.prices[[symbol]][1]/100
+  ans <- list()
+  for(price in close.prices[[symbol]]){
+    ans <- append(ans, (price/index.value))
+  }
+  df <- data.frame(symbol=unlist(ans))
+  colnames(df) <- c(symbol)
+  return(df)
+}
+```
+
+```{r}
+close.prices$AMZN <- normalize('AMZN')$AMZN
+close.prices$AAPL <- normalize('AAPL')$AAPL
+close.prices$GOOG <- normalize('GOOG')$GOOG
+close.prices$MSFT <- normalize('MSFT')$MSFT
+```
+
+```{r}
+ggplot(close.prices) + 
+  geom_line(aes(date, AAPL, color="AAPL")) + 
+  geom_line(aes(date, AMZN, color="AMZN")) +
+  geom_line(aes(date, MSFT, color="MSFT")) +
+  geom_line(aes(date, GOOG, color="GOOG")) +
+  xlab("") +
+  ylab("Close Price")
+```
 
 
 **$4.$ Missing Data**
 
 For this question, explore the New York State Feb 2017 snow accumulation dataset available in the data folder on CourseWorks: "NY-snowfall-201702.csv". The original data source is here: https://www.ncdc.noaa.gov/snow-and-ice/daily-snow/
 
+```{r}
+snow.url <- "https://www.ncdc.noaa.gov/snow-and-ice/daily-snow/NY-snowfall-201802.csv"
+snow <- read.csv(snow.url, skip=1)
+```
+
 $(a)$ Show missing patterns graphically.
+```{r}
+snow
+```
+
+```{r}
+set.seed(5702)
+mycars <- mtcars
+mycars[,"gear"] <- NA
+mycars[10:20, 3:5] <- NA
+for (i in 1:10) mycars[sample(32,1), sample(11,1)] <- NA
+```
+```{r}
+mtcars
+```
+
+```{r}
+library(viridis)
+library(tidyverse)
+tidycars <- mycars %>%
+rownames_to_column("id") %>%
+gather(key, value, -id) %>%
+mutate(missing = ifelse(is.na(value), "yes", "no"))
+```
+```{r}
+tidysnow <- snow %>% 
+  rownames_to_column("id") %>%
+gather(key, value, -id) %>%
+mutate(missing = ifelse(is.na(value), "yes", "no"))
+```
+```{r}
+tidysnow
+```
+
+```{r}
+ggplot(tidysnow, aes(x = key, y = fct_rev(id), fill = missing)) +
+geom_tile(color = "white") +
+ggtitle("mtcars with NAs added") +
+# scale_fill_viridis(option="D")  + # discrete scale
+theme_bw()
+```
+```{r}
+ggplot(tidysnow, aes(x = key, y = fct_rev(id), fill = value)) +
+geom_tile(color = "white") +
+scale_fill_gradient(low = "grey80", high = "red", na.value = "black") + theme_bw()
+```
+
 
 $(b)$ Is the percent of missing values consistent across days of the month, or is there variety? 
 
