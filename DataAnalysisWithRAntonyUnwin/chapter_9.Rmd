@@ -1,0 +1,21 @@
+---
+title: "Chapter 9"
+output: html_notebook
+---
+
+# Graphics and Data Quality: How Good Are the Data?
+
+"Beauty is less important than quality."
+
+## Visualizing patterns of missing values
+```{r}
+data('CHAIN', package="mi")
+library(mi)
+par(mar=c(1.1, 4.1, 1.1, 2.1))
+missing.pattern.plot(CHAIN, y.order=TRUE, xlab="", main="")
+```
+
+```{r}
+CHAIN
+```
+

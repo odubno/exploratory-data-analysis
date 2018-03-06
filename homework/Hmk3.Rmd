@@ -1,0 +1,95 @@
+---
+title: "Homework 3"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, eval = FALSE)
+library(GGally)
+library(tidyr)
+library(plotly)
+library(plyr)
+library(dplyr) 
+library(MASS)
+library(vcd)
+```
+
+**$1.$ Parallel Coordinates**
+
+$(a)$ Draw a parallel coordinates plot of the data in "ManhattanCDResults.csv" in the data folder on CourseWorks. (Original data source and additional information about the data can be found here:  https://cbcny.org/research/nyc-resident-feedback-survey-community-district-results). Your plot should have one line for each of the twelve Manhattan community districts in the dataset. 
+
+```{r}
+df[3:14] <- lapply(df[3:14], function(x) as.numeric(sub("%", "", x)))
+```
+```{r}
+df
+```
+
+
+```{r}
+df <- read.csv('../data/ManhattanCDResults.csv')
+df[3:14] <- lapply(df[3:14], function(x) as.numeric(sub("%", "", x)))
+df3 <- gather(df, key="district", value="value", cd1:cd12)
+df3 <- df3[c(3,1,4)]
+df3 <- spread(df3, key=Indicator, value=value)
+```
+
+```{r fig.height=16, fig.width=10}
+ggparcoord(df3, 
+           columns = c(2:46), 
+           groupColumn = "district", 
+           scale = "globalminmax", 
+           alphaLines = .7) + 
+  coord_flip() + 
+  xlab("Indicators") + 
+  ylab("Approval")
+```
+
+
+$(b)$ Do there appear to be greater differences across *indicators* or across *community districts*? (In other words, are Manhattan community districts more alike or more different in how their citizens express their satisfaction with city life? 
+- There appears to be a greater differences accross *indicators* than accross *community districts*. Manahattan community districts are more a alike in how they express their satisfaction with the city life. 
+
+$(c)$ Which indicators have wide distributions (great variety) in responses?
+- *Neighborhood parks*, *Neightborhood as a place to live*, *Neighbrohood Playgrounds*, *Availability of cultural activities* are the ones that stand out as having a wide distribution in responses.
+
+$(d)$ Does there appear to be a correlation between districts and overall satisfaction?  In order words, do some districts report high satisfaction on many indicators and some report low satisfaction on many indicators or are the results more mixed? (Hint: a different color for each community district helps identify these trends). 
+- There does appear to be a correlation between districts and overall satisfation. There are some indicators that have higher varierty in satisfation than others, but untimately there is less results that are mixed. 
+
+**$2.$ Mosaic Plots**
+
+Using the "Death2015.txt" data from the previous assignment, create a mosaic plot to identify whether `Age` is associated with `Place of Death`. Include only the top four `Age` categories. Treat `Age` as the independent variable and `Place of Death` as the dependent variable. (Hint: the dependent variable should be the last cut and it should be horizontal.) The labeling should be clear enough to identify what's what, that is, "good enough," not perfect. Do the variables appear to be associated? Describe briefly.
+
+```{r}
+death <- read.csv('../data/Death2015.txt', sep='\t')
+death <- subset(death, Ten.Year.Age.Groups.Code %in% c("1", "1-4", "5-14", "15-24"))
+death$Ten.Year.Age.Groups.Code <- factor(death$Ten.Year.Age.Groups.Code)
+```
+```{r}
+??mosaic
+```
+
+```{r, fig.height=16, fig.width=20}
+library(mosaic)
+mosaic(Place.of.Death~Ten.Year.Age.Groups.Code, death)
+
+```
+
+**$3.$ Time Series**
+
+$(a)$ Use the `tidyquant` package to collect stock information on four stocks of your choosing.  Create a line chart showing the closing price of the four stocks on the same graph, employing a different color for each stock.
+
+
+$(b)$ Transform the data so each stock begins at 100 and replot. Do you learn anything new that wasn't visible in part (a)?
+
+
+**$4.$ Missing Data**
+
+For this question, explore the New York State Feb 2017 snow accumulation dataset available in the data folder on CourseWorks: "NY-snowfall-201702.csv". The original data source is here: https://www.ncdc.noaa.gov/snow-and-ice/daily-snow/
+
+$(a)$ Show missing patterns graphically.
+
+$(b)$ Is the percent of missing values consistent across days of the month, or is there variety? 
+
+$(c)$ Is the percent of missing values consistent across collection stations, or is there variety?
+
+$(d)$ Is the daily average snowfall correlated with the daily missing values percent?  On the basis of these results, what is your assessment of the reliability of the data to capture true snowfall patterns? In other words, based on what you've discovered, do you think that the missing data is highly problematic, or not?
