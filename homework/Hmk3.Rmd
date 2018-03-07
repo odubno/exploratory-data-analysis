@@ -126,59 +126,52 @@ For this question, explore the New York State Feb 2017 snow accumulation dataset
 
 ```{r}
 snow.url <- "https://www.ncdc.noaa.gov/snow-and-ice/daily-snow/NY-snowfall-201802.csv"
-snow <- read.csv(snow.url, skip=1)
+main.snow <- data.frame(read.csv(snow.url, skip=1))
 ```
 
 $(a)$ Show missing patterns graphically.
+##### Set Up Snow data
 ```{r}
-snow
+snow <- as.matrix(main.snow)
+snow[snow == "T"] <- 0.01
+snow[snow == "M"] <- NA
+snow <- as.data.frame(snow)
+rownames(snow) <- snow$Station.Name
 ```
-
+##### Tidy Snow Data
 ```{r}
-set.seed(5702)
-mycars <- mtcars
-mycars[,"gear"] <- NA
-mycars[10:20, 3:5] <- NA
-for (i in 1:10) mycars[sample(32,1), sample(11,1)] <- NA
-```
-```{r}
-mtcars
-```
-
-```{r}
-library(viridis)
-library(tidyverse)
-tidycars <- mycars %>%
-rownames_to_column("id") %>%
-gather(key, value, -id) %>%
-mutate(missing = ifelse(is.na(value), "yes", "no"))
-```
-```{r}
-tidysnow <- snow %>% 
+tidysnow <- snow %>%
   rownames_to_column("id") %>%
-gather(key, value, -id) %>%
-mutate(missing = ifelse(is.na(value), "yes", "no"))
+  gather(key, value, -id) %>%
+  mutate(missing = ifelse(is.na(value), "yes", "no"))
 ```
-```{r}
-tidysnow
-```
-
-```{r}
+##### Column Missing Pattern (geom_tile())
+```{r, fig.height=150, fig.width=30}
 ggplot(tidysnow, aes(x = key, y = fct_rev(id), fill = missing)) +
-geom_tile(color = "white") +
-ggtitle("mtcars with NAs added") +
-# scale_fill_viridis(option="D")  + # discrete scale
-theme_bw()
+  geom_tile(color = "white") +
+  theme(axis.text.x = element_text(size=20,angle=90),
+        axis.text.y = element_text(size=20),  
+        axis.title.x = element_text(size=40),
+        axis.title.y = element_text(size=40,angle=90)) +
+  xlab("") + 
+  ylab("")
 ```
-```{r}
-ggplot(tidysnow, aes(x = key, y = fct_rev(id), fill = value)) +
-geom_tile(color = "white") +
-scale_fill_gradient(low = "grey80", high = "red", na.value = "black") + theme_bw()
-```
-
 
 $(b)$ Is the percent of missing values consistent across days of the month, or is there variety? 
+- I presume you mean variety across days/months and stations reporting it. Some stations, not many, are very consistent with reporting.
+- There's a lot of missing values and nothing is really consistent accross the days of the month; the values vary a lot.
+- It would be interesting to sort by location and see if there's a pattern in reporting.
 
 $(c)$ Is the percent of missing values consistent across collection stations, or is there variety?
+
+```{r fig.height=6, fig.width=10}
+snow.url <- "https://www.ncdc.noaa.gov/snow-and-ice/daily-snow/NY-snowfall-201802.csv"
+snow <- data.frame(read.csv(snow.url, skip=1))
+snow$na.count <- apply(snow, 1, function(x) sum(x=='M'))
+ggplot(snow, aes(x = Latitude, y = Longitude)) +
+  geom_point(aes(colour = na.count), alpha=.7) + 
+  scale_colour_gradient(low = "white", high = "black")
+```
+
 
 $(d)$ Is the daily average snowfall correlated with the daily missing values percent?  On the basis of these results, what is your assessment of the reliability of the data to capture true snowfall patterns? In other words, based on what you've discovered, do you think that the missing data is highly problematic, or not?

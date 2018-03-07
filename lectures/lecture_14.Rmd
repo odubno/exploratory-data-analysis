@@ -3,3 +3,59 @@ title: "Lecture 14"
 output: html_notebook
 ---
 
+```{r}
+library(ggplot2)
+```
+
+```{r}
+snow.url <- "https://www.ncdc.noaa.gov/snow-and-ice/daily-snow/NY-snowfall-201802.csv"
+snow <- data.frame(read.csv(snow.url, skip=1))
+```
+
+```{r}
+ggplot(snow, aes(x = Longitude, y = Latitude)) +
+  geom_point() + theme_classic()
+```
+
+```{r}
+snow <- snow %>% rename(Lat = Longitude, Lon = Latitude)
+ggplot(snow, aes(x = Lon, y = Lat)) +
+  geom_point() + theme_classic()
+```
+
+### Non visual summaries, such as: summary(), str(),  skimr::skim()
+### When beginning multivariate analyses, work with a small number of variables first and a random sample of rows if the dataset is large
+- start small, scatter plot; line plot (sales by year); gradually build up
+### You do not need to use all the variables. Stay focused on the question(s) that interest you.
+### p-hacking problem
+- The “p-hacking” problem… is EDA immune?
+- checking if a certain hypothesis, p is significant
+- if the alpha value is .05 then that means 1/20 attempts at getting the p value, you'll get a false positive. Scientists will continue testing until they get one single significant test.
+- only reporting significant level
+
+```{r}
+sales <- read.csv("https://community.watsonanalytics.com/wp-content/uploads/2015/08/WA_Sales_Products_2012-14.csv")
+```
+
+```{r}
+# random 6 lines
+index <- sort(sample(nrow(sales), 6))
+sales[index,]
+```
+
+```{r}
+countryorder <- sales %>% 
+  filter(Year == 2012, `Product line` == "Personal") %>% 
+  arrange(-TotalRev) %>% pull(`Retailer country`)
+dflines <- snow %>% 
+  mutate(`Retailer country` = fct_relevel(`Retailer country`, 
+                                          as.character(countryorder)))
+```
+
+## Strategies for Spacial Data
+- when to use maps and when not to use maps
+- there's a cost to maps (we lose our axis)
+- best utilized maps (John Snow, Cholera Map) - Geography is an independent variable
+- location of where people live explains something
+- different from graphing sport teams and put it on the map. Does location have to do with winning? Well it depends.
+- is there a geographic patern to my data.
