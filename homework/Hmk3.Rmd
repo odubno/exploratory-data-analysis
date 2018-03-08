@@ -1,10 +1,16 @@
 ---
 title: "Homework 3"
-output: html_document
+author: Oleh Dubno
+date: 03/07/18
+output: html_notebook
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, eval = FALSE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE,
+                      message = FALSE)
+```
+
+```{r}
 library(GGally)
 library(tidyr)
 library(plotly)
@@ -14,21 +20,20 @@ library(MASS)
 library(vcd)
 library(tidyquant)
 ```
-
 **$1.$ Parallel Coordinates**
 
 $(a)$ Draw a parallel coordinates plot of the data in "ManhattanCDResults.csv" in the data folder on CourseWorks. (Original data source and additional information about the data can be found here:  https://cbcny.org/research/nyc-resident-feedback-survey-community-district-results). Your plot should have one line for each of the twelve Manhattan community districts in the dataset. 
 
 ```{r}
-df <- read.csv('../data/ManhattanCDResults.csv')
-df[3:14] <- lapply(df[3:14], function(x) as.numeric(sub("%", "", x)))
-df3 <- gather(df, key="district", value="value", cd1:cd12)
-df3 <- df3[c(3,1,4)]
-df3 <- spread(df3, key=Indicator, value=value)
+cd <- read.csv('../data/ManhattanCDResults.csv')
+cd[3:14] <- lapply(cd[3:14], function(x) as.numeric(sub("%", "", x)))
+cd <- gather(cd, key="district", value="value", cd1:cd12)
+cd <- cd[c(3,1,4)]
+cd <- spread(cd, key=Indicator, value=value)
 ```
 
 ```{r fig.height=16, fig.width=10}
-ggparcoord(df3, 
+ggparcoord(cd, 
            columns = c(2:46), 
            groupColumn = "district", 
            scale = "globalminmax", 
@@ -40,13 +45,17 @@ ggparcoord(df3,
 
 
 $(b)$ Do there appear to be greater differences across *indicators* or across *community districts*? (In other words, are Manhattan community districts more alike or more different in how their citizens express their satisfaction with city life? 
-- There appears to be a greater differences accross *indicators* than accross *community districts*. Manahattan community districts are more a alike in how they express their satisfaction with the city life. 
+
+1. There appears to be a greater differences across *indicators* than across *community districts*. 
+2. Manahattan community districts are more a alike in how they express their satisfaction with the city life. 
 
 $(c)$ Which indicators have wide distributions (great variety) in responses?
-- *Neighborhood parks*, *Neightborhood as a place to live*, *Neighbrohood Playgrounds*, *Availability of cultural activities* are the ones that stand out as having a wide distribution in responses.
+
+1. *Neighborhood parks*, *Neightborhood as a place to live*, *Neighbrohood Playgrounds*, *Availability of cultural activities* are the ones that stand out as having a wide distribution in responses.
 
 $(d)$ Does there appear to be a correlation between districts and overall satisfaction?  In order words, do some districts report high satisfaction on many indicators and some report low satisfaction on many indicators or are the results more mixed? (Hint: a different color for each community district helps identify these trends). 
-- There does appear to be a correlation between districts and overall satisfation. There are some indicators that have higher varierty in satisfation than others, but untimately there is less results that are mixed. 
+
+1. There does appear to be a correlation between districts and overall satisfaction. There are some indicators that have higher variety in satisfaction than others, but ultimately there is less results that are mixed. 
 
 **$2.$ Mosaic Plots**
 
@@ -63,9 +72,12 @@ ages = c("1", "1-4", "5-14", "15-24")
 death <- subset(death, Ten.Year.Age.Groups.Code %in% ages)
 death$Ten.Year.Age.Groups.Code <- factor(death$Ten.Year.Age.Groups.Code, levels=ages)
 ```
-```{r, fig.height=10, fig.width=30}
-labels = list(gp_labels = gpar(fontsize = 12, fontface = 3))
-mosaic(Place.of.Death~Ten.Year.Age.Groups.Code, death, keep_aspect_ratio=FALSE, labeling_args = labels)
+###### Really annoying (I couldn't increase the size of the chart to see the labels.)
+```{r fig.width=12}
+par(mar=c(7,8,7,7))
+just_labels <- c("left", "center", "center", "center")
+labels <- list(gp_labels = gpar(fontsize = 14, fontface = 3))
+mosaic(Place.of.Death~Ten.Year.Age.Groups.Code, death, keep_aspect_ratio=FALSE, labeling = labeling_border(rot_labels = c(8,0,0,0), just_labels = just_labels)) 
 ```
 
 **$3.$ Time Series**
@@ -84,10 +96,12 @@ ggplot(stock.prices, aes(date, close, color=symbol)) +
 
 
 $(b)$ Transform the data so each stock begins at 100 and replot. Do you learn anything new that wasn't visible in part (a)?
-- Apologies for the excessive code. I couldn't find a better way of normalizing to a base-index of 100 so I wrote my own function. It would be awesome if you could show me a better way of doing this.
-- We learn that the performance of *GOOG* and *MSFT* performed better than depicted in the line chart above. 
-- Indexing the data helps to better analyze the changes of price over time.
-- Resource: https://www.dallasfed.org/research/basics/indexing.aspx
+
+1. Apologies for the excessive code. I couldn't find a better way of normalizing to a base-index of 100 so I wrote my own function. It would be awesome if you could show me a better way of doing this.
+2. We learn that the performance of *GOOG* and *MSFT* performed better than depicted in the line chart above. 
+3. Indexing the data helps to better analyze the changes of price over time.
+4. Resource: https://www.dallasfed.org/research/basics/indexing.aspx
+
 ```{r}
 # Function to transform each stock/symbol to begin at 100.
 normalize <- function(symbol){
@@ -124,14 +138,12 @@ ggplot(close.prices) +
 
 For this question, explore the New York State Feb 2017 snow accumulation dataset available in the data folder on CourseWorks: "NY-snowfall-201702.csv". The original data source is here: https://www.ncdc.noaa.gov/snow-and-ice/daily-snow/
 
+$(a)$ Show missing patterns graphically.
+
+##### Set Up Snow data
 ```{r}
 snow.url <- "https://www.ncdc.noaa.gov/snow-and-ice/daily-snow/NY-snowfall-201802.csv"
 main.snow <- data.frame(read.csv(snow.url, skip=1))
-```
-
-$(a)$ Show missing patterns graphically.
-##### Set Up Snow data
-```{r}
 snow <- as.matrix(main.snow)
 snow[snow == "T"] <- 0.01
 snow[snow == "M"] <- NA
@@ -145,6 +157,17 @@ tidysnow <- snow %>%
   gather(key, value, -id) %>%
   mutate(missing = ifelse(is.na(value), "yes", "no"))
 ```
+##### Preserve *key* order
+```{r}
+preserve.key.order <- function(){
+  ordered.keys <- list()
+  for(i in unique(tidysnow$key)){
+    ordered.keys <- append(ordered.keys, i)
+  }
+  return(ordered.keys)
+}
+tidysnow$key <- factor(tidysnow$key, levels=preserve.key.order())
+```
 ##### Column Missing Pattern (geom_tile())
 ```{r, fig.height=150, fig.width=30}
 ggplot(tidysnow, aes(x = key, y = fct_rev(id), fill = missing)) +
@@ -157,12 +180,17 @@ ggplot(tidysnow, aes(x = key, y = fct_rev(id), fill = missing)) +
   ylab("")
 ```
 
-$(b)$ Is the percent of missing values consistent across days of the month, or is there variety? 
-- I presume you mean variety across days/months and stations reporting it. Some stations, not many, are very consistent with reporting.
-- There's a lot of missing values and nothing is really consistent accross the days of the month; the values vary a lot.
-- It would be interesting to sort by location and see if there's a pattern in reporting.
+$(b)$ Is the percent of missing values consistent across days of the month, or is there variety?
+
+1. There are very few stations that are consistent with reporting values.
+2. There's a lot of missing values and nothing is really consistent accross the days of the month; the values vary a lot.
+3. It would be interesting to sort by location and see if there's a pattern in missing data.
 
 $(c)$ Is the percent of missing values consistent across collection stations, or is there variety?
+
+1. It's hard to tell if there's a pattern in missing data. According to *Missing Data by County* we could see that NYC under reports their values.
+2. However, there's a lot of points clustered around NYC, and of course some of those will unreported. 
+3. There's a lot of variety in missing values across the stations.
 
 ```{r fig.height=6, fig.width=10}
 snow.url <- "https://www.ncdc.noaa.gov/snow-and-ice/daily-snow/NY-snowfall-201802.csv"
@@ -170,8 +198,84 @@ snow <- data.frame(read.csv(snow.url, skip=1))
 snow$na.count <- apply(snow, 1, function(x) sum(x=='M'))
 ggplot(snow, aes(x = Latitude, y = Longitude)) +
   geom_point(aes(colour = na.count), alpha=.7) + 
-  scale_colour_gradient(low = "white", high = "black")
+  scale_colour_gradient(low = "white", high = "black") + 
+  ggtitle("Missing Data by County")
+```
+
+$(d)$ Is the daily average snowfall correlated with the daily missing values percent?  On the basis of these results, what is your assessment of the reliability of the data to capture true snowfall patterns? In other words, based on what you've discovered, do you think that the missing data is highly problematic, or not?
+
+1. There does not seem to be a correlation between the average snowfall and missing values. 
+2. Graphing both *na_totals* and daily *average* by each day we see a very weak negative correlation.
+3. Negative correlation makes sense, given that if *average* snow fall is high then the *total_na* should be low.
+4. The missing data is highly problematic in capturing true snowfall patterns.
+
+```{r}
+snow.url <- "https://www.ncdc.noaa.gov/snow-and-ice/daily-snow/NY-snowfall-201802.csv"
+main.snow <- data.frame(read.csv(snow.url, skip=1))
+snow <- as.matrix(main.snow)
+snow[snow == "T"] <- 0.01
+snow[snow == "M"] <- NA
+snow <- as.data.frame(snow)
+```
+##### Create a Function to get *na_total* and *average* for each day of the month.
+```{r}
+get.na_avg <- function(){
+  dates <- c(
+    "Feb.1","Feb.2","Feb.3","Feb.4","Feb.5","Feb.6","Feb.7","Feb.8","Feb.9","Feb.10",
+    "Feb.11","Feb.12","Feb.13","Feb.14","Feb.15","Feb.16","Feb.17","Feb.18","Feb.19",
+    "Feb.20","Feb.21","Feb.22","Feb.23","Feb.24","Feb.25","Feb.26","Feb.27","Feb.28"
+    )
+  na_total <- list()
+  average <- list()
+  date_list <- list()
+  for(date in dates){
+    na_total <- append(na_total, as.numeric(sum(is.na(snow[[date]]))))
+    average <- append(average, mean(as.numeric(snow[[date]]), na.rm = TRUE))
+    date_list <- append(date_list, date)
+  }
+  temp_df <- do.call(rbind.data.frame, Map('c', date_list, na_total, average))
+  colnames(temp_df) <- c('date', 'na_total', 'average')
+  # set up the data frame
+  temp_df$date <- factor(temp_df$date, levels=dates)
+  temp_df$na_total <- as.numeric(as.character(temp_df$na_total))
+  temp_df$average <- as.numeric(as.character(temp_df$average))
+  return(temp_df)
+}
+na_avg <- get.na_avg()
+```
+##### Get Correlation
+```{r}
+cor(na_avg$na_total, na_avg$average)
+```
+##### Plot Results
+```{r, fig.width=13}
+ggplot(na_avg) + 
+  geom_line(aes(date, na_total, color="na_total", group = 1)) + 
+  geom_line(aes(date, average, color="average", group = 1)) +
+  ggtitle("NA Total and Average Snow Fall For February")
+```
+##### Normalize Data Then Plot Again
+```{r}
+# Function to transform each na_total and average to begin at 10.
+normalize2 <- function(col){
+  index.value <- na_avg[[col]][1]/10
+  ans <- list()
+  for(i in na_avg[[col]]){
+    ans <- append(ans, (i/index.value))
+  }
+  temp_df <- data.frame(col=unlist(ans))
+  colnames(temp_df) <- c(col)
+  return(temp_df)
+}
+na_avg$na_total <- normalize2('na_total')$na_total
+na_avg$average <- normalize2('average')$average
+```
+##### Normalized Plot
+```{r, fig.width=13}
+ggplot(na_avg) + 
+  geom_line(aes(date, na_total, color="na_total", group = 1)) + 
+  geom_line(aes(date, average, color="average", group = 1)) +
+  ggtitle("NA Total and Average Snow Fall For February (Normalized)")
 ```
 
 
-$(d)$ Is the daily average snowfall correlated with the daily missing values percent?  On the basis of these results, what is your assessment of the reliability of the data to capture true snowfall patterns? In other words, based on what you've discovered, do you think that the missing data is highly problematic, or not?
