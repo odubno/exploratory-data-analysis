@@ -61,6 +61,7 @@ $(d)$ Does there appear to be a correlation between districts and overall satisf
 
 Using the "Death2015.txt" data from the previous assignment, create a mosaic plot to identify whether `Age` is associated with `Place of Death`. Include only the top four `Age` categories. Treat `Age` as the independent variable and `Place of Death` as the dependent variable. (Hint: the dependent variable should be the last cut and it should be horizontal.) The labeling should be clear enough to identify what's what, that is, "good enough," not perfect. Do the variables appear to be associated? Describe briefly.
 
+* (Assuming the "top four `Age` categories", means the top age categories meaning, 1, 1-4, 5-14, 15-24, that being the age from the top.)
 1. Place of death and age do appear to have some association. Very little.
 2. The likelihood of dying at the *Descendent's home* increases with age. 
 3. The likelihood of dying at the *Medical Faility - Dead on Arrival* appears to be higher for ages 1 or younger and decreases with age.
@@ -188,17 +189,18 @@ $(b)$ Is the percent of missing values consistent across days of the month, or i
 
 $(c)$ Is the percent of missing values consistent across collection stations, or is there variety?
 
-1. It's hard to tell if there's a pattern in missing data. According to *Missing Data by County* we could see that NYC under reports their values.
-2. However, there's a lot of points clustered around NYC, and of course some of those will unreported. 
-3. There's a lot of variety in missing values across the stations.
+1. It's hard to tell if there's a pattern in missing data. According to *Missing Data by County*, plot below, we could see that NYC under reports their values.
+2. However, there's a lot of points clustered around NYC, and of course some of those are unreported. 
+3. There's a lot of variety in missing values across all the stations.
+4. The percent of missing values is inconsistent across collection stations and has lots of variety.
 
 ```{r fig.height=6, fig.width=10}
 snow.url <- "https://www.ncdc.noaa.gov/snow-and-ice/daily-snow/NY-snowfall-201802.csv"
 snow <- data.frame(read.csv(snow.url, skip=1))
 snow$na.count <- apply(snow, 1, function(x) sum(x=='M'))
-ggplot(snow, aes(x = Latitude, y = Longitude)) +
+ggplot(snow, aes(x = Longitude, y = Latitude)) +
   geom_point(aes(colour = na.count), alpha=.7) + 
-  scale_colour_gradient(low = "white", high = "black") + 
+  scale_colour_gradient(low = "grey", high = "green") + 
   ggtitle("Missing Data by County")
 ```
 
@@ -207,7 +209,8 @@ $(d)$ Is the daily average snowfall correlated with the daily missing values per
 1. There does not seem to be a correlation between the average snowfall and missing values. 
 2. Graphing both *na_totals* and daily *average* by each day we see a very weak negative correlation.
 3. Negative correlation makes sense, given that if *average* snow fall is high then the *total_na* should be low.
-4. The missing data is highly problematic in capturing true snowfall patterns.
+4. The data is not that reliable in capturing true snowfall patterns.
+5. The missing data is highly problematic in capturing true snowfall patterns.
 
 ```{r}
 snow.url <- "https://www.ncdc.noaa.gov/snow-and-ice/daily-snow/NY-snowfall-201802.csv"
@@ -247,7 +250,13 @@ na_avg <- get.na_avg()
 ```{r}
 cor(na_avg$na_total, na_avg$average)
 ```
-##### Plot Results
+##### Plot Scatter
+```{r}
+ggplot(na_avg, aes(na_total, average)) +
+  geom_point() +
+  geom_smooth()
+```
+##### Plot Results over Time for fun
 ```{r, fig.width=13}
 ggplot(na_avg) + 
   geom_line(aes(date, na_total, color="na_total", group = 1)) + 
