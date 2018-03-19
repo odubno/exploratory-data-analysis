@@ -29,9 +29,14 @@ ggplot(df, aes(x=mpg, y=wt)) +
 ```
 
 ```{r}
+mtcars
+```
+
+
+```{r}
 library("ggplot2")
-p = ggplot(data=df, aes(x=likes_count))
-p + geom_histogram()
+df <- mtcars
+ggplot(df, aes(x=mpg)  + geom_histogram(bins = 6))
 ```
 
 ```{r}
@@ -40,6 +45,76 @@ df <- data.frame(state.x77)
 ggplot(data = df, aes(x=Life.Exp)) + 
   geom_histogram()
 ```
+```{r}
+library("ggplot2")
+df <- mtcars
+ggplot(df, aes(mpg)) +
+  geom_histogram(bins=14, color='white', fill='green')
+```
 
 
+
+```{r}
+ggplot(df, aes(mpg, fill = cyl)) +
+  geom_histogram(binwidth = 15)
+```
+```{r}
+library("ggplot2")
+df <- mtcars
+ggplot(df, aes(x = mpg)) + 
+  geom_dotplot(binwidth = 1.5, color='white', fill='red')
+```
+
+```{r}
+ggplot(df, aes(x=as.factor(cyl), y=mpg)) + 
+    geom_boxplot(fill="slateblue", alpha=0.2)
+```
+```{r}
+ggplot(df, aes(x="mpg", y=mpg)) + 
+  geom_boxplot()
+```
+```{r}
+library(ggplot2)
+library(GGally)
+df <- mtcars
+ggparcoord(df, columns = c(1:7), groupColumn = "cyl", alphaLines = .4)
+```
+```{r}
+library(ggplot2)
+library(GGally)
+df <- mtcars
+ggpairs(df, columns=1:6, diag=list(continuous="density"), axisLabels="show")
+```
+```{r}
+mosaicplot(~ gear + carb , data = mtcars, color=vs)
+```
+
+```{r}
+df
+```
+
+```{r}
+mosaicplot(~ gear + carb, data = mtcars, color = 4:5)
+```
+```{r}
+ggplot(df, aes(class)) +
+ geom_bar(aes(fill = drv), position = position_stack(reverse = TRUE)) +
+ coord_flip() +
+ theme(legend.position = "top")
+```
+```{r}
+df
+```
+
+```{r}
+
+```
+
+```{r}
+libar
+ggplot(mpg, aes(class)) +
+ geom_bar(aes(fill = drv), position = position_stack(reverse = TRUE)) +
+ coord_flip() +
+ theme(legend.position = "top")
+```
 
