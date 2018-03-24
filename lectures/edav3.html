@@ -1,0 +1,158 @@
+    <head>
+        <meta charset="utf-8">
+        <title>EDAV3</title>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+    </head>
+
+    <body>
+    	<!-- <script id="s1">
+			d3.select("body")
+			  .append("svg")
+			  .attr("width", "500")
+		      .attr("height", "400");
+		</script>
+
+		<script id="s2">
+			d3.select("body")
+			  .append("svg")
+			  .attr("width", "500")
+			  .attr("height", "400");
+			d3.select("svg")
+			  .append("rect")
+			  .attr("x", "0")
+			  .attr("y", "0")
+			  .attr("width", "500")
+			  .attr("height", "400")
+			  .attr("fill", "lightblue");
+			d3.select("svg")
+			  .append("circle")
+			  .attr("cx", "200")
+			  .attr("cy", "100")
+			  .attr("r", "25")
+			  .attr("fill", "orange");
+			d3.select("svg")
+			  .append("circle")
+			  .attr("cx", "300")
+			  .attr("cy", "150")
+			  .attr("r", "25")
+			  .attr("fill", "red");  
+		</script> -->
+
+<!-- 		<script id="s3">
+			var svg = d3.select("body")
+			            .append("svg")
+			            .attr("width", "500")
+			            .attr("height", "400");
+			svg.append("rect")
+			   .attr("x", "0")
+			   .attr("y", "0")
+			   .attr("width", "500")
+			   .attr("height", "400")
+			   .attr("fill", "lightblue");
+			svg.append("circle")
+			   .attr("cx", "250")
+			   .attr("cy", "150")
+			   .attr("r", "20")
+			   .attr("fill", "blue");
+		</script> -->
+<!-- 
+		<script id="s4">
+			var svg = d3.select("body")
+			            .append("svg")
+		    			.attr("width", "500")
+		    			.attr("height", "400");
+			svg.append("rect")
+			   .attr("x", "0")
+			   .attr("y", "0")
+		       .attr("width", "500")
+		       .attr("height", "400")
+		       .attr("fill", "lightblue");
+		    svg.append("circle")
+		       .attr("cx", "250")
+		       .attr("cy", "150")
+		       .attr("r", "20")
+		       .attr("fill", "blue");
+			svg.append("ellipse")
+			   .attr("cx", "150")
+			   .attr("cy", "100")
+		       .attr("rx", "30")
+		       .attr("ry", "50")
+		       .attr("fill", "yellow");
+			d3.select("circle")
+			  .transition()
+			  .duration(2000)
+		      .attr("cx", "400");
+			d3.select("ellipse")
+		  	  .transition()
+		  	  .duration(2000)
+		  	  .attr("cy","300");
+		</script> -->
+
+<!-- 		<script id="s5">
+			var svg = d3.select("body")
+			            .append("svg")
+			    		.attr("width", "500")
+			    		.attr("height", "400");
+			svg.append("rect").attr("x", "0").attr("y", "0")
+			      .attr("width", "500").attr("height", "400").attr("fill", "lightblue");
+			svg.append("circle").attr("cx", "250").attr("cy", "150")
+			    .attr("r", "20").attr("fill", "blue");
+			svg.append("ellipse").attr("cx", "150").attr("cy", "100")
+			    .attr("rx", "30").attr("ry", "50").attr("fill", "yellow");
+			d3.select("circle").transition().duration(2000)
+			    .attr("cx", "400");
+			d3.select("ellipse").transition().duration(2000)
+			    .attr("cy","300");
+			d3.select("circle").transition().duration(2000)
+			    .attr("cx", "250");
+			d3.select("ellipse").transition().duration(2000)
+			    .attr("cy","100");
+		</script> -->
+
+<!-- 		<script id="s6">
+			var svg = d3.select("body").append("svg")
+			    .attr("width", "500").attr("height", "400");
+			svg.append("rect").attr("x", "0").attr("y", "0")
+			      .attr("width", "500").attr("height", "400").attr("fill", "lightblue");
+			svg.append("circle").attr("cx", "250").attr("cy", "150")
+			    .attr("r", "20").attr("fill", "blue");
+			svg.append("ellipse").attr("cx", "150").attr("cy", "100")
+			    .attr("rx", "30").attr("ry", "50").attr("fill", "yellow");
+			d3.select("circle").transition().duration(2000)
+			    .attr("cx", "400");
+			d3.select("ellipse").transition().duration(2000)
+			    .attr("cy","300");
+			d3.select("circle").transition().delay(2000).duration(2000)
+			    .attr("cx", "250");
+			d3.select("ellipse").transition().delay(2000).duration(2000)
+			    .attr("cy","100");
+		</script>  -->
+
+		<script id="s7">		
+
+			var svg = d3.select("body").append("svg")
+			    .attr("width", "500").attr("height", "400");
+			svg.append("rect").attr("x", "0").attr("y", "0")
+			      .attr("width", "500").attr("height", "400").attr("fill", "lightblue");
+			svg.append("circle").attr("cx", "250").attr("cy", "150")
+			    .attr("r", "20").attr("fill", "blue");
+			svg.append("ellipse").attr("cx", "150").attr("cy", "100")
+			    .attr("rx", "30").attr("ry", "50").attr("fill", "yellow");
+			d3.select("circle").transition().duration(2000)
+			    .attr("cx", "400");
+			d3.select("ellipse").transition().duration(2000)
+			    .attr("cy","300").on("end", function() {
+
+			  d3.select("circle").transition()
+			      .duration(2000).attr("cx", "250");
+			  d3.select("ellipse").transition()
+			      .duration(2000).attr("cy","100");
+
+			});
+		</script>
+
+
+
+
+
+	</body>

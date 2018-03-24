@@ -1,0 +1,20 @@
+---
+title: "Lecture 15"
+output: html_notebook
+---
+
+### Step 1
+#### Move all the circles to the right.
+d3.selectAll("circle").transition().duration(2000).attr("cx", "450");
+
+### Step 2
+#### Move them back to the left and change their color.
+d3.selectAll("circle").transition().duration(2000).attr("cx", "50");
+d3.selectAll("circle").attr("fill", "red");
+
+### Step 3
+#### Add an id to one circle, and then move only that circle to the right.
+
+### Step 4
+#### Move all the circles to the middle of the screen, then move them all to the same location.
+d3.select("#myid").transition().duration(2000).attr("cx", "225");

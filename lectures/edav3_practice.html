@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>EDAV3 practice</title>
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+	</head>
+
+	<body>
+
+<!-- 		Create an svg, background rectangle, and six circles, one with an id. -->
+
+		<svg width="500" height="400">  
+			<rect x="0" y="0" width="500" height="400" fill="aliceblue"></rect>
+			<circle cx="50" cy="100" r="20" fill="blue"></circle>
+			<circle id="myid" cx="50" cy="150" r="20" fill="blue"></circle>
+			<circle cx="50" cy="200" r="20" fill="blue"></circle>
+			<circle cx="50" cy="250" r="20" fill="blue"></circle>
+			<circle cx="50" cy="300" r="20" fill="blue"></circle>
+			<circle cx="50" cy="350" r="20" fill="blue"></circle>
+		</svg>
+
+	<script>
+		var svg = d3.selectAll("circle");
+		
+		// Move all circles to the right.
+		svg.transition()
+		  .duration(2000)
+		  .attr("cx", "450");
+
+		// Move them back to the left and change their color.
+		svg.transition()
+		   .delay(2000)
+		   .duration(2000)
+		   .attr("cx", "50")
+		   .attr("fill", "red");;
+
+		// Move the circle with the id to the right.
+		d3.select("#myid")
+		  .transition()
+		  .delay(4000)
+		  .duration(2000)
+		  .attr("cx", "225");
+
+		// Move all the circles to the middle of the screen, then move them all to the same location.
+		svg.transition()
+		   .delay(6000)
+		   .duration(2000)
+		   .attr("cx", "225")
+		   .attr("cy", "200")
+
+// d3.selectAll("circle")
+
+    </script>
+
+  </body>
+
+</html>

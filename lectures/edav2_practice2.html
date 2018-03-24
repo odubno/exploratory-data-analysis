@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>EDAV2 Practice 2</title>
+		
+		<script src="https://d3js.org/d3.v4.min.js"></script>  <!-- link to D3 library -->
+		 <style type="text/css">
+		   .myclass {
+		   		fill: green;
+		   		stroke: orange;    
+		   		stroke-width: 5px;    
+		     }   
+		 </style>
+		
+	</head>
+	
+	<body>
+		<svg width="500" height="400">  
+			<rect x="0" y="0" width="500" height="400" fill="aliceblue"></rect>
+			<circle id="myid" cx="50" cy="100" r="20" fill="blue"></circle>
+			<circle cx="50" cy="150" r="20" fill="blue"></circle>
+			<circle class="myclass" cx="50" cy="200" r="20" fill="blue"></circle>
+			<circle cx="50" cy="250" r="20" fill="blue"></circle>
+			<circle cx="50" cy="300" r="20" fill="blue"></circle>
+			<circle cx="50" cy="350" r="20" fill="blue"></circle>
+			<text x="20" y="20" font-family="sans-serif" font-size="20px" fill="red">Hello!</text>
+
+		</svg>
+		
+		<script>
+
+			svg.selectAll("circle")
+			   .append("text")
+			   .text("1")
+			   .attr("fill", "white");
+		</script>
+		
+	</body>
+	
+</html>
+	
+<!-- 
+3. Open the JavaScript Console and use D3 to change the class of all the circles to your newly created class.
+d3.selectAll("circle").classed("myclass", true) 
+-->
