@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>EDAV4Lect</title>
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+	</head>
+	<body>
+
+		<p> Click here to bind new data </p>
+
+		<script>
+
+			var w = 600;
+			var h = 400;
+			
+			var bardata = [300, 100, 150, 225, 75, 275];
+			
+			var xScale = d3.scaleBand()
+						   .domain(d3.range(bardata.length))
+						   .rangeRound([0, w])
+						   .paddingInner(0.05);
+
+			var yScale = d3.scaleLinear()
+							.domain([0, d3.max(bardata)])
+							.range([0, h]);
+			
+			//Create SVG element
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+
+			//Create bars
+			svg.selectAll("rect")
+			   .data(bardata)
+			   .enter()
+			   .append("rect")
+			   .attr("x", (d, i) => xScale(i))
+			   .attr("y", d => h - yScale(d))
+			   .attr("width", xScale.bandwidth())
+			   .attr("height", d => yScale(d))
+			   .attr("fill", "green");
+
+			d3.select("p")
+				.on("click", function() {
+
+					newbardata = [250, 125, 80, 100];
+
+					bardata.push
+					       .apply(bardata, newbardata);
+
+					xScale.domain(d3.range(bardata.length));
+					yScale.domain([0, d3.max(bardata)]);
+
+					var bars = svg.selectAll("rect")
+								  .data(bardata);						
+
+					bars.enter()
+						.append("rect")
+						.attr("x", w)
+						.attr("y", d => h - yScale(d))
+						.attr("width", xScale.bandwidth())		
+						.attr("height", d => yScale(d))
+						.attr("fill", "blue")
+						.merge(bars)
+						.transition()
+						.duration(500)
+						.attr("x", (d, i) => xScale(i))
+						.attr("y", d => h - yScale(d))
+						.attr("width", xScale.bandwidth())
+						.attr("height", d => yScale(d))
+
+				});
+		
+
+		</script>
+
+	</body>
+</html>

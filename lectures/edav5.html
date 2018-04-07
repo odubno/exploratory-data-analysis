@@ -1,0 +1,86 @@
+<html lang="en">
+    <head>
+    	<meta charset="utf-8">
+    	<title>Bar Chart</title>
+    	<script src="https://d3js.org/d3.v4.min.js"></script>  <!-- link to D3 library -->
+	</head>
+	<body>
+		<script>
+
+			var h = 500
+			var w = 500
+
+	        var svg = d3.select("body")
+	            .append("svg")
+	              .attr("width", w)
+	              .attr("height", h);
+
+	        var bardata = [300, 100, 150, 225, 75, 275];
+
+	        var bars = svg.selectAll("rect")
+	        	 		  .data(bardata);
+
+	        bars.enter()
+	        	.append("rect")
+	        	  .attr("x", (d, i) => i * 50)
+			      .attr("y", d => h - d)
+			      .attr("width", 35)
+		      	  .attr("height", d => d * 2)
+		      	  .attr("fill", "lightgreen");
+
+		    // svg.selectAll("text")
+			   //  .data(bardata)
+			   //  .enter()
+			   //  .append("text")
+			   //    .attr("x", d => d)
+			   //    .attr("y", (d, i) => i*50 + 25)
+			   //    .text(d => d/2);
+
+			// update
+
+			function update_vertical(data) {
+
+				var bars = svg.selectAll("rect")
+							  .data(data);
+
+				bars.enter()
+				    .append("rect")
+				    .attr("x", (d, i) => i*50)
+				    .attr("y", d => h - d)
+				    .attr("width", 35)
+				    .attr("height", d => d)
+				    .attr("fill", "yellow")
+				    .merge(bars)
+				    .transition()
+				    .duration(2000)
+				    .attr("y", d => h - d)
+				    .attr("height", d => d)
+				    .attr("fill", "orange");
+
+			}
+
+			function update(data) {
+
+				var bars = svg.selectAll("rect")
+							  .data(data);
+
+				bars.enter()
+				    .append("rect")
+				    .attr("x", "30")
+				    .attr("y", (d, i) => i * 50)
+				    .attr("width", d => d)
+				    .attr("height", "35")
+				    .attr("fill", "yellow")
+				    .merge(bars)
+				    .transition()
+				    .duration(2000)
+				    .attr("width", d => d)
+				    .attr("fill", "orange");
+
+				bars.exit().remove();
+
+			}
+
+    	</script>
+    </body>
+</html>
