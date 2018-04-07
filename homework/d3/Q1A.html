@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Q1 Part A</title>
+    <script src="https://d3js.org/d3.v4.min.js">  </script>
+
+  </head>
+  <body>
+    <script type="text/javascript">
+
+      var w = 500;
+      var h = 300;
+      var margin = {top: 25, right: 25, bottom: 25, left: 25};
+      var innerHeight = h - margin.top - margin.bottom;
+      var innerWidth = w - margin.left - margin.right;
+
+      var dataset = d3.range(10).map( () => Math.random()*Math.random()*100);
+
+// Don't change anything above this line.
+
+
+      var yScale = d3.scaleBand()
+                     .domain(d3.range(dataset.length))
+                     .range([innerHeight, margin.bottom]);
+
+      var xScale = d3.scaleLinear()
+                     .domain([0, d3.max(dataset)])
+                     .range([0, innerWidth]);
+
+      var xAxis = d3.axisBottom()
+                    .scale(xScale)
+                    .ticks(dataset.length)
+
+      // generate the svg element
+      var svg = d3.select("body")
+                  .append("svg")
+                  .attr("width", w)
+                  .attr("height", h);
+
+      svg.selectAll("circle")
+         .data(dataset)
+         .enter()
+         .append("circle")
+         .attr("cx", d => xScale(d) + margin.left)
+         .attr("cy", (d, i) => yScale(i))
+         .attr("r", 5);
+
+      svg.append("g")
+          .attr("class", "xAxis")
+          .attr("transform", "translate(" + margin.left + "," + (h - margin.bottom) + ")")
+          .call(xAxis);
+
+
+      // Labels
+
+      for (var i = 0; i < dataset.length; i++) {
+
+          svg.append("g")
+              .append('line')
+              .attr('x1', margin.left)
+              .attr('y1', yScale(i))
+              .attr('x2', w - margin.right)
+              .attr('y2', yScale(i))
+              .style("stroke", "black")
+              .attr("stroke-width", .1)
+
+      }
+
+    </script>
+  </body>
+</html>
