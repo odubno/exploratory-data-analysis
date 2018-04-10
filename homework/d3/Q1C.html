@@ -18,7 +18,71 @@
       var dataset = [{letter: "A", amount1: 34, amount2: 78},
                      {letter: "B", amount1: 45, amount2: 91},
                      {letter: "C", amount1: 14, amount2: 38}];
-      
+
+      // Don't change anything above this line.
+
+      var yScale = d3.scalePoint()
+          .domain(dataset.map(function(d){return d.letter}))
+          .range([innerHeight, 0])
+          .padding(.5);
+
+      var xScale = d3.scaleLinear()
+          .domain([0,d3.max(dataset, function(d){
+              return d.amount1, d.amount2;
+          })])
+          .range([0, innerWidth]);
+
+      var xAxis = d3.axisBottom()
+          .scale(xScale)
+          .ticks(10);
+
+      // console.log(yScale.domain());
+      var yAxis = d3.axisLeft()
+          .scale(yScale);
+
+      // generate the svg element
+      var svg = d3.select("body")
+          .append("svg")
+          .attr("width", w)
+          .attr("height", h);
+
+      circ = svg.selectAll("circle")
+          .data(dataset)
+          .enter();
+
+      circ.append("circle")
+          .attr("cy", d => yScale(d.letter) + margin.bottom)
+          .attr("cx", d => xScale(d.amount1) + margin.left)
+          .attr("r", 5);
+
+      circ.append("circle")
+          .attr("cy", d => yScale(d.letter) + margin.bottom)
+          .attr("cx", d => xScale(d.amount2) + margin.left)
+          .attr("fill", "blue")
+          .attr("r", 5);
+
+
+      svg.append("g")
+          .attr("class", "xAxis")
+          .attr("transform", "translate(" + margin.left + "," + (h - margin.bottom) + ")")
+          .call(xAxis);
+
+      svg.append("g")
+          .attr("class", "yAxis")
+          .attr("transform", "translate(" + margin.top + "," + margin.bottom + ")")
+          .call(yAxis);
+
     </script>
   </body>
 </html>
+
+
+<!--function update(dataset){-->
+<!--svg.selectAll("circle")-->
+<!--.data(dataset)-->
+<!--.enter()-->
+<!--.append("circle")-->
+<!--.attr("cy", d => yScale(d.letter) + margin.bottom)-->
+<!--.attr("cx", d => xScale(d.amount1) + margin.left)-->
+<!--.attr("r", 5);-->
+<!--}-->
