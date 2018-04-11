@@ -46,6 +46,17 @@
           .attr("width", w)
           .attr("height", h);
 
+      svg.selectAll("line")
+          .data(dataset)
+          .enter()
+          .append("line")
+          .attr('x1', margin.left)
+          .attr('y1', d => yScale(d.letter) + margin.bottom)
+          .attr('x2', w - margin.right)
+          .attr('y2', d => yScale(d.letter) + margin.bottom)
+          .style("stroke", "black")
+          .attr("stroke-width", .1);
+
       circ = svg.selectAll("circle")
           .data(dataset)
           .enter();

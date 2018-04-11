@@ -4,11 +4,20 @@
     <meta charset="utf-8">
     <title>Q1 Part E</title>
     <script src="https://d3js.org/d3.v4.min.js">  </script>
+    <style>
 
+      div.tooltip {
+        position: absolute;
+        text-align: center;
+        width: 25px;
+        height: 25px;
+      }
+
+    </style>
   </head>
   <body>
     <h2>1975</h2>
-    <p>Click here to change year</p>
+    <p id="#toggle">Click here to change year</p>
     <script type="text/javascript">
 
       //Width and height
@@ -22,6 +31,126 @@
                      {letter: "B", amount75: 10, amount85: 91},
                      {letter: "C", amount75: 14, amount85: 38}];
 
+      // Don't change anything above this line.
+
+      var yScale = d3.scalePoint()
+          .domain(dataset.map(function(d){return d.letter}))
+          .range([innerHeight, 0])
+          .padding(.5);
+
+      var xScale = d3.scaleLinear()
+          .domain([0,d3.max(dataset, function(d){
+              return d.amount75, d.amount85;
+          })])
+          .range([0, innerWidth]);
+
+      var xAxis = d3.axisBottom()
+          .scale(xScale)
+          .ticks(10);
+
+      var yAxis = d3.axisLeft()
+          .scale(yScale);
+
+      // generate the svg element
+      var svg = d3.select("body")
+          .append("svg")
+          .attr("width", w)
+          .attr("height", h);
+
+      // define the tool tip
+      var div = d3.select("body").append("div")
+          .attr("class", "tooltip")
+          .style("opacity", 0);
+
+      svg.selectAll("line")
+          .data(dataset)
+          .enter()
+          .append("line")
+          .attr('x1', margin.left)
+          .attr('y1', d => yScale(d.letter) + margin.bottom)
+          .attr('x2', w - margin.right)
+          .attr('y2', d => yScale(d.letter) + margin.bottom)
+          .style("stroke", "black")
+          .attr("stroke-width", .1);
+
+      function mouseover(d) {
+              div.transition()
+                  .duration(100)
+                  .style("opacity", .9);
+              div.html(function() {
+                  year = d3.selectAll("h2").text()
+                  if (year == "1975") {
+                      return d.amount75;
+                  } else {
+                      return d.amount85;
+                  }
+              })
+                  .style("left", (d3.event.pageX) + "px")
+                  .style("top", (d3.event.pageY - 25) + "px");
+      }
+
+      function mouseout(d) {
+          div.transition()
+              .duration(100)
+              .style("opacity", 0);
+      }
+
+      circ = svg.selectAll("circle")
+          .data(dataset)
+          .enter();
+
+      circ.append("circle")
+          .attr("cy", d => yScale(d.letter) + margin.bottom)
+          .attr("cx", d => xScale(d.amount75) + margin.left)
+          .attr("r", 5)
+          .on("mouseover", d => mouseover(d))
+          .on("mouseout", d => mouseout(d));
+
+      svg.append("g")
+          .attr("class", "xAxis")
+          .attr("transform", "translate(" + margin.left + "," + (h - margin.bottom) + ")")
+          .call(xAxis);
+
+      svg.append("g")
+          .attr("class", "yAxis")
+          .attr("transform", "translate(" + margin.top + "," + margin.bottom + ")")
+          .call(yAxis);
+
+      function update_h2(year){
+          d3.selectAll("h2")
+              .transition()
+              .duration(4000)
+              .each(function(d, i) {
+                  d3.select(this)
+                      .text(year);
+              })
+      }
+
+      d3.selectAll("p")
+          .on("click", function() {
+
+                  paraID = d3.select(this).attr("id");
+                  circToggle = circ.selectAll("circle")
+                      .transition()
+                      .duration(2000)
+                      .attr("r", 5)
+                      .attr("cy", d => yScale(d.letter) + margin.bottom)
+
+                  if (paraID == '#toggle') {
+                      circToggle.attr("cx", d => xScale(d.amount85) + margin.left)
+                          .attr("fill", "blue");
+                      update_h2("1985")
+                      d3.selectAll('p')
+                          .attr('id', null);
+                  } else {
+                      circToggle.attr("cx", d => xScale(d.amount75) + margin.left)
+                          .attr("fill", "black");
+                      update_h2("1975")
+                      d3.selectAll('p')
+                          .attr('id', '#toggle');
+                  }
+              }
+          );
       
     </script>
   </body>
