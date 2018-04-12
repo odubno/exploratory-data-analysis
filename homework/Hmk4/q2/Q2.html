@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Seconds</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+	</head>
+	<body>
+    <h3>Click here to update</h3>
+    
+		<script type="text/javascript">
+
+			//Width and height
+			var w = 400;
+			var h = 400;
+    
+      var margin = {top: 25, right: 25, bottom: 25, left: 25};
+      var innerHeight = h - margin.top - margin.bottom;
+      var innerWidth = w - margin.left - margin.right;
+        
+
+
+      function getDataset() {
+          var d = new Date();
+          var seconds = d.getSeconds();
+
+          return d3.range(seconds)
+              .map( () => ({x: Math.floor(Math.random() * innerWidth),
+                  y: Math.floor(Math.random() * innerHeight)}) );
+      }
+
+      var dataset = getDataset();
+
+    // Create SVG element
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+        
+    // Add background rectangle
+			svg.append("rect")
+				.attr("x", 0)
+				.attr("y", 0)
+				.attr("width", w)
+				.attr("height", h)
+				.attr("fill", "lightblue");
+        
+      
+    // Add initial circles
+        var circ = svg.selectAll("circle")
+			.data(dataset);
+
+        circ.enter()
+			.append("circle")
+			.attr("cx", d => d.x)
+			.attr("cy", d => d.y)
+			.attr("fill", "red")
+			.attr("r", 10);
+
+        function update(){
+
+            // data join
+            var circ = svg.selectAll("circle")
+                .data(dataset);
+
+            // add new elements
+            circ.enter()
+                .append("circle")
+                .attr("cx", d => d.x)
+                .attr("cy", d => d.y)
+                .attr("fill", "blue")
+                .attr("r", 10)
+                .merge(circ)  // merge
+                .transition()
+                .duration(2000)
+                .attr("cx", d => d.x)
+                .attr("cy", d => d.y)
+                .attr("fill", "yellow")
+                .attr("r", 10)
+                .transition()
+                .duration(3000)
+                .attr("cx", d => d.x)
+                .attr("cy", d => d.y)
+                .attr("fill", "red")
+                .attr("r", 10);
+
+
+            circ.exit()
+                .transition()
+                .duration(1000)
+                .attr("cy", h + margin.bottom)
+                .remove();
+        }
+
+
+    // General Update Pattern (triggered on click)
+			d3.select("h3")
+				.on("click", function() {
+
+                    var new_dataset = getDataset();
+
+                    if (new_dataset.length < dataset.length){
+                        dataset = dataset.slice(0, new_dataset.length)
+                    } else {
+                        dataset.push.apply(dataset, new_dataset)
+                    }
+
+                    update()
+
+				})
+    
+		</script>
+	</body>
+</html>
