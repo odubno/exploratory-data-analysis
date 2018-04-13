@@ -40,7 +40,7 @@
 
       var xScale = d3.scaleLinear()
           .domain([0,d3.max(dataset, function(d){
-              return d.amount75, d.amount85;
+              return Math.max(d.amount75, d.amount85);
           })])
           .range([0, innerWidth]);
 

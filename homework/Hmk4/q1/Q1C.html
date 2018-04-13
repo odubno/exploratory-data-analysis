@@ -28,7 +28,7 @@
 
       var xScale = d3.scaleLinear()
           .domain([0,d3.max(dataset, function(d){
-              return d.amount1, d.amount2;
+              return Math.max(d.amount1, d.amount2);
           })])
           .range([0, innerWidth]);
 

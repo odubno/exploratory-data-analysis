@@ -30,26 +30,26 @@
                   y: Math.floor(Math.random() * innerHeight)}) );
       }
 
-      var dataset = getDataset();
+        var dataset = getDataset();
 
     // Create SVG element
-			var svg = d3.select("body")
-						.append("svg")
-						.attr("width", w)
-						.attr("height", h);
+		var svg = d3.select("body")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
         
     // Add background rectangle
-			svg.append("rect")
-				.attr("x", 0)
-				.attr("y", 0)
-				.attr("width", w)
-				.attr("height", h)
-				.attr("fill", "lightblue");
+		svg.append("rect")
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("width", w)
+            .attr("height", h)
+            .attr("fill", "lightblue");
         
       
     // Add initial circles
         var circ = svg.selectAll("circle")
-			.data(dataset);
+			.data(dataset)
 
         circ.enter()
 			.append("circle")
@@ -58,55 +58,42 @@
 			.attr("fill", "red")
 			.attr("r", 10);
 
-        function update(){
-
-            // data join
-            var circ = svg.selectAll("circle")
-                .data(dataset);
-
-            // add new elements
-            circ.enter()
-                .append("circle")
-                .attr("cx", d => d.x)
-                .attr("cy", d => d.y)
-                .attr("fill", "blue")
-                .attr("r", 10)
-                .merge(circ)  // merge
-                .transition()
-                .duration(2000)
-                .attr("cx", d => d.x)
-                .attr("cy", d => d.y)
-                .attr("fill", "yellow")
-                .attr("r", 10)
-                .transition()
-                .duration(3000)
-                .attr("cx", d => d.x)
-                .attr("cy", d => d.y)
-                .attr("fill", "red")
-                .attr("r", 10);
-
-
-            circ.exit()
-                .transition()
-                .duration(1000)
-                .attr("cy", h + margin.bottom)
-                .remove();
-        }
-
-
     // General Update Pattern (triggered on click)
 			d3.select("h3")
 				.on("click", function() {
 
-                    var new_dataset = getDataset();
+                    var dataset = getDataset();
 
-                    if (new_dataset.length < dataset.length){
-                        dataset = dataset.slice(0, new_dataset.length)
-                    } else {
-                        dataset.push.apply(dataset, new_dataset)
-                    }
+                    // bind
+                    var circ = svg.selectAll("circle")
+                        .data(dataset);
 
-                    update()
+                    circ.enter()
+                        .append("circle")
+                        .attr("cx", d => d.x)
+                        .attr("cy", d => d.y)
+                        .attr("fill", "blue")
+                        .attr("r", 10)
+                        .merge(circ);
+
+                    svg.selectAll("circle")
+                        .transition()
+                        .delay(1000)
+                        .duration(2000)
+                        .attr("fill", "yellow");
+
+                    svg.selectAll("circle")
+                        .transition()
+                        .delay(3000)
+                        .duration(2000)
+                        .attr("fill", "red");
+
+                    // Exit
+                    circ.exit()
+                        .transition()
+                        .duration(1000)
+                        .attr("cy", h + margin.bottom)
+                        .remove();
 
 				})
     
